@@ -1,0 +1,32 @@
+{
+  "index.qmd": {
+    "index.html": "97397cb5"
+  },
+  "soap_box.qmd": {
+    "soap_box.html": "77433c09"
+  },
+  "posts/star_ratings_steeves.qmd": {
+    "star_ratings_steeves.html": "0615eda1"
+  },
+  "papers.qmd": {
+    "papers.html": "03a6caf4"
+  },
+  "about.qmd": {
+    "about.html": "c53c332d"
+  },
+  "reviews_hall_of_fame.qmd": {
+    "reviews_hall_of_fame.html": "22c50c8f"
+  },
+  "code_data.qmd": {
+    "code_data.html": "5fd4db08"
+  },
+  "posts/test.qmd": {
+    "test.html": "f9cbf993"
+  },
+  "posts/hello.qmd": {
+    "hello.html": "290eda4d"
+  },
+  "posts/star_ratings_steves.qmd": {
+    "star_ratings_steves.html": "08c5150c"
+  }
+}

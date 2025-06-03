@@ -1,0 +1,50 @@
+---
+format:
+  html:
+    page-layout: full
+editor: visual
+---
+
+::: text-center
+<h1>Matt Meister</h1>
+
+<p class="lead">
+
+(.com)
+
+</p>
+
+:::
+
+::: text-center
+<p>I study how people learn about and evaluate their choices---especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.</p>
+
+<p>I teach applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize real (messy) data, decision-making, and gaining comfort with difficult topics.</p>
+:::
+
+::: {.d-flex .flex-column .align-items-center .gap-0 .mt-1}
+<a href="mailto:mmeister@usfca.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: mmeister\@usfca.edu </a>
+
+<a href="https://github.com/your-github-username" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="GitHub" target="_blank"> <i class="bi bi-github" style="font-size: 1.5rem;"></i> GitHub </a>
+
+<a href="https://www.linkedin.com/in/matt-meister-263171128" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="LinkedIn" target="_blank"> <i class="bi bi-linkedin" style="font-size: 1.5rem;"></i> LinkedIn </a>
+
+<a href="https://drive.google.com/file/d/1ZE4Mjpl4ZE-L9ZwNCL54vZR3rCHU01pO/view" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="CV" target="_blank"> <i class="bi bi-file-earmark-person" style="font-size: 1.5rem;"></i> CV </a>
+:::
+
+::: {.text-center .mt-5}
+<p>You are visitor \#[loading...]{#visitor-count}</p>
+
+<p style="font-size: 0.5rem; color: gray; margin-top: -0.5rem;">
+
+\*Rough estimate
+
+</p>
+:::
+
+```{=html}
+<script>
+  const count = Math.floor(Math.random() * 30000000) + 10000;
+  document.getElementById("visitor-count").textContent = count.toLocaleString();
+</script>
+```

@@ -1,0 +1,74 @@
+---
+title: "Code & Data"
+format:
+  html:
+    embed-resources: true
+    smooth-scroll: true
+    toc: true
+    page-layout: full
+    search: false
+editor: visual
+---
+
+::: text-center
+These ain't perfect... Please let me know of any errors you find!
+:::
+
+## Web Scraping --- Code and Data
+
+### Online Reviews
+
+-   TripAdvisor Reviews\
+    [Python code on GitHub](https://github.com/mattmeist/scrape_tripadvisor_reviews)
+
+-   REI.com Reviews\
+    [Python and R code on GitHub](https://github.com/mattmeist/scrape_rei_ratings)\
+    [Raw Data on Dropbox](https://www.dropbox.com/scl/fi/3d91nq9baxo4n1z7zbp45/REI_Reviews_All.csv?rlkey=3dxwwcvguqj1v32wbb6kg2ihg&dl=0)\
+    [Data Merged with Weather](https://www.dropbox.com/scl/fi/t9k8kq8kqfl0td78t4t0e/REI_Final.csv?rlkey=r78utumm92wm31qpu4o9ja60v&dl=0)\
+    [NCEI USA Weather Data](https://www.dropbox.com/scl/fi/rnotwsyzytkmsu28aoqfc/NOAA_160101_231127.csv.zip?rlkey=sthp13a800m6qbi6cj0yuj5f3&dl=0)
+
+-   VRBO.com Listings and Reviews\
+    [Python code on GitHub](https://github.com/mattmeist/scrape_vrbo_ratings)\
+    [Data on Dropbox](https://www.dropbox.com/scl/fo/5pdne7kkq9jc64ybdo82l/h?rlkey=6oti6vn44830byjg8ry77ryn1&dl=0)
+
+-   BestBuy.com Aggregate Reviews\
+    [Python code on Dropbox](https://www.dropbox.com/scl/fi/54w55kxc926g4scjyv64f/Best-Buy-Scrape.ipynb?rlkey=ytjr5vuybztpd5xkszhvy3zhp&dl=0)\
+    [Data on Dropbox](https://www.dropbox.com/scl/fi/p2imn77f86qyz04ppz08i/bestbuy_overalls.csv?rlkey=ibathooa3fa075cgh5v0srv72&dl=0)
+
+### Fun / Misc
+
+-   ESPN.com March Madness Brackets\
+    [Python code on GitHub](https://github.com/mattmeist/scrape_espn_brackets)\
+    [Data on Dropbox](https://www.dropbox.com/scl/fo/2kh9pf9q7u9nt2q3o8ofu/h?rlkey=29pkav0csspgnm1bqytqxvebp&dl=0)
+
+## Flexible, Multicore Specification Curve
+
+The popular `specr` package in R is good. However, `specr` is not super flexible---it does not support fixed-effect regressions, and mixed-effect regressions take some work.
+
+I wanted to create a package that would build on `specr` while being more user-friendly. To that end, I'm working on this set of functions, which I've given the bad title of `specster`:
+
+-   [`https://github.com/mattmeist/specster`](https://github.com/mattmeist/specster)
+
+The current code supports:
+
+-   Four common models: OLS Linear Regression, Logistic Regression, Fixed-Effect Regression, and Linear Mixed-Effect Regression (i.e., `lm`, `glm`, `lfe::felm`, and `lmerTest::lmer` in R)
+-   Setup of models
+-   Multicore processing to speed up computation
+-   Graphing with `ggplot2`
+
+Citations:
+
+-   `specr` package, which my repository borrows some from: <https://github.com/masurp/specr>
+-   Specification Curve Analysis: Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour*, 4, 1208--1214. [https://doi.org/10.1038/s41562-020-0912-z](doi)
+
+## Lasso Regression Example
+
+Just an example of Lasso Regression with explanation.\
+[Download this file and open it to view.](https://drive.google.com/file/d/1Mm9Wp5cB_JUSJ9AJQV4hwGDoF8g5An_R/view?usp=sharing)
+
+## Mediation Model Plotting (Work-in-Progress)
+
+This function will draw you a mediation model in `ggplot` in R. It ain't awesome, but mediation is kind of silly anyways.\
+I plan to keep adding to it, as it can only do super simple mediation now.
+
+[GitHub Link](https://github.com/mattmeist/mediation_plots)

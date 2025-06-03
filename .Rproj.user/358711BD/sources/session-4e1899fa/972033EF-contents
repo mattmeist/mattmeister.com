@@ -1,0 +1,16 @@
+---
+title: "Soap Box"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: false
+---
+
+
+Welcome to my blog!
+
+
+
+::: {#posts}
+:::

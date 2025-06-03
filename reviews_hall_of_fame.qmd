@@ -1,0 +1,44 @@
+---
+title: "Online Reviews Hall of Fame"
+format:
+  html:
+    embed-resources: true
+    smooth-scroll: true
+    toc: true
+    page-layout: full
+    search: false
+editor: visual
+---
+
+Online reviews are a decent source of unintentional comedy online.
+
+```{r echo=FALSE}
+# List of images and captions (keep aligned by row)
+reviews <- tibble::tibble(
+  img = sprintf("reviews_hof/%03d.png", 1:9),
+  context = c(
+    "Thank you to Megan Weber for this!",
+    "I would hate to see the rating if this had been a real issue.",
+    "Is it better that they didn't replace the T with a +?",
+    ' ',
+    'The quotes around "vaccine" are a nice touch.',
+    "Uhhhhhh.",
+    'I am troubled by the fact that "The Hamburger Stand" remembered all but the burger.',
+    'Full marks for "ease of use" though, so that\'s good.',
+    "But I can't imagine it's any good"
+  )
+) |> dplyr::slice_sample(n = 9)
+```
+
+```{r echo=FALSE, results='asis'}
+# Render each review with matching image and context
+reviews |>
+  purrr::pwalk(function(img, context) {
+    cat(glue::glue('
+<div class="text-center my-5">
+  <img src="{img}" alt="review" style="max-width: 100%; height: auto; margin-bottom: 0.5rem;">
+  <p><em>{context}</em></p>
+</div>
+'))
+  })
+```

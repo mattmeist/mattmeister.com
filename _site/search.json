@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "soap_box.html",
+    "href": "soap_box.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Star ratings are a bad way to compare products (1)\n\n\nWe don’t know enough about what goes into other people’s ratings\n\n\n\n\n\nJun 3, 2024\n\n\nMatt Meister\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/star_ratings_steves.html",
+    "href": "posts/star_ratings_steves.html",
+    "title": "Star ratings are a bad way to compare products (1)",
+    "section": "",
+    "text": "This is the first in a series about star ratings/online reviews. I plan to mainly talk about my own research. But who knows. Maybe we’ll get weird."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "\nMatt Meister\n",
+    "section": "",
+    "text": "Matt Meister\n\n\n(.com)\n\n\n\n\nI study how people learn about and evaluate their choices—especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.\n\n\nI teach applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize real (messy) data, decision-making, and gaining comfort with difficult topics.\n\n\n\n  Email: mmeister@usfca.edu \n  GitHub \n  LinkedIn \n  CV \n\n\n\nYou are visitor #loading…\n\n\n*Rough estimate"
+  },
+  {
+    "objectID": "posts/star_ratings_steves.html#footnotes",
+    "href": "posts/star_ratings_steves.html#footnotes",
+    "title": "Star ratings are a bad way to compare products (1)",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nNot always, of course; When I have to use the restroom, I don’t compare the time cost to the time I would lose by changing my pants. But many of the decisions we care about result from comparisons.↩︎\nIn America, this translates to “Barnes and Noble”.↩︎\nIf only temporarily in some cases.↩︎\nA decent argument for cynicism↩︎\nBefore continuing, it is worth noting that at least two other papers provide compelling and well-specified evidence for the first condition and its impact. “Can Lower(ed) Expert Opinions Lead to Better Consumer Ratings?: The Case of Michelin Stars” by Xingyi Li and colleagues finds that losing Michelin stars has a positive effect on ratings for restaurants. “The Good, the Bad and the Picky: Consumer Heterogeneity and the Reversal of Product Ratings” by Tommaso Bondi, Michelangelo Rossi, and Ryan Stevens finds similarly that people are more critical of movies after they have been nominated for Oscars.↩︎\nSometimes these certifications are influenced by ratings (Superhost status is), sometimes they are not (Heather seems unswayed by the masses), and sometimes it is not clear (eBay’s Top Rated Sellers are a confusing example of this).↩︎\nThe specific assumption we make here is that nothing that influences ratings changes between platforms alongside Superhost status. Because Superhost status is entirely an Airbnb feature, this should be more defensible.↩︎\nAnd another paper, detailed in the next blog post↩︎"
+  }
+]

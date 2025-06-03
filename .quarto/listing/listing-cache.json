@@ -1,0 +1,7 @@
+{
+  "listingMap": {
+    "soap_box.qmd": [
+      "posts/*.qmd"
+    ]
+  }
+}
