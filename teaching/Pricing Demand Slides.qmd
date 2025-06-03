@@ -1,0 +1,1423 @@
+---
+title: "Pricing and Demand"
+author: "Matt Meister"
+subtitle: "University of San Francisco"
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 3em;
+        color: black;
+      }
+      </style>
+format: 
+  revealjs:
+    self-contained: true
+    scrollable: true
+    theme: simple
+    fontsize: 20pt
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+```{r, include=FALSE}
+package.load <- function(pkg) {
+  if (!require(pkg, character.only = TRUE)) {
+    suppressMessages(install.packages(pkg, dependencies = TRUE))
+    suppressMessages(library(pkg, character.only = TRUE))
+  } else {
+    suppressMessages(library(pkg, character.only = TRUE))
+  }
+}
+
+pkgs <- c("dplyr", "ggplot2", "tidyr")
+
+for (pkg in pkgs) {
+  package.load(pkg)
+}
+
+```
+
+# Pricing and Demand for a Single Product
+
+## Overview
+
+::: incremental
+
+- Marketing-mix modeling & demand curves
+- Demand models
+  - Linear model
+  - Multiplicative/log-linear demand model
+- Price elasticity
+- Estimation and prediction with the log-linear demand model
+- Profitability analysis
+- Extension to multiple products
+
+:::
+
+## Marketing-mix modeling (MMM)
+
+::: incremental
+
+- Modern approach to manage:
+  - Prices
+  - Promotion planning
+  - Advertising measurement
+  - Channels of distribution
+  - Competitive threats
+- Objectives and approach
+  - Use data & statistical models to estimate how the marketing mix affects demand
+  - Understand effect of competitor’s actions on own-demand
+  - Fine-tune marketing to achieve an objective, in particular increase profits and the value of a product
+
+:::
+
+## Demand curves (functions)
+
+::: incremental
+
+- A demand curve or demand function relates the quantity of a good sold to various elements of the marketing mix and other variables influencing consumer behavior
+- $Q = \beta_0 + \beta_1Price + \beta_2Promotion + \beta_3Season + etc$
+- Both own and the competitor’s marketing actions will typically affect demand
+
+:::
+
+## Marketing-mix modeling and demand estimation
+
+::: incremental
+
+- Goal
+  - Infer the relationship between unit sales and prices, promotions, and other variables 
+- To use a statistical tool such as regression analysis we need a mathematical formulation of demand
+  - This formulation should be flexible and have a good chance of fitting the demand relationship present in common data sets
+- In this lecture we focus on prices
+
+:::
+
+# Demand models
+
+## The linear demand model
+
+Formula: $Q = \beta_0 + \beta_1P$
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```{r, echo = F, fig.height=5, fig.width=5}
+set.seed(123)
+df <- data.frame(
+  P = seq(from = 0, to = 10, by = .01)
+)
+
+df$Q <- 40 - 5 * df$P
+
+ggplot( data = df,
+        aes(x = P, y = Q)) +
+  geom_point(size = .4) +
+  theme_classic()
+```
+
+:::
+
+::: {.column width="40%"}
+
+::: incremental
+
+- $Q$ is unit sales
+- $P$ is price
+- $\beta_0$ is
+  - $Q$ when $P = 0$
+- $\beta_1$ is
+  - Change in $Q$ when $P$ increases by \$1
+- What is the formula in this example?
+  - $Q = 40 - 5 \times P$
+
+:::
+
+:::
+
+::::
+
+## The linear demand model
+
+Formula: $Q = \beta_0 + \beta_1P$
+
+```{r, echo = F, fig.height=3, fig.width=4}
+set.seed(123)
+df <- data.frame(
+  P = seq(from = 0, to = 10, by = .01)
+)
+
+df$Q <- 40 - 5 * df$P
+
+ggplot( data = df,
+        aes(x = P, y = Q)) +
+  geom_point(size = .4) +
+  theme_classic()
+```
+
+- Effect of a given price change is the same for all price points
+  - Is this a desirable property?
+
+## The multiplicative demand model
+
+Formula: $Q = A\times P^{-\eta}$
+
+```{r, echo = F, fig.height=3, fig.width = 4}
+set.seed(123)
+price <- seq(0, 10, by = 0.01) 
+
+ldf <- data.frame(P = seq(0, 10, by = 0.01))
+ldf$Q <- exp(3 -.5 * ldf$P)
+ggplot( data = ldf,
+        aes(x = P, y = Q)) +
+  geom_point(size = .4) +
+  theme_classic()
+
+```
+
+- Effect of a given price change is larger at low than at high price points
+  - Consistent with niche and mainstream segments of consumers
+
+## Logarithms and the exponential function
+
+- The `log()` (logarithm) and `exp()` (exponential function) will make it easier to manipulate and work with the multiplicative demand model
+  - Particularly useful: the logarithm transforms multiplication into addition
+- Notation
+  - `log(x)` is always the natural logarithm
+  - Both $e^x$ and `exp(x_` mean the same thing---the exponential function applied to $x$
+  - Multiplicative demand model = log-linear demand model
+  
+## Logarithms and the exponential function
+
+- We can use logarithms to transform the multiplicative demand model:
+  - $Q = A\times P^{-\eta}$
+  - $log(Q) = log(A) + log(P^{-\eta})$
+  - $log(Q) = log(A) -\eta\times log(P)$
+  - $log(Q) = \beta_0 +\beta_1\times log(P)$
+
+## In R
+
+- $log(Q) = \beta_0 +\beta_1\times log(P)$
+- `lm( log(Q) ~ log(P))`
+
+::: incremental
+
+- We will therefore also refer to the multiplicative demand model as the log-linear demand model---both represent the same demand relationship
+- Why?
+  - This model has the form of a linear regression
+  - We can use `lm()` to estimate the model, using logged DV/IVs
+  - $\beta_0$ is the log-transformed intercept for log sales
+  - $\beta_1$ is the log-transformed effect of price on log sales
+  
+:::
+
+## Effect of parameters
+
+Parameter $A$ is the intercept
+
+- An increase $A$ increases the demand level at any given price
+
+```{r, echo = F, fig.height=3, fig.width = 4}
+set.seed(123)
+ldf <- data.frame(P = seq(0, 10, by = 0.01))
+ldf$Q <- exp(2.8 - 0.5 * ldf$P)
+ldf$Q2 <- exp(3.2 - 0.5 * ldf$P)
+ggplot( data = ldf,
+        aes(x = P, y = Q)) +
+  geom_point(size = .4, color = 'darkblue') +
+  geom_point(aes(x = P, y = Q2), size = .4, color = 'darkred') +
+  theme_classic()
+
+```
+
+$A$ is **higher** in the red example.
+
+## Effect of parameters
+
+Parameter $\eta$ is like the slope
+
+- An increase $\eta$ makes the demand curve steeper---more responsive to price
+
+```{r, echo = F, fig.height=3, fig.width = 4}
+set.seed(123)
+
+ldf <- data.frame(P = seq(0, 10, by = 0.01))
+ldf$Q <- exp(3 - 0.5 * ldf$P)
+ldf$Q2 <- exp(3 - 0.7 * ldf$P)
+ggplot( data = ldf,
+        aes(x = P, y = Q)) +
+  geom_point(size = .4, color = 'darkblue') +
+  geom_point(aes(x = P, y = Q2), size = .4, color = 'darkred') +
+  theme_classic()
+
+```
+
+# Price Elasticity
+
+## Price Elasticity
+
+::: incremental
+
+- The (own) price elasticity of demand is defined as the percentage change in the quantity demanded relative to a given percentage change in price:
+  - $price\space elasticity = \frac{\%\triangle Q}{\%\triangle P} = \frac{\frac{Q_1 - Q_0}{Q_0}}{\frac{P_1-P_0}{P_0}}$
+  - Useful because it does not depend on the level of unit sales or prices
+  - Typically negative (why?)
+- Interpretation
+  - Example: Price elasticity is -2.8
+  - A 1% increase in price is associated with a 2.8% decrease in unit sales
+- *Note: The price elasticity can be calculated for any demand curve, not just the multiplicative demand model*
+
+:::
+
+## Categorization of price elasticities
+
+- Inelastic demand: $-1 < price\space elasticity < 0$
+- Elastic demand: $price\space elasticity < -1$
+
+::: incremental
+
+- After a price cut:
+  - Revenue **increases** for elastic demand
+    - Because Q increases a LOT
+  - Revenue **decreases** for inelastic demand
+    - Because Q does not increase enough
+
+:::
+
+
+## Empirical generalizations about (own) price elasticity
+
+::: incremental
+
+- Survey of 367 price elasticity estimates 
+    - (Dolan and Simon, Power Pricing, New York: The Free Press, 1996)
+  - Average = -1.76
+  - vs. average advertising expenditure elasticity of +0.22
+  - Higher for industrial products (2---100)
+  - Lower(ish) for consumer goods (1.5---5)
+  - Lowest for luxury (.7---1.5)
+- Elasticity estimates far outside these ranges may indicate a problem with demand model (e.g. omitted variables)
+
+:::
+
+## Price elasticity in the multiplicative demand model
+
+$Q = A\times P^{-\eta}$
+
+- $\eta$ has simple and straightforward interpretation---it is the absolute value of the price elasticity of demand
+
+- The property that one parameter directly measures the price elasticity is **very** special and not true for other demand models
+  - Example: linear demand model
+  - Elasticity = $-\beta_1 \frac{P}{Q}$
+
+## Price elasticities and the relationship between price and sales changes
+
+- For any demand model (not just the multiplicative demand model) price and sales changes are related as follows:
+- $\%\triangle Q = price \space elasticity \times \%\triangle P$
+  - This relationship is only an approximation
+  - The approximation is better for small than for large price changes
+  - Approximations typically reasonable up to 5%-10% price changes
+- For **our purposes** and **exact predictions**, we will use the `predict()` function in R
+  - Predict demand at prices $P_0$ and $P_1$, and compute % change
+
+
+# Workshop
+
+## Profitability of slot machines in a casino
+
+Should the casino increase or decrease slot machine "prices"?
+
+```{r}
+casino <- read.csv("casino.csv")
+```
+
+::: fragment
+
+```{r}
+head(casino)
+summary(casino)
+```
+
+:::
+
+## Some useful observations from the data:
+
+- `r format(length(unique(casino$slot_number)), big.mark = ',')` slot machine observed over a range of `r format(length(unique(casino$month)), big.mark = ',')` months
+- The average slot machine has been active for `r round(mean(casino$days_active),1)` days in a given month. As low as `r round(min(casino$days_active),1)` day a month and as high as `r round(max(casino$days_active),1)` days.
+- The mean hold is `r round(mean(casino$hold),2)` with a standard deviation of `r round(sd(casino$hold),2)`, and it varies from `r round(min(casino$hold),2)` to `r round(max(casino$hold),2)`
+- There are 20 locations.
+- The average revenue per month for a slot machine is \$117,582.57. As low as \$303.03, as high as \$5,111,112.00.
+
+What is the total revenue of the casino chain over the `r format(length(unique(casino$month)), big.mark = ',')` month period?
+
+::: fragment
+
+```{r}
+sum(casino$coin_in * casino$hold/100)
+
+```
+
+:::
+
+## Demand Model
+
+::: incremental
+
+- What is `price` in this data?
+  - There are no explicit prices. The `hold` of the casino can be considered to be like a price.
+    - The `hold` is the (long-run) average proportion of the bets that the casino keeps. 
+
+:::
+
+## Profit
+
+::: incremental
+
+- If:
+  - $Q$ is the volume of play (referred to as `coin_ins` by the industry)
+  - $h$ is the `hold` and $c$ is the marginal cost
+  - Profits of the casino are:
+    - $pft = Q_h − Q_c$
+  - But $c$ of a casino is very close to zero
+    - $pft = Q_h$
+  - Without any marginal costs, we can decide to raise or lower prices from the price elasticity estimate alone
+  
+:::
+
+## Demand Model
+
+- There is variation in the number of days for which the machine is active. 
+  - `coin-ins` will naturally be higher for a machine that is active for more days.
+    - Using `coin_in` itself can give misleading results. 
+  - Create a new variable `Qdaily`, which is:
+  
+::: fragment
+
+the ratio of `coin_ins` and `days_active`
+
+```{r}
+casino$Qdaily <- casino$coin_in/casino$days_active
+```
+
+:::
+
+## Model building
+
+- Will the data be useful for modeling slot machine demand?
+  - We need variation in holds in order to run a regression analysis for this purpose
+    - We **always** need variation in the IV and DV!
+  - How can we check this?
+  
+::: fragment
+
+  - Plot a histogram
+
+```{r}
+hist(casino$hold)
+```
+
+:::
+
+## Model building
+
+- Will the data be useful for modeling slot machine demand?
+  - We need variation in holds in order to run a regression analysis for this purpose
+    - We **always** need variation in the IV and DV!
+  - How can we check this?
+  
+::: fragment
+
+  - Scatter plot of `Qdaily` vs. `hold`
+
+```{r}
+ggplot(data = casino, aes( x = hold, y = Qdaily)) +
+         geom_point() +
+         theme_classic()
+```
+
+:::
+
+## What is the relationship?
+
+```{r, echo = F}
+ggplot(data = casino, aes( x = hold, y = Qdaily)) +
+         geom_point(size = 1, alpha = 2) +
+         theme_classic()
+```
+
+Is it linear or is it more "curved"? 
+
+::: incremental
+
+- There seems to be a downward sloping effect of `holds` on `coin_ins`
+  - This is good news!
+- The relationship does not appear to be linear
+  - Very small `hold`: `coin_ins` high
+- A multiplicative/log-linear demand model is likely to be a better fit to these data.
+
+:::
+
+## Simple demand model specification
+
+Now we can use `Qdaily` as our demand variable and our demand model can be written as:
+
+::: fragment
+
+$log(Qdaily) = \beta_0 + \beta_1 \times log(hold) + e$
+
+in R:
+
+:::
+
+::: fragment
+
+```{r}
+lm1 <- lm(log(Qdaily) ~ log(hold), data = casino)
+```
+
+:::
+
+## Simple demand model specification
+
+```{r}
+summary(lm1)
+```
+
+::: incremental
+
+- Interpret the coefficient for hold
+  – What does this imply for raising or lowering hold percentages?
+    - This elasticity estimate suggests that the demand is elastic
+    - The casino should **decrease holds to increase revenues/profits**
+    - It suggests that consumers are aware of and very responsive to holds.
+- What concerns might you have for the validity of this?
+  - If we have omitted variables, then we can bias our estimates of price elasticities
+
+:::
+
+## Prediction tasks
+
+- Let's predict `Qdaily` when `hold <- 2`
+
+::: fragment
+
+```{r}
+logQ_predict <- predict(lm1, newdata = data.frame( hold = 2))
+```
+
+How do we take this out of `log()` form?
+
+:::
+
+## Prediction tasks
+
+How do we take this out of `log()` form?
+
+It would be nice if this worked:
+
+```{r}
+exp(logQ_predict)
+```
+
+But it doesn't. **Why?**
+
+::: incremental
+
+- In `lm()`, we assume that the average error is 0
+  - Not the sum of squared error
+- When we log-transform and exponentiate, it's actually $e^{\frac{\sigma^2}{2}}$
+  - Where $\sigma^2$ is the standard error of the log-linear regression model
+  
+:::
+
+## Prediction tasks
+
+How do we take this out of `log()` form?
+
+::: incremental
+
+- When we log-transform and exponentiate, avg error = $e^{\frac{\sigma^2}{2}}$
+- This means that $\frac{\sigma^2}{2}$ is included in our prediction:
+  - $Q = e^{a-\eta log(P)+\frac{\sigma^2}{2}}$
+  - If we just type `exp( predict(...))`, we get $Q = e^{a-\eta log(P)}$
+  - And underestimate demand
+  - The fix is somewhat easy
+  
+:::
+
+## Prediction tasks
+
+How do we take this out of `log()` form?
+
+$Q = e^{a-\eta log(P)+\frac{\sigma^2}{2}}$
+
+```{r}
+exp(logQ_predict + sigma(lm1) ^ 2 / 2 )
+```
+
+`sigma(lm1)` is the standard error of `lm1` ($\sigma$)
+
+## Prediction tasks
+
+Confusing... I know. Just remember:
+
+```{r}
+# Same as always
+logQ_predict <- predict(lm1, newdata = data.frame( hold = 2))
+
+# Take it out of log
+Q_predict <- exp(logQ_predict + sigma(lm1) ^ 2 / 2 )
+```
+
+What is our prediction?
+
+::: fragment
+
+```{r}
+Q_predict 
+```
+
+:::
+
+
+## Controlling for slot denominations
+
+We have information on slot denominations in the data. 
+
+::: incremental
+
+- Should we include that information in our analysis?
+  - Do denominations affect the volume of coin-ins? 
+    - Likely. Consumers who use high-denomination slot machines are likely systematically different.
+  - Are slot denominations potentially correlated with holds? 
+    - How could we answer?
+    
+:::
+
+## Controlling for slot denominations
+
+Generate a scatter plot of `demonination` vs. `hold`:
+
+- Use `factor(denomination)`
+
+```{r}
+ggplot(data = casino, aes( x = factor(denomination), y = hold)) +
+         geom_point() +
+         theme_classic()
+```
+
+## Controlling for slot denominations
+
+```{r}
+lm2 <- lm(log(Qdaily) ~ log(hold) + factor(denomination), data = casino)
+summary(lm2)
+```
+
+::: incremental
+
+- Interpret the coefficient for `hold`
+  - The coefficient estimate imples a 1% increase in price corresponds to a 0.66% decrease in demand.
+– What does this estimate imply for the casino?
+  -  Thus, the casino could gain in profitability by raising rather than lowering holds
+– Which model (`lm1` or `lm2`) do you have greater confidence in? Why?
+  - In light of `lm2` using stronger controls, we will tend to have higher confidence in model `lm2`
+  
+:::
+
+## If you want more practice
+
+There is also location (`location`) and time (`month`) information.
+
+Practice with adding those if you want more.
+
+## Price optimization
+
+::: incremental
+
+- With **inelastic** demand, predicted profits increase forever as prices increase. 
+  - This emphasizes the role of price constraints 
+    — Statistical reliability of model decreases when proposed prices are very different from prices in the data. 
+  - In the case of inelastic demand, "optimal" price will generally be the maximum price considered under the constraints.
+  - In practice, managerial reaction should be to raise prices by a "reasonably large" amount (e.g. ~10-15%)
+  - After demand data is collected using the new prices, the demand model should be re-estimated. 
+  - This process should be repeated until demand estimates are elastic, at which point truly optimal prices may be calculated.
+
+:::
+
+## Price optimization
+
+::: incremental
+
+- Although we have inelastic demand in this case, we can still demonstrate the graphical approach to determining optimal prices
+- To do this, we will:
+  - Create an R function to evaluate casino `profits`, given predictors and an lm() model
+  - Evaluate profits over a range of `holds` (prices), and plot the results.
+
+:::
+
+## Price optimization
+
+Create a function called `casino_pft()`
+
+- Inputs:
+  – `hold` - hold percentage
+  – `month` - month of observation
+  – `denomination` - denomination of slot machine
+  – `location` - location of slot machine
+  – `lm_result` - log-linear model estimation results (lm output)
+- Output:
+  – `Q` - predicted demand (daily coin-ins)
+  – `profit` - predicted profit
+
+## Price optimization
+
+Create a function called `casino_pft()`
+
+```{r}
+casino_pft <- function(hold, month, denomination, location, lm_result) {
+  # DF that we will use to make predictions
+  pred_DF = data.frame( month = month, 
+                        hold = hold,
+                        denomination = denomination,
+                        location = location)
+  
+  logQ = predict(lm_result, newdata=pred_DF) #Predict log value
+  Q = exp(logQ+sigma(lm_result)^2/2) #Fix it!
+  profit = Q*hold/100
+  return(list(Q = Q, profit = profit))
+}
+```
+
+## Price optimization
+
+Use your `casino_pft()` to evaluate casino profits for:
+
+- `hold`: hold percentages ranging from 10 to 20 (percent)
+- `month` = 1
+- `denomination` = 1
+- `location` = "B"
+- `lm_result` = lm3
+
+Where `lm3`:
+
+```{r}
+lm3 <- lm(log(Qdaily) ~ log(hold) + month + factor(denomination) + factor(location), data = casino)
+```
+
+## Price optimization
+
+Create data.frame to hold results:
+
+```{r}
+results <- data.frame(
+  holds = 10:20,
+  pft = rep(0,length(10:20))
+)
+```
+
+::: fragment
+
+Calculate and plot!
+
+```{r}
+for (i in 1:nrow(results)) {
+  results$pft[i] <- casino_pft(hold = results$hold[i],
+                               month = 1,
+                               denomination = 1,
+                               location = "B",
+                               lm_result = lm3)$profit
+}
+
+ggplot(data = results, 
+       aes( x = holds, y = pft)) +
+         geom_point() +
+         theme_classic()
+```
+
+:::
+
+## Discussion
+
+::: incremental
+
+- What does the plot imply for the optimal pricing for the specified slot machine?
+  - The plot demonstrates that "optimal" profits occur at the maximum hold evaluated (20). In the case of elastic demand, such methods can be used to find optimal profits that do not occur at constraint boundaries.
+  
+:::
+
+# Pricing and Demand for Multiple Products
+
+## Pricing and Demand for Multiple Products
+
+Recall from last class: The *multiplicative demand model*
+
+$log(Q_i) = \beta_0 + \beta_1\times log(P_i)$
+
+```{r, echo = F, fig.height=3, fig.width = 4}
+set.seed(123)
+price <- seq(0, 10, by = 0.01) 
+
+ldf <- data.frame(P = seq(0, 10, by = 0.01))
+ldf$Q <- exp(3 -.5 * ldf$P)
+ggplot( data = ldf,
+        aes(x = P, y = Q)) +
+  geom_point(size = .4) +
+  theme_classic()
+
+```
+
+::: incremental
+
+- This is often too simple
+  - Does not account for competing products
+- But we can generalize it to allow for the effect of competing product prices
+
+:::
+
+## Pricing and Demand for Multiple Products
+
+Single product: 
+
+- $log(Q_i) = \beta_0 + \beta_1\times log(P_i)$
+
+Multiple products: 
+
+::: incremental
+
+- $log(Q_i) = \beta_{i0} + \beta_{i1}\times log(P_{i}) + \beta_{i2}\times log(P_{2})$
+  - $log(Q_1) = \beta_{10} + \beta_{11}\times log(P_{1}) + \beta_{12}\times log(P_{2})$
+  - $log(Q_2) = \beta_{20} + \beta_{21}\times log(P_{1}) + \beta_{22}\times log(P_{2})$
+
+:::
+
+::: incremental
+
+- The price coefficients have two subscripts
+  - The first subscript refers to the equation
+    - *i.e. demand function for product* $i$
+  - The second refers to the specific product/competitor
+
+:::
+
+## Pricing and Demand for Multiple Products
+
+- $log(Q_1) = \beta_{10} + \beta_{11}\times log(P_{1}) + \beta_{12}\times log(P_{2})$
+- $log(Q_2) = \beta_{20} + \beta_{21}\times log(P_{1}) + \beta_{22}\times log(P_{2})$
+
+This means that:
+
+::: incremental
+
+- $\beta_{10}$ is the $log$ of unit sales of Product 1 when $log(P_1) == 0$ & $log(P_2) == 0$
+- $\beta_{20}$ is the $log$ of unit sales of Product 2 when $log(P_1) == 0$ & $log(P_2) == 0$
+- $\beta_{11}$ is the...?
+  - **Own** price elasticity of Product 1
+  - $\beta_{21}$ is the **own** price elasticity of Product 2
+  - How much the sales of a product change when its **own** price changes
+- $\beta_{12}$ is the...?
+  - **Cross** price elasticity of Product 2 on Product 1
+  - How much the sales of a product change when its **competitor's** price changes
+  
+:::
+
+## Pricing and Demand for Multiple Products
+
+The coefficients in these equations are price elasticities, just as in the simple multiplicative demand model discussed before:
+
+$\beta_{ik} = \frac{\%\triangle Q_i}{\%\triangle P_k}$
+
+## Own and cross price elasticities
+
+::: incremental
+
+- Own price elasticities are typically negative
+  - When the price of something increases, *all else equal*, sales fall
+  - This is why we expected $\beta_1$ to be negative in the single product case
+- Cross-price elasticities can be positive **or** negative
+  - When/why?
+  - Positive when products are **substitutes** for one another 
+    - *(e.g. Coke vs. Pepsi)*
+    - Price of Coke increases, people switch to Pepsi
+  - Negative when products are **compliments** for one another 
+    - *(e.g. razors and blades)*
+    
+:::
+
+## Implications of large cross-price elasticities
+
+When price elasticity is large and **positive**:
+
+::: incremental
+
+- **Competitor's** product with high cross price elasticity?
+  - Competitive price change will have a **large** impact on the demand for our product
+  - Price competition will be tough 
+    — Low equilibrium prices
+- Product in our own product line with high price elasticity?
+  - Cannibalization of sales from other products in our product line
+  - Need to manage the prices of all products in product line simultaneously
+
+:::
+
+## Implications of large cross-price elasticities
+
+When price elasticity is large and **negative**:
+
+::: incremental
+
+- **Competitor's** product with low cross price elasticity (< -2)?
+  - Price change will have a **large** impact on the demand for our product
+  - Tough spot to be in--can't collude on prices
+    - *e.g., video games and consoles*
+- Product in our own product line with low cross price elasticity (< -2)?
+  - Probably parts of a set
+    - *e.g., battery and charger*
+  - Need to manage the prices of all products in product line simultaneously
+  - Potentially sell in bundles?
+
+:::
+
+
+## Implications of small cross-price elasticities
+
+::: incremental
+
+- Product with low cross price elasticity?
+  - Price change will have a **small** impact on the demand for our product
+  - Products may not be **true** substitutes
+    - *e.g., Kashi cereal and Cookie Crisp*
+  - Price competition will not be tough 
+    — Higher equilibrium prices
+- How can we get to this point?
+  - Advertising--make our product seem different
+    - *e.g., Gasoline, cell phone carriers, insurance providers, etc.*
+  - If both products are ours, we could create optimally different products
+    - *e.g., combine with a conjoint analysis*
+
+:::
+
+## Predicting changes in demand
+
+To predict **change** in demand, we can use the **change** in prices:
+
+::: incremental
+
+- $log(Q_1) = \beta_{10} + \beta_{11}\times log(P_{1}) + \beta_{12}\times log(P_{2})$
+- Came from: $Q_1 = A^{\beta_{10}} P_1^{\beta_{11}}P_2^{\beta_{12}}$
+- This was gross, **but** we can use it again:
+  - $\frac{Q'_1}{Q_1} = \frac{A^{\beta_{10}}P{'}_{12}^{\beta_{11}}P{'}_2^{\beta_{12}}}{A^{\beta_{10}}P_1^{\beta_{11}}P_2^{\beta_{12}}}$
+  - $P{'}_{i} = P_i\times (1 + \triangle P_i)$
+  - $\frac{Q'_1}{Q_1} = \frac{A^{\beta_{10}}P_1\times (1 + \triangle P_1)^{\beta_{11}}P_2\times (1 + \triangle P_2)^{\beta_{12}}}{A^{\beta_{10}}P_1^{\beta_{11}}P_2^{\beta_{12}}}$
+  - $\frac{Q'_1}{Q_1} = \frac{P_1\times (1 + \triangle P_1)^{\beta_{11}}P_2\times (1 + \triangle P_2)^{\beta_{12}}}{P_1^{\beta_{11}}P_2^{\beta_{12}}}$
+  - $\frac{Q'_1}{Q_1} = (1 + \triangle P_i)^{\beta_{11}}(1 + \triangle P_i)^{\beta_{12}}$
+  
+:::
+
+## Predicting changes in demand
+
+To predict **change** in demand, we can use the **change** in prices:
+
+$\frac{Q'_1}{Q_1} = (1 + \triangle P_i)^{\beta_{11}}(1 + \triangle P_i)^{\beta_{12}}$
+
+::: fragment
+
+Or, in `R`:
+
+- `change_in_Q1 <- (1 + change_in_P1) ^ beta11 * (1 + change_in_P2) ^ beta12`
+
+:::
+
+# Workshop
+
+## Workshop
+
+We've got data about three cereals:
+
+- Frosted Flakes
+- Froot Loops
+- Kashi GoLean Crunch
+
+Read in the data:
+
+```{r}
+data <- read.csv("cereals_demand.csv")
+```
+
+## Estimate
+
+Demand for Froot Loops: **Single-Product Case**
+
+::: fragment
+
+$log(Q_{fl}) = \beta_{0} + \beta_{1}\times log(P_{fl})$
+
+:::
+
+::: fragment
+
+```{r}
+fl_single <- lm( data = data, log(sales_fl) ~ log(price_fl))
+
+summary(fl_single)$coef |> round(3)
+```
+
+:::
+
+## Conclusions
+
+Demand for Froot Loops: **Single-Product Case**
+
+::: incremental
+
+- What is the own-price elasticity?
+  - -1.134
+  - 1% increase in price reduces sales by 1.134%
+  - **Don't increase prices!! Reduce them!**
+- Look at the $R^2$ from this model. What is it?
+  - ~14%
+  - We explain 14% of the variation in sales with Froot Loop prices alone
+  - Can we do better?
+  
+:::
+
+## Estimate
+
+Demand for Froot Loops: **Multiple-Product Case**
+
+::: fragment
+
+$log(Q_{fl}) = \beta_{fl0} + \beta_{fl1}\times log(P_{fl}) + \beta_{fl2}\times log(P_{ff}) + \beta_{fl3}\times log(P_{k})$
+
+:::
+
+::: fragment
+
+```{r}
+fl_multiple <- lm( data = data, log(sales_fl) ~ log(price_fl) + log(price_ff) + log(price_k))
+
+summary(fl_multiple)$coef |> round(3)
+```
+
+:::
+
+## Conclusions
+
+Demand for Froot Loops: **Multiple-Product Case**
+
+::: incremental
+
+- What is the own-price elasticity?
+  - -1.6
+  - 1% increase in price reduces sales by 1.6%
+  - **Don't increase prices!! Reduce them!**
+  
+:::
+
+## Conclusions
+
+Demand for Froot Loops: **Multiple-Product Case**
+
+::: incremental
+
+- What is cross-price elasticity?
+  - Frosted Flakes:
+    - 1.3
+    - Frosted flakes prices impact us a lot!
+    - Their price increases, our sales do too
+  - Kashi:
+    - .6
+    - Kashi prices don't impact a lot
+    - Their price increases, our sales do too
+    - Not as competitive though
+  
+:::
+
+## Conclusions
+
+Demand for Froot Loops: **Multiple-Product Case**
+
+::: incremental
+
+- What is $R^2$?
+  - .362
+  - We explain 14% of the variation in sales with all prices
+
+:::
+
+## With those around you:
+
+Repeat this for Frosted flakes and Kashi
+
+- Estimate single and multiple product demand models
+- Note differences in elasticities
+- And $R^2$
+
+## Estimate
+
+Demand for Frosted Flakes: **Single-Product Case**
+
+::: fragment
+
+```{r}
+ff_single <- lm( data = data, log(sales_ff) ~ log(price_ff))
+
+summary(ff_single)$coef |> round(3)
+```
+
+:::
+
+## Conclusions
+
+Demand for Frosted Flakes: **Single-Product Case**
+
+::: incremental
+
+- What is the own-price elasticity?
+  - -1.24
+  - 1% increase in price reduces sales by 1.24%
+  - **Don't increase prices!! Reduce them!**
+- Look at the $R^2$ from this model. What is it?
+  - ~10%
+  
+:::
+
+## Estimate
+
+Demand for Frosted Flakes: **Multiple-Product Case**
+
+
+::: fragment
+
+```{r}
+ff_multiple <- lm( data = data, log(sales_ff) ~ log(price_fl) + log(price_ff) + log(price_k))
+
+summary(ff_multiple)$coef |> round(3)
+```
+
+:::
+
+## Conclusions
+
+Demand for Frosted Flakes: **Multiple-Product Case**
+
+::: incremental
+
+- What is the own-price elasticity?
+  - -1.3
+  - 1% increase in price reduces sales by 1.3%
+  - **Don't increase prices!! Reduce them!**
+  
+:::
+
+## Conclusions
+
+Demand for Frosted Flakes: **Multiple-Product Case**
+
+::: incremental
+
+- What is cross-price elasticity?
+  - Kashi:
+    - .35
+    - Prices don't impact us a lot
+  - Froot loops:
+    - 1.67
+    - Prices impact a lot
+  
+:::
+
+## Conclusions
+
+Demand for Frosted Flakes: **Multiple-Product Case**
+
+::: incremental
+
+- What is $R^2$?
+  - .19
+  - We explain 19% of the variation in sales with all prices
+
+:::
+
+## Estimate
+
+Demand for Kashi: **Single-Product Case**
+
+::: fragment
+
+```{r}
+k_single <- lm( data = data, log(sales_k) ~ log(price_k))
+
+summary(k_single)$coef |> round(3)
+```
+
+:::
+
+## Conclusions
+
+Demand for Kashi: **Single-Product Case**
+
+::: incremental
+
+- What is the own-price elasticity?
+  - -1.5
+  - 1% increase in price reduces sales by 1.5%
+  - **Don't increase prices!! Reduce them!**
+- Look at the $R^2$ from this model. What is it?
+  - ~40%
+  
+:::
+
+## Estimate
+
+Demand for Kashi: **Multiple-Product Case**
+
+
+::: fragment
+
+```{r}
+k_multiple <- lm( data = data, log(sales_k) ~ log(price_fl) + log(price_ff) + log(price_k))
+
+summary(k_multiple)$coef |> round(3)
+```
+
+:::
+
+## Conclusions
+
+Demand for Kashi: **Multiple-Product Case**
+
+::: incremental
+
+- What is the own-price elasticity?
+  - -1.4
+  - 1% increase in price reduces sales by 1.4%
+  - **Don't increase prices!! Reduce them!**
+  
+:::
+
+## Conclusions
+
+Demand for Kashi: **Multiple-Product Case**
+
+::: incremental
+
+- What is cross-price elasticity?
+  - Frosted Flakes:
+    - .27
+    - Frosted flakes prices don't impact us a lot
+  - Froot loops:
+    - .34
+    - Froot loops prices don't impact a lot
+  
+:::
+
+## Conclusions
+
+Demand for Kashi: **Multiple-Product Case**
+
+::: incremental
+
+- What is $R^2$?
+  - .47
+  - We explain 47% of the variation in sales with all prices
+
+:::
+
+## Change in prices
+
+Now assume that: 
+
+- Froot Loops increases its price by 5% 
+- Kashi reduces its price by 15%
+
+Calculate the percentage change in demand for each of the three products
+
+## Change in prices
+
+For Froot Loops:
+
+1. Define price changes
+
+```{r}
+change_in_fl <- 0.05
+change_in_ff <- 0
+change_in_k <- -0.15
+```
+
+## Change in prices
+
+For Froot Loops:
+
+1. Define price changes
+
+```{r}
+change_in_fl <- 0.05
+change_in_ff <- 0
+change_in_k <- -0.15
+```
+
+2. Define demand changes
+
+::: fragment
+
+```{r}
+beta_fl_fl <- fl_multiple$coefficients[[2]]
+beta_fl_ff <- fl_multiple$coefficients[[3]]
+beta_fl_k <- fl_multiple$coefficients[[4]]
+```
+
+:::
+
+## Change in prices
+
+For Froot Loops:
+
+3. Calculate ratio of sales
+
+::: fragment
+
+```{r}
+fl_ratio <- (1 + change_in_fl) ^ beta_fl_fl * (1 + change_in_ff) ^ beta_fl_ff * (1 + change_in_k) ^ beta_fl_k
+fl_ratio
+fl_pct <- 100*(fl_ratio-1)
+fl_pct
+```
+
+:::
+
+## Repeat this for the other two products
+
+::: fragment
+
+Frosted Flakes
+
+```{r}
+beta_ff_fl <- ff_multiple$coefficients[[2]]
+beta_ff_ff <- ff_multiple$coefficients[[3]]
+beta_ff_k <- ff_multiple$coefficients[[4]]
+
+ff_ratio <- (1 + change_in_fl) ^ beta_ff_fl * (1 + change_in_ff) ^ beta_ff_ff * (1 + change_in_k) ^ beta_ff_k
+ff_ratio
+ff_pct <- 100*(ff_ratio-1)
+ff_pct
+```
+
+Kashi
+
+```{r}
+beta_k_fl <- k_multiple$coefficients[[2]]
+beta_k_ff <- k_multiple$coefficients[[3]]
+beta_k_k <- k_multiple$coefficients[[4]]
+
+k_ratio <- (1 + change_in_fl) ^ beta_k_fl * (1 + change_in_ff) ^ beta_k_ff * (1 + change_in_k) ^ beta_k_k
+k_ratio
+k_pct <- 100*(k_ratio-1)
+k_pct
+```
+
+:::
+
+## Estimated Profit
+
+Assume that the base prices of three products are: 
+
+- FL = $2.99
+- FF = $3.25
+- K = $4.99
+
+And base sales levels are: 
+
+- FL = 566
+- FF = 540
+- K = 302
+
+Assuming the same percentage price changes, what do we expect i) demand and ii) profits for each product at the new prices to be?
+
+## Estimated Profit
+
+1. Define baseline prices and demands
+
+```{r}
+price_FL <- 2.99
+price_FF <- 3.25
+price_K <- 4.99
+
+demand_FL <- 566
+demand_FF <- 540
+demand_K <- 302
+```
+
+## Estimated Profit
+
+2. Define new prices and demands
+
+```{r}
+price_FL_2 <- price_FL * (1 + change_in_fl)
+price_FF_2 <- price_FF * (1 + change_in_ff)
+price_K_2 <- price_K * (1 + change_in_k)
+
+demand_FL_2 <- demand_FL * fl_ratio
+demand_FF_2 <- demand_FF * ff_ratio
+demand_K_2 <- demand_K * k_ratio
+
+demand_FL_2; demand_FF_2; demand_K_2
+```
+
+## Estimated Profit
+
+3. Estimate profit
+
+- Using marginal costs of:
+  - $1.50 per box of Frosted Flakes and Froot Loops
+  - $2.00 per box of Kashi
+
+```{r}
+mcost_ff <- 1.5
+mcost_fl <- 1.5
+mcost_k <- 2
+
+pft_ff_2 <- demand_FF_2*(price_FF_2-mcost_ff); pft_ff_2
+pft_fl_2 <- demand_FL_2*(price_FL_2-mcost_fl); pft_fl_2
+pft_k_2 <- demand_K_2*(price_K_2-mcost_k); pft_k_2
+```
+
+## Estimated Profit
+
+4. Compare to baseline:
+
+```{r}
+pft_ff_1 <- demand_FF*(price_FF-mcost_ff); pft_ff_1
+pft_fl_1 <- demand_FL*(price_FL-mcost_fl); pft_fl_1
+pft_k_1 <- demand_K*(price_K-mcost_k); pft_k_1
+```
+
+
+## Conclusions
+
+::: incremental
+
+- We can use demand models to predict demand for single products, as well as multiple.
+- Adding parameters for other products allows us to estimate demand in a competitive landscape.
+- We use these models (rather than conjoint) when we have observational data about sales and product attributes
+  - Price is one attribute. We could have done this with others.
+
+:::
+
+## Conclusions
+
+::: incremental
+
+- Elasticities > 0 indicate as attribute increases, so do sales
+- Elasticities < 0 indicate as attribute increases, sales decrease
+- Elasticities < -1 indicate that we should decrease prices, as sales will increase more to make up
+- We could have extended this example a **lot**, to simulate profits, entire markets, etc.
+
+:::
+

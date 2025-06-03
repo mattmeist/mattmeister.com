@@ -1,0 +1,719 @@
+---
+title: "Conjoint Analysis"
+author: "Matt Meister"
+subtitle: "University of San Francisco"
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 3em;
+        color: black;
+      }
+      </style>
+format: 
+  revealjs:
+    self-contained: true
+    scrollable: true
+    theme: simple
+    fontsize: 20pt
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+```{r, include=FALSE}
+package.load <- function(pkg) {
+  if (!require(pkg, character.only = TRUE)) {
+    suppressMessages(install.packages(pkg, dependencies = TRUE))
+    suppressMessages(library(pkg, character.only = TRUE))
+  } else {
+    suppressMessages(library(pkg, character.only = TRUE))
+  }
+}
+
+pkgs <- c("dplyr", "ggplot2", "tidyr")
+
+for (pkg in pkgs) {
+  package.load(pkg)
+}
+
+```
+
+## Overview
+
+-   Conjoint analysis - intro & concepts
+    -   Product design concepts
+-   Conjoint analysis - steps to perform
+    -   Identify a set of relevant product attributes
+    -   Define reasonable levels for those attributes
+    -   Create product profiles
+    -   Obtain consumer preferences for profiles
+    -   Analyze the data for each respondent
+    -   Simulate market outcomes
+
+# Conjoint Analysis Introduction
+
+## Conjoint Analysis Introduction
+
+Good product design begins with understanding customers
+
+::: incremental
+
+-   A market-oriented organization focuses on identifying and satisfying the needs and wants of its customers
+-   Conjoint analysis is a powerful analytical tool that can aid managers in understanding and quantifying these needs and wants
+
+:::
+
+## Product design concepts
+
+::: incremental
+
+- A product can be considered as a bundle of attributes 
+  - Attributes provide value to consumers 
+  
+- Each attribute can attain one or more levels 
+  - Levels are specific values of attributes 
+
+:::
+
+## Product design concepts: Example
+
+A computer can be described as:
+
+|     |   Attribute   | Level 1 | Level 2 | Level 3 |
+|:---:|:-------------:|:-------:|:-------:|:-------:|
+|  1  | **Processor** | 2.4 GHz | 3.2 GHz |         |
+|  2  |    **RAM**    |  8 GB   |  16 GB  |  32 GB  |
+|  3  |  **Storage**  | 520 GB  | 1040 GB | 2080 GB |
+|  4  |   **Price**   |  \$400  |  \$800  | \$1,200 |
+|  5  |   **Color**   |  Grey   | Silver  |  Black  |
+
+
+Sample profiles: 
+
+::: incremental
+
+- 2.4 GHz processor, 8 GB RAM, 520 GB hard drive, \$400 price, black 
+- 2.4 GHz processor, 16 GB RAM, 520 GB hard drive, \$800 price, grey 
+- 3.2 GHz processor, 8 GB RAM, 1040 GB, hard drive, \$800 price, silver 
+- 3.2 GHz processor, 32 GB RAM, 1040 GB hard drive, \$1,200 price, silver
+
+:::
+
+## How do we know what product people will like?
+
+Need a reliable method to measure preferences
+
+::: incremental
+
+- Two approaches:
+  - Stated preference
+    -Directly ask customers how much they value attributes
+  - Revealed preference
+    -Elicit customer preferences for whole products (profiles)
+    -Infer value of attributes from responses
+
+:::
+
+## Advantages of revealed preference approach
+
+::: incremental
+
+- Easier for respondents
+- Hard to answer questions like: 
+  - "How much do you value a 4 hour battery life on your VR headset?"
+- More accurate
+  - Counters tendency to rate all attributes as (equally) important
+
+:::
+
+## Conjoint: Revealed preference via experiment
+
+::: incremental
+
+- Attributes are considered jointly
+  - Subjects rate/rank/choose between product profiles
+  - Subjects forced to make trade-offs for attribute levels
+  - Trade-offs reveal true valuation
+- Limitations
+  - Attributes must be known in advance
+  - Hard to handle a large (>10) number of attributes
+
+::: 
+
+
+## Stages in conjoint analysis
+
+::: incremental
+
+- Identify a set of relevant product attributes
+- Define reasonable levels for those attributes
+- Create product profiles
+- Obtain consumer preferences for profiles
+- Analyze the data for each respondent
+- Simulate market outcomes
+
+:::
+
+## Stages 1 & 2: Attribute & level selection guidelines
+
+Attributes in conjoint should be:
+
+::: incremental
+
+- Clear and unambiguous
+- Actionable by the firm
+- The total number of attributes should be kept low
+  - 5-6 is the average, most studies fall between 4 and 8
+- Levels should span the realistic range of possible values
+  - E.g., include price levels close to min and max of market prices
+  - Use qualitative research and pretests to decide on attributes and levels
+
+:::
+
+## Stages 1 & 2 example: VR Headset
+
+- Standalone:
+  - Yes vs no
+- Cellular network access:
+  - Yes vs no
+- Price:
+  - \$400 vs \$800 vs \$1,200
+- Battery life:
+  - 4 hours vs 8 hours vs 12 hours
+
+
+## How many possible profiles are there
+
+2 attributes with 3 levels and 2 with 2 levels?
+
+::: fragment
+
+$3 \times 3 \times 2 \times 2$
+
+:::
+
+::: fragment
+
+$= 36$
+
+:::
+
+## Stage 3: Create product profiles
+
+Data collection needs simplification (why?)
+
+::: incremental
+
+- Shrink total set to only include possible/realistic products
+  - No impossible combinations
+- Unrealistic products can ruin our data
+
+:::
+
+## Stage 4: Obtain consumer preferences for profiles
+
+::: incremental
+
+- Rating
+  - Consumers see a set of profiles, rate each
+    - **Positives?**
+      - People are used to rating things
+      - Simple
+      - Straightforward
+    - **Negatives?**
+      - Not a choice! (Not economically relevant necessarily)
+      - Ratings are not necessarily comparable across products
+- Ranking
+- Choice
+
+:::
+
+## Stage 4: Obtain consumer preferences for profiles
+
+::: incremental
+
+- Rating
+- Ranking
+  - People see all choices and rank them
+    - **Positives?**
+      - Simple
+      - Straightforward
+    - **Negatives?**
+      - Still not a choice
+      - What if things aren't evenly spaced?
+- Choice
+
+:::
+
+## Stage 4: Obtain consumer preferences for profiles
+
+::: incremental
+
+- Rating
+- Ranking
+- Choice
+  - People see options (usually 2+ at a time) and choose
+    - **Positives?**
+      - Real!
+      - Potentially simple
+    - **Negatives?**
+      - Need a **lot** of trials
+      
+:::
+
+## Stage 5: Data analysis
+
+::: incremental
+
+- Typically, conducted at the individual level
+- Recovers a set of utility parameter estimates for each individual
+- Mode of analysis dependent on response format:
+  - Ratings data — linear regression (OLS)
+
+:::
+
+## Stage 5: Data analysis
+
+Read in these responses to a conjoint survey for tablet computers
+
+```{r}
+responses_DF <- read.csv("respondent_data.csv") # survey reponses ("Y" variables)
+N <- nrow(responses_DF) # number of subjects
+summary(responses_DF)
+```
+
+## Stage 5: Data analysis
+
+For tablet computers, a relevant set of product attributes might be:
+
+1. Screen size (inches)
+2. Cellular network connectivity
+3. Price
+4. Battery life (hrs)
+5. Operating system (OS) 
+
+## Stage 5: Data analysis
+
+For tablet computers, a relevant set of product attributes might be:
+
+| **Attribute**  | **1** | **2** | **3** | **4** | **5** |
+| --- | --- | --- | --- | --- | --- |
+| **Level**  | **Screen (in)** | **Cell** | **Price ($)** | **Battery (hr)** | **OS** |
+| **1** | 7 | N | 100 | 4 | Android |
+| **2** | 10 | Y | 300 | 8 |  iOS |
+| **3** |   |   | 500 | 12 | Windows |
+
+## Stage 5: Data analysis
+
+For tablet computers, a relevant set of product **combinations** might be:
+
+| **Profile #** | **Screen (in)** | **Cell** | **Price ($)** | **Battery (hr)** | **OS** |
+| --- | --- | --- | --- | --- | --- |
+| **1** | 7 | Y | 300 | 12 | iOS |
+| **2** | 7 | Y | 100 | 8 | iOS |
+| **3** | 10 | Y | 500 | 12 | Windows |
+| **4** | 7 | Y | 300 | 4 | Windows |
+| **5** | 7 | N | 300 | 8 | Android |
+| **6** | 10 | N | 300 | 12 | iOS |
+| **7** | 7 | N | 500 | 12 | Windows |
+| **8** | 10 | N | 300 | 8 | Windows |
+| **9** | 7 | N | 500 | 4 | iOS |
+| **10** | 10 | Y | 100 | 12 | Android |
+| **11** | 10 | Y | 300 | 4 | Android |
+| **12** | 7 | N | 100 | 12 | Android |
+| **13** | 10 | Y | 500 | 8 | iOS |
+| **14** | 10 | N | 500 | 4 | Android |
+| **15** | 10 | N | 100 | 4 | iOS |
+| **16** | 10 | N | 100 | 8 | Windows |
+| **17** | 7 | Y | 500 | 8 | Android |
+| **18** | 7 | Y | 100 | 4 | Windows |
+
+## Stage 5: Data analysis
+
+```{r}
+design_DF <- read.csv("survey_design.csv") # survey design ("X" variables)
+design_DF
+```
+
+## Stage 5: Data analysis
+
+Let's say we have a customer who responds to those profiles like this:
+
+```{r}
+response <- c(3,4,4,2,4,4,3,4,1,7,4,6,2,3,4,6,4,5)
+```
+
+::: fragment
+
+```{r}
+est_DF <- cbind(design_DF, response=response)
+
+lm1 <- lm(response ~ factor(Screen) + factor(Cell) + factor(Price) + 
+            factor(Battery) + factor(OS), 
+          data=est_DF)
+
+summary(lm1)
+```
+
+:::
+
+## Stage 5: Data analysis
+
+#### Ratings Data
+
+::: incremental
+
+- Intercept captures utility of "baseline" profile
+  - Baseline profile corresponds to all omitted attribute levels
+- Part-worths measure incremental utility relative to the baseline
+  - Part-worths of included attribute levels = regression coefficients
+  - Part-worths of omitted attribute levels = 0 by definition
+
+:::
+
+## Stage 5: Data analysis
+
+#### Ratings Data
+
+::: incremental
+
+- *What is the baseline profile?*
+  - The baseline profile is the profile associated with the omitted factor levels from the dummy variable coding. In this case, the baseline profile is a 7" screen, no cellular connectivity, $100 price, 4 hour battery life, and Android OS. 
+- *What is the expected utility (rating) for the baseline profile?*
+  - The utility/rating for this profile is given by the intercept estimate.
+  - 4.3472
+- *Interpret the coefficients from the regression*
+  - Dummy variable coefficients represent in the incremental utility (rating), relative to the baseline profile
+  - e.g., the coefficient on `factor(Screen)10` represents the incremental utility of changing from a 7" screen to a 10" screen
+  
+:::
+
+## Step 5: Data analysis
+
+Generate similar estimates for each individual represented in our supplemental data, `responses_DF`
+
+::: fragment
+
+How?
+
+:::
+
+::: incremental
+
+- Create an empty list-of-lists to hold the regression results for each individual
+  - `lm_res <- vector(mode = "list", length=nrow(responses_DF))`
+- Loop over individuals. For each individual `i`:
+  - Create a dataframe that combines design_DF with the responses for individual `i`.
+- Estimate a linear model with individual `i`’s responses as the dependent variable, and the columns of design_DF as **(factor)** regressors
+- Store the linear model results to the `i`’th element of lm_res. 
+  - To access or assign (top level) lists in a list-of-lists, we must use double bracket indexing, as in: `lm_res[[i]]`
+
+:::
+
+## Step 5: Data analysis
+
+```{r}
+## estimate regression models, 1 per individual
+# initialize an empty "list of lists" to hold lm() regression results
+lm_res <- vector(mode="list", length=nrow(responses_DF))
+# loop over subjects
+for (i in 1:nrow(responses_DF)) {
+  # get survey reponses for subject i (dropping respondent_id)
+  response = as.numeric(responses_DF[i,2:ncol(responses_DF)])
+  # create "estimation" dataframe, including i's reponses (Y) and the design variables (X)
+  est_DF = cbind(design_DF, response=response)
+  # run regression for subject i, store as lm_res[[i]]
+  # note use of double bracket indexing [[ ]] syntax to access top-level lists
+  lm_res[[i]] = lm(response ~ factor(Screen) + factor(Cell) + factor(Price) + 
+                     factor(Battery) + factor(OS),
+                   data=est_DF)
+  }
+```
+
+
+## Stage 6: Simulate market outcomes
+
+::: incremental
+
+- Consider a hypothetical market
+  - Start with closest approximation to current competitive landscape
+  - Add 1st new product under consideration for introduction
+- Compute expected utility for each of the products, for each subject in the sample
+- Predict market shares (or units sold) for all products:
+  - Assume subjects choose product with the highest utility
+  - Product share = fraction of subjects who choose that product
+- Repeat steps above for remaining new product designs
+  - Introduce product concept with highest expected profit/market share
+
+:::
+
+## Stage 6
+
+::: incremental
+
+- Conjoint allows us to evaluate "what if" scenarios
+  - How would a hypothetical "new" product would fare in competition with existing products?
+- In the context of our example
+  - How a new product by Toshiba will compete against the existing iPad
+  - Assume the existing "iPad" product corresponds to:
+    - Screen = 10 (inches)
+    - Cell = "Y" (has cell connectivity)
+    - Price = 500 ($)
+    - Battery = 8 (hrs)
+    - OS = "iOS"
+
+:::
+
+## Stage 6
+
+Assume (initially) that Toshiba is considering one potential product design, `Toshiba_A`
+
+::: incremental
+
+- Screen = 7 (inches)
+- Cell = "N" (no cell connectivity)
+- Price = 300 ($)
+- Battery = 12 (hrs)
+- OS = "Android"
+- The cost to produce a tablet computer is:
+  - $(75 + 5\times(Screen==10) + 20\times(Cell==Y) + 5\times(Battery==8) + 15\times(Battery==12))$
+
+:::
+
+## Stage 6
+
+Define `Toshiba_A` as the first product and the iPad as the second in a dataframe:
+
+```{r}
+prods1 <- data.frame(Screen = c(7,10),
+                     Cell = c("N","Y"),
+                     Price = c(300,500),
+                     Battery = c(12,8),
+                     OS = c("Android","iOS"))
+
+rownames(prods1) = c("Toshiba_A","iPad")
+prods1
+
+```
+
+## Stage 6
+
+Use `lm1` to predict a choice between the iPad and `Toshiba_A`
+
+*Hints:*
+
+- Compute the utility (rating) that each consumer would derive from each alternative. You can use `predict()` for this task.
+- Predict choice as the product with the highest utility (rating). The `which.max()` function can be useful here
+
+::: fragment
+
+```{r}
+ratings = predict(lm1, newdata=prods1)
+choice = which.max(ratings)
+P = prods1[1,"Price"]
+MC = (75 + 5*(prods1[1,"Screen"]==10) + 20*(prods1[1,"Cell"]=="Y") + 5*(prods1[1,"Battery"]==8) + 15*(prods1[1,"Battery"]==12))
+profit = (choice==1)*(P-MC)
+```
+
+:::
+
+## Stage 6
+
+Discussion
+
+::: incremental
+
+- Which product did the model predict we would choose? 
+  - iPad
+- What is the cost of Toshiba_A?
+  - Toshiba_A costs $75 + 15 = \$90$
+  
+:::
+
+## Stage 6
+
+Predict choices for supplemental survey respones
+
+::: incremental
+
+- Create a function called tablet_pft1 that takes as inputs:
+  - `lm_res` containing regression results for all subjects
+  - `prods`, a dataframe containing product definitions, as in the previous section
+- `tablet_pft1` should return:
+  - `profit` - the profit for Toshiba’s product (product 1)
+  - `cost` - the cost of Toshiba’s product (product 1)
+  - `choices` - predicted product choices for each subject in `responses_DF` (a list)
+
+:::
+
+## Stage 6
+
+Predict choices for supplemental survey respones
+
+```{r}
+## function: tablet_pft1
+# inputs:
+# lm_res = list of lm() regression results
+# prods_DF = dataframe of product definitions
+# outputs:
+# choices = predicted choice of each subject (list)
+# cost = cost of product 1
+# profit = profit of product 1
+tablet_pft1 <- function(lm_res, prods_DF) {
+  # initialize
+  N = length(lm_res) # number subjects
+  choices = rep(0,N)
+  # loop over subjects: predict ratings/utilities, determine expected choices
+  for (i in 1:N) {
+    ratings = predict(lm_res[[i]], newdata=prods_DF)
+    choices[i] = which.max(ratings)
+    }
+  # calculate demand, cost, profits for product 1 (1st row in prods_DF)
+  Q = sum(choices==1)
+  P = prods_DF[1,"Price"]
+  MC = (75 + 5*(prods_DF[1,"Screen"]==10) + 20*(prods_DF[1,"Cell"]=="Y") + 
+          5*(prods_DF[1,"Battery"]==8) + 15*(prods_DF[1,"Battery"]==12))
+  pft = Q*(P-MC)
+  # return values
+  return(list(choices=choices, cost=MC, profit=pft))
+  }
+```
+
+## Stage 6
+
+Use tablet_pft1 to report:
+
+- profits for `Toshiba_A`
+- demand (expected units sold) for `Toshiba_A`
+- the cost of `Toshiba_A`
+- *Hints*
+  - For each subject, compute the utility (rating) that each consumer would derive from each alternative
+  - For each subject, predict choice as the product with the highest utility (rating)
+
+```{r}
+# call tablet_pft1 using prods1
+prods1.results <- tablet_pft1(lm_res, prods1)
+prods1.results$profit # profits
+sum(prods1.results$choices==1) # units sold
+prods1.results$cost # marginal cost
+```
+
+## Stage 6
+
+Toshiba_B alternative product
+
+::: incremental
+
+- Assume Toshiba is considering between releasing the `Toshiba_A` product and `Toshiba_B`
+  - Screen = 10 (inches)
+  - Cell = "N" (no cell connectivity)
+  - Price = 300 ($)
+  - Battery = 12 (hrs)
+  - OS = "Android"
+- Repeat the analysis above, assuming the iPad competes against `Toshiba_B` only
+
+:::
+
+## Stage 6
+
+Toshiba_B alternative product
+
+```{r}
+prods2 <- data.frame(Screen=c(10,10),
+                    Cell=c("N","Y"),
+                    Price=c(300,500),
+                    Battery=c(12,8),
+                    OS=c("Android","iOS"))
+rownames(prods1) <- c("Toshiba_B","iPad")
+```
+
+## Stage 6
+
+Toshiba_B alternative product
+
+```{r}
+prods2.results <- tablet_pft1(lm_res, prods2)
+prods2.results$profit # profits
+sum(prods2.results$choices==1) # units sold
+prods2.results$cost # marginal cost
+```
+
+## Stage 6
+
+Toshiba_B alternative product
+
+::: incremental
+
+- Which product should Toshiba introduce?
+  - The profit from Toshiba_B is higher ($9635 vs $7350), so Toshiba should go with product B
+  
+:::
+
+## Stage 6
+
+Search over all Android OS alternative products
+
+::: incremental
+
+- The trick here is first to enumerate all possible Android-based tablet designs. The `expand.grid()` function is useful for this purpose
+- After enumerating all possible Android-based tablet designs, loop over the designs and compute profits as before. Store the profit values in a list.
+- Find the element of the profit list with the highest profit. Use the index value for this profile to print the associated product attribute levels.
+
+:::
+
+## Stage 6
+
+```{r}
+# create dataframe will all combinations of screen/cell/price/battery
+allprods_DF <- expand.grid(unique(design_DF$Screen),
+                           unique(design_DF$Cell),
+                           unique(design_DF$Price),
+                           unique(design_DF$Battery))
+colnames(allprods_DF) <- c("Screen","Cell","Price","Battery")
+```
+
+## Stage 6
+
+```{r}
+Np <- nrow(allprods_DF) # number of products to test
+# calculate profits for each candidate product, assuming iPad competition
+pft <- rep(0,Np)
+for (i in 1:Np) {
+  prods = data.frame(Screen=c(allprods_DF[i,"Screen"],10),
+                     Cell=c(as.character(allprods_DF[i,"Cell"]),"Y"),
+                     Price=c(allprods_DF[i,"Price"],500),
+                     Battery=c(allprods_DF[i,"Battery"],8),
+                     OS=c("Android","iOS"))
+  prods.results <- tablet_pft1(lm_res, prods)
+  pft[i] <- prods.results$profit
+}
+```
+
+## Stage 6
+
+```{r}
+# profit
+max(pft)
+# change from Toshiba_B
+max(pft)-prods2.results$profit
+100*(max(pft)-prods2.results$profit)/prods2.results$profit
+# profit-maximizing product
+allprods_DF[which.max(pft),]
+```
+
+
+## Guidelines
+
+- Do not use too many attributes (<= 6)
+  - More attributes increases the burden on consumers in at least two ways
+    - Longer questionnaires 
+    - Makes each question harder to answer, because products become harder to evaluate
+- Focus on the attributes for which managerial decisions need to be made
+- Do not use subjective attributes or ambiguous level descriptions
+- Avoid infeasible combinations

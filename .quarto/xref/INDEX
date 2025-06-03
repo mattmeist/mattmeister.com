@@ -28,5 +28,50 @@
   },
   "posts/star_ratings_steves.qmd": {
     "star_ratings_steves.html": "08c5150c"
+  },
+  "teaching.qmd": {
+    "teaching.html": "4ee4dfce"
+  },
+  "teaching/01 Prediction.qmd": {
+    "01 Prediction.html": "d403376f"
+  },
+  "teaching/05 Treatment Effects Pre Class.qmd": {
+    "05 Treatment Effects Pre Class.html": "76e6f93c"
+  },
+  "teaching/03 Logistic Regression.qmd": {
+    "03 Logistic Regression.html": "d39bf55b"
+  },
+  "teaching/02 Text Analysis.qmd": {
+    "02 Text Analysis.html": "df687405"
+  },
+  "teaching/bias_vs_noise.qmd": {
+    "bias_vs_noise.html": "5b54ba0d"
+  },
+  "teaching/04 Treatment Effects.qmd": {
+    "04 Treatment Effects.html": "3a8a5d17"
+  },
+  "teaching/03 Correlation and Regression.qmd": {
+    "03 Correlation and Regression.html": "cf0d576a"
+  },
+  "teaching/Logistic Regression Slides.qmd": {
+    "Logistic Regression Slides.html": "8542b20f"
+  },
+  "teaching/06 effect sizes.qmd": {
+    "06 effect sizes.html": "7a6e2a2d"
+  },
+  "teaching/Pricing Demand Slides.qmd": {
+    "Pricing Demand Slides.html": "e7a24c95"
+  },
+  "teaching/R_pcc.qmd": {
+    "R_pcc.html": "cc8ee857"
+  },
+  "teaching/Segmentation Slides.qmd": {
+    "Segmentation Slides.html": "d4880f4a"
+  },
+  "teaching/Conjoint 465.qmd": {
+    "Conjoint 465.html": "f0dd180a"
+  },
+  "teaching/01 Hypotheses and Statistical Inference.qmd": {
+    "01 Hypotheses and Statistical Inference.html": "05bd98a5"
   }
 }

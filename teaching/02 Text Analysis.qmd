@@ -1,0 +1,820 @@
+---
+title: "02 - Text Analysis"
+subtitle: "University of San Francisco, MSMI-608"
+include-in-header:
+  - text: |
+      <style>
+      .code-fold-block {
+          margin-bottom: 1em;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          overflow: hidden;
+      }
+      .code-fold-header {
+          background-color: #f7f7f7;
+          padding: 0.5em;
+          cursor: pointer;
+          font-weight: bold;
+          border-bottom: 1px solid #ddd;
+      }
+      .code-fold-content {
+          display: none;
+          padding: 0.5em;
+          background-color: #fdfdfd;
+      }
+      </style>
+  - text: |
+      <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('.code-fold-block').forEach(block => {
+              const header = block.querySelector('.code-fold-header');
+              const content = block.querySelector('.code-fold-content');
+              header.addEventListener('click', () => {
+                  const isHidden = content.style.display === 'none';
+                  content.style.display = isHidden ? 'block' : 'none';
+              });
+          });
+      });
+      </script>
+format: 
+  html:
+    self-contained: true
+    theme: flatly
+    fontsize: 12pt
+    code-fold: false  # Disable default code folding
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+## Outline
+
+
+## Pre-Class Code Assignment Instructions
+
+
+In this semester, I am going to ask you to do a fair bit of work before coming to class. This will make our class time shorter, more manageable, and *hopefully* less boring.
+
+I am also going to use this as an opportunity for you to directly earn grade points for your effort/labor, rather than "getting things right" on an exam.
+
+Therefore, I will ask you to work through the posted slides on Canvas before class. Throughout the slides, I will post **Pre-Class Questions** for you to work through in `R`. These will look like this:
+
+<h4 style="color: darkgreen;">Pre-Class Q1</h4>
+
+<span style="color: darkgreen;">In `R`, please write code that will read in the `.csv` from Canvas called `sf_listings_2312.csv`. Assign this the name `bnb`.</span>
+
+You will then write your answer in a .r script:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q1
+#bnb <- read.csv("sf_listings_2312.csv")
+```
+
+  </div>
+</div> 
+
+
+### Important: 
+
+To earn full points, you need to organize your code correctly. Specifically, you need to:
+
+- Answer questions in order.
+  - If you answer them out of order, just re-arrange the code after.
+- Preface each answer with a comment (`# Q1`/`# Q2`/`# Q3`) that indicates exactly which question you are answering.
+  - Please just write the letter Q and the number in this comment.
+- Make sure your code runs on its own, on anyone's computer.
+  - To do this, I would always include `rm(list = ls())` at the top of every .r script. This will clean everything from the environment, allowing you to see if this runs on my computer.
+  
+
+### Handing this in:
+
+
+- You must submit this to Canvas **before 9:00am on the day of class**. Even if class starts at 10:00am that day, these are always due at 9:00.
+- You must submit this code as a `.txt` file. This is because Canvas cannot present `.R` files to me in SpeedGrader. To save as `.txt`:
+  - Click File -> New File -> Text File
+  - Copy and paste your completed code to that new text file.
+  - Save the file as `firstname_lastname_module.txt`
+    - For example, my file for Module 01 would be `matt_meister_01.txt`
+    - My file for module 05 would be `matt_meister_05.txt`
+    
+    
+### Grading:
+
+
+- I will grade these for completion. 
+- You will receive 1 point for every question you give an honest attempt to answer
+- Your grade will be the number of questions you answer, divided by the total number of questions.
+  - **This is why it is important that you number each answer with** `# Q1`.
+  - Any questions that are not numbered this way will be graded incomplete, because I can't find them.
+- You will receive a 25% penalty for submitting these late.
+- I will post my solutions after class.
+
+## Text Analysis
+
+Load in these packages. If you do not have them, you will need to install them.
+
+- e.g., `install.packages("tidytext")`
+
+  
+```{r}
+library(tidytext)
+library(stringr)
+library(dplyr)
+library(ggplot2)
+library(topicmodels)
+library(tidyr)
+library(Matrix)
+```
+
+
+Read in the Airbnb listings from last class (as `bnb`) as well as the reviews (on Canvas):
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs <- read.csv('sf_reviews_2312.csv')
+```
+
+  </div>
+</div> 
+
+```{r, echo=FALSE, include = FALSE}
+bnb <- read.csv(url("https://www.dropbox.com/scl/fi/9u9xtrxt6yj49ru6enz1x/sf_listings_2312.csv?rlkey=ykdmz3m1j80yakhs5enh0cknk&dl=1"))
+```
+
+
+We have spent a **lot** of time with numbers. We have even dabbled a bit in turning text into numbers. For example, whenever we have made dummy codes/indicator variables (e.g., for gender), we are taking words and turning them into numbers.
+
+Text is an extremely useful form of data, especially for us as market researchers. However, it is not always obvious how to take text and turn it into something that we can test--or use to test other things.
+
+In this module, I will **briefly** introduce four kinds of text analysis:
+
+1. Bag-of-words/sentiment
+2. Topic modeling
+3. Keywords
+4. Classification
+
+Unfortunately, we do not have the time to go into great detail on any one of these. Doing so could be an entire class. Therefore, I suggest--if you are interested--looking online at the many, many blogs/walkthroughs you can find about these.
+
+### Join Reviews and Listings
+
+We are going to analyze the text of the reviews we have for our Airbnb listings. To do so, it would be nice to have the listing information joined with each of the Airbnb snapshots. We can do this with a **join** function, from `dplyr`. There are multiple kinds of joins:
+
+#### 1. **Inner Join (`inner_join`)**
+
+   - Description: Combines two datasets by returning only the rows with matching keys in both datasets.
+   - Use case: Use this when you need data that exists in **both datasets**.
+   - Example: `inner_join(df1, df2, by = "key_column")`
+
+#### 2. **Left Join (`left_join`)**
+
+   - Description: Returns all rows from the first dataset (`df1`) and the matching rows from the second dataset (`df2`). If no match is found, `NA` is returned for columns from `df2`.
+   - Use case: Use this when the focus is on keeping all rows from the **left dataset**.
+   - Example: `left_join(df1, df2, by = "key_column")`
+
+#### 3. **Right Join (`right_join`)**
+
+   - Description: Returns all rows from the second dataset (`df2`) and the matching rows from the first dataset (`df1`). If no match is found, `NA` is returned for columns from `df1`.
+   - Use case: Use this when the focus is on keeping all rows from the **right dataset**.
+   - Example: `right_join(df1, df2, by = "key_column")`
+
+#### 4. **Full Join (`full_join`)**
+
+   - Description: Returns all rows from both datasets. Rows with no match in either dataset will have `NA` in the missing columns.
+   - Use case: Use this when you want a **complete merge** of both datasets, keeping all rows regardless of matching.
+   - Example: `full_join(df1, df2, by = "key_column")`
+
+#### 5. **Semi Join (`semi_join`)**
+
+   - Description: Returns only the rows from the first dataset (`df1`) that have a match in the second dataset (`df2`). It does not add columns from `df2`.
+   - Use case: Use this to **filter rows** in the first dataset based on matching keys in the second dataset.
+   - Example: `semi_join(df1, df2, by = "key_column")`
+
+#### 6. **Anti Join (`anti_join`)**
+
+   - Description: Returns only the rows from the first dataset (`df1`) that **do not** have a match in the second dataset (`df2`).
+   - Use case: Use this to find rows in the first dataset that have **no match** in the second dataset.
+   - Example: `anti_join(df1, df2, by = "key_column")`
+   
+
+We will use `inner_join()`, because I want to only use reviews for which we have listing information. 
+
+In our case, the key column is the listing id. Unfortunately, this is called `id` in the `bnb` data frame, and `listing_id` in the `revs` data frame. I think the easiest thing is to create a new variable in `bnb`:
+
+<h4 style="color: darkgreen;">Pre-Class Q1</h4>
+
+How can we join `revs` and `bnb`?
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+bnb$listing_id <- bnb$id
+revs <- inner_join(revs, bnb, by = 'listing_id', suffix = c('_revs', '_listing'))
+```
+
+  </div>
+</div> 
+
+- `suffix =` tells R what to put at the end of each column that is in both data frames. This tells us where something came from if it is duplicated.
+
+## Cleaning Text
+
+### Why?
+
+Text data is often messy, and has a lot of elements we can't use, such as punctuation, numbers, extra spaces, and special characters. These can obscure underlying patterns, and/or make the data impossible to use. Cleaning the text helps:
+
+- Improve the quality of analysis.
+- Ensure uniformity in the text (e.g., all lowercase).
+- Prepare the text for further processing, such as tokenization or sentiment analysis.
+
+### How?
+
+1. **Lowercasing**: Ensures uniformity by converting all text to lowercase.
+2. **Removing punctuation**: Strips out special characters that don’t contribute to the meaning of the text.
+3. **Removing numbers**: Eliminates numeric characters if they are not relevant.
+4. **Removing stopwords**: Excludes common words (e.g., "and," "the") that don't add much value.
+5. **Trimming whitespace**: Removes extra spaces for clean formatting.
+
+### **Example**
+
+The text in `revs` is contained in the column `comments`. Below, we will complete each step mentioned above.
+
+<h4 style="color: darkgreen;">Pre-Class Q2</h4>
+
+Lowercasing:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs$clean_text <- tolower(revs$comments)
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q3</h4>
+
+Remove punctuation:
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs$clean_text <- str_remove_all(revs$clean_text, "[[:punct:]]")
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q4</h4>
+
+Remove numbers:
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs$clean_text <- str_remove_all(revs$clean_text, "\\d*")
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q5</h4>
+
+Remove stopwords:
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs$clean_text <- str_remove_all(revs$clean_text,
+                                  paste(stop_words$word, collapse = "\\b|\\b"))
+```
+
+  </div>
+</div> 
+
+- When we loaded `tidytext`, it also loaded the data frame `stop_words` in the background. 
+- This contains a bunch of very common words, which don't add much. 
+
+#### What's the `\\b`?
+
+The `\\b` ensures that the pattern matches whole words only, rather than substrings inside larger words.
+
+In our example:
+
+`str_remove_all(revs$clean_text, paste(stop_words$word, collapse = "\\b|\\b"))`
+
+The `\\b` ensures that stopwords like "a" or "the" are removed only when they are standalone words, not parts of other words.
+
+- The word "a" will be removed from "we found a rat in the fridge", but the letter "a" will not
+  - Result: "we found rat in the fridge"
+- This prevents accidental removal of parts of words, ensuring cleaner and more accurate text processing.
+
+<h4 style="color: darkgreen;">Pre-Class Q6</h4>
+
+Remove whitespace:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs$clean_text <- str_squish(revs$clean_text)
+```
+
+  </div>
+</div> 
+
+### **Purpose of Each Step**
+
+1. **Convert to Lowercase (`tolower()`)**:
+   - Text normalization to treat "Hello" and "hello" as the same.
+2. **Remove Punctuation (`str_remove_all("[[:punct:]]")`)**:
+   - Strips out symbols like `!`, `?`, or `.` that don’t carry semantic meaning.
+3. **Remove Numbers (`str_remove_all("\\d*")`)**:
+   - Gets rid of numeric values that may not be relevant to the analysis.
+4. **Remove Stopwords (`str_remove_all`)**:
+   - Uses a pre-defined list of stopwords from the `tidytext` package.
+5. **Trim Extra Whitespace (`str_squish`)**:
+   - Cleans up any remaining extra spaces for neatness.
+
+### Outcome
+
+Here's what the updated `revs` data looks like:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+head(revs[,c('comments', 'clean_text')])
+```
+
+  </div>
+</div> 
+
+Here’s a 10-minute workshop outline for introducing **Bag-of-Words (BoW) Analysis** using `tidyverse` and `tidytext`, with a focus on sentiment analysis as the starting point. The goal is to give students hands-on experience with BoW and demonstrate its flexibility.
+
+## Bag of Words/Sentiment Analysis
+
+### What is Bag-of-Words?
+
+BoW represents text as a collection of words, ignoring grammar and word order, focusing only on the presence (or frequency) of words. Effectively, this is identifying if a word exists in some text. For example, *Did this reviewer say "rat"?*
+
+**Advantages**:
+   - Simplicity and interpretability.
+   - Versatile for various analyses.
+**Disadvantages**:
+   - Ignores word order and context (e.g., sarcasm).
+   - Can be improved with more sophisticated methods (e.g., word embeddings).
+
+- **Use Cases**:
+  - Sentiment analysis.
+  - Word frequency analysis.
+  - Text classification and topic modeling.
+
+### Sentiment Analysis Example:
+
+We will use the `revs` dataset to compute the average sentiment score of reviews. Sentiment analysis helps understand customer opinions. It is especially useful when we can't quantify those opinions in other ways. With reviews, we usually have a star rating, but we actually don't on Airbnb. So this will help fill in a gap.
+
+Sentiment analysis is also a relatively simple application of BoW. It just assigns positive/negative labels to text.
+
+#### Steps
+
+1. **Tokenization**: Break text into individual words.
+2. **Join Sentiments**: Match words with sentiment scores.
+3. **Compute Scores**: Summarize sentiment for each review.
+
+**Step 1: Tokenization**
+
+We tokenize with the function `unnest_tokens()` in R. The function takes a data frame, output, and input column. For us, the output is always going to be called "word". To see how this works, let's use a simple example. Remember, the text has been cleaned.
+
+```{r}
+two_reviews <- data.frame(
+  id = c(1,2),
+  rating = c(2,5),
+  clean_text = c("disgusting this place was full of rats", "beautiful rats")
+)
+
+two_reviews
+
+two_reviews_tokens <- unnest_tokens(two_reviews, word, clean_text)
+two_reviews_tokens
+```
+
+**Step 2: Join Sentiments**
+
+To join sentiments, we have to get a data frame of words and sentiments from somewhere. Luckily, similar to the `stop.words`, there are also sentiment data frames that come with `tidytext`. We will use the `bing` lexicon, for no real reason. Feel free to try others.
+
+```{r}
+bing_sentiments <- get_sentiments("bing")
+head(bing_sentiments)
+
+```
+
+`bing_sentiments` is a data frame of `r nrow(bing_sentiments)` words, each with either a positive or negative tag. This is essentially our "bag" of words. 
+
+Using `inner_join()`, we can see how many positive and negative words are in each review. We can save this as `two_reviews_bing`.
+
+```{r}
+two_reviews_tokens |>
+  inner_join(bing_sentiments, by = "word") 
+```
+
+```{r}
+two_reviews_tokens |>
+  inner_join(bing_sentiments, by = "word") |>
+  count(id, sentiment, sort = TRUE) 
+```
+
+```{r}
+two_reviews_bing <- two_reviews_tokens |>
+  inner_join(bing_sentiments, by = "word") |>
+  count(id, sentiment, sort = TRUE) 
+```
+
+**Step 3: Summarize each review**
+
+```{r}
+two_reviews_tokens |>
+  inner_join(bing_sentiments, by = "word") |>
+  count(id, sentiment, sort = TRUE) |>
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) |>
+  mutate(sentiment_score = positive - negative)
+```
+
+And save that summary as `two_reviews_sentiment`.
+
+```{r}
+two_reviews_sentiment <- two_reviews_tokens |>
+  inner_join(bing_sentiments, by = "word") |>
+  count(id, sentiment, sort = TRUE) |>
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) |>
+  mutate(sentiment_score = positive - negative)
+```
+
+<h4 style="color: darkgreen;">Pre-Class Q7</h4>
+
+Now, let's do all of these steps for the `revs` data frame.
+
+Perform Tokenization for `revs`. Save the result as `revs_tokens`.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs_tokens <- revs |>
+  unnest_tokens(word, clean_text)
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q8</h4>
+
+Get sentiments and join them with `revs_tokens`. Save this as `revs_tokens_bing`.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+bing_sentiments <- get_sentiments("bing")
+
+revs_tokens_bing <- revs_tokens |>
+  inner_join(bing_sentiments, by = "word") |>
+  count(id, sentiment, sort = TRUE) 
+
+revs_sentiment <- revs_tokens_bing |>
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) |>
+  mutate(sentiment_score = positive - negative)
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q9</h4>
+
+Summarize `revs_tokens_bing`. Save this as `revs_sentiment`.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs_sentiment <- revs_tokens_bing |>
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) |>
+  mutate(sentiment_score = positive - negative)
+```
+
+  </div>
+</div> 
+
+
+<h4 style="color: darkgreen;">Pre-Class Q10</h4>
+
+Join this back to `revs`, and save it as `revs`.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+revs <- revs |>
+  left_join(revs_sentiment, by = "id")
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q11</h4>
+
+Visualize the distribution of sentiment.
+
+### More Bags, More Words
+
+This is a super flexible tool. You can look for **anything**. But, there are more common things to do. For example, **Word Frequency Analysis** identifies the most common words in reviews.
+
+<h4 style="color: darkgreen;">Pre-Class Q12</h4>
+
+Find the 10 most common words in `revs`.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+word_frequencies <- revs_tokens |>
+  count(word, sort = TRUE)
+
+head(word_frequencies, 10)
+```
+
+  </div>
+</div> 
+
+## Topic Modeling with LDA
+
+Latent Dirichlet Allocation (LDA) is a powerful machine learning method for discovering hidden **topics** in text data. It groups words that appear together frequently, which you can then label, and use to classify text later. LDA also requires a decent amount of computing power, so I am not going to ask coding questions in this section. I will ask you to discuss my results.
+
+### What is Topic Modeling?
+
+Topic modeling is an "unsupervised" machine learning technique that identifies hidden themes or topics in a collection of documents. Unsupervised just means that there is no set outcome. There is no dependent variable. Topic modeling will just show what words appear together often. 
+
+You can use this to identify key themes, or to classify text into topics. For example: Airbnb reviews that talk about rats vs Airbnb reviews that talk about crime. The key difference between using topic modeling and bag-of-words for classification is that topic modeling *should* pick up context better than bag-of-words.
+
+**Advantages**:
+
+- Unsupervised: No need for labeled data.
+- Interpretable: Provides human-readable results.
+
+**Disadvantages**:
+
+- Requires careful preprocessing.
+- May struggle with small datasets or very sparse data.
+
+
+### Implementation
+
+To extract topics, we fit an LDA model to the *"document-term matrix"*. Specifically, we tell LDA how many topics we want with `k =`. I am going to ask for four.
+
+The document-term matrix is similar to our data frame of tokens, but is summarized (somewhat) at the document level. For us, the *document* is each review, the *term* is each word. This document-term matrix tells us, for **every** word in **all** reviews, if the word is in that specific review.
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+
+```{r}
+# Convert to document-term matrix
+revs_tokens <- revs |>
+  unnest_tokens(word, clean_text) |>
+  count(id, word, sort = TRUE) |> # Count word frequencies by review
+  ungroup()
+dtm <- cast_dtm(revs_tokens, document = id, term = word, value = n)
+
+lda_model <- LDA(dtm, k = 4, control = list(seed = 123))
+```
+</div>  
+</div>  
+
+
+Once this has run, we can identify the most important words for each topic. I am going to show 10.
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+
+```{r}
+# Extract top words for each topic
+topics <- tidy(lda_model, matrix = "beta")
+
+top_terms <- topics |>
+  group_by(topic) |>
+  slice_max(beta, n = 10) |>
+  arrange(-beta) |>
+  ungroup() |>
+  mutate(term = factor(term))
+
+# View top words
+ggplot(top_terms, aes(x = term, y = beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free_y") +
+  coord_flip() +
+  labs(
+    title = "Top 10 Terms for Each Topic",
+    x = "Terms",
+    y = "Beta Value (Probability)"
+  ) +
+  theme_minimal()
+```
+
+</div>  
+</div>  
+
+From these results, we would have to interpret the topics ourselves. 
+
+<h4 style="color: darkgreen;">Pre-Class Q12</h4>
+
+How would you label each of these four topics? Is there an obvious distinction between them?
+
+<h4 style="color: darkgreen;">Pre-Class Q13</h4>
+
+We have missed something important in our pre-processing here. What do you notice about the words in each topic that we have missed? **Alternatively,** do you think we should *fix* this?
+
+
+## Keyword Analysis with TF-IDF
+
+TF-IDF (Term Frequency-Inverse Document Frequency) is a technique for identifying keywords that are unique to individual documents. This can be useful to distinguish **keywords** that tell us something meaningful from words that are merely used often.
+
+### What is TF-IDF?
+
+TF-IDF measures the importance of a word in a document relative to all of our documents (which is called the corpus).
+- **Formula**:  
+  \[\text{TF-IDF}(t, d) = \text{TF}(t, d) \times \text{IDF}(t)\]  
+  - **Term Frequency (TF)**: Frequency of the word \(t\) in document \(d\).
+  - **Inverse Document Frequency (IDF)**: Logarithm of the ratio of total documents to the number of documents containing \(t\).
+- This highlights words that are frequent in one document but rare across others, identifying keywords unique to each document.
+
+**Advantages**:
+
+- Balances local and global importance of words.
+- Useful for keyword extraction, document summarization, and search.
+
+**Disadvantages**:
+
+- Does not consider word context or semantics.
+- Sensitive to noisy or sparse data.
+
+
+### Implementation
+
+Keyword analysis at the level of each review can be helpful, but it is potentially more useful to do this at the neighborhood level, with `neighbourhood_cleansed`.
+
+To prepare the data for TF-IDF analysis, we have to tokenize and count word frequencies. We will do that within `neighbourhood_cleansed`.
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+
+```{r}
+revs_tokens <- revs |>
+  unnest_tokens(word, clean_text) |>
+  count(neighbourhood_cleansed, word, sort = TRUE)
+
+# Total word counts per document (for term frequency calculation)
+revs_tokens <- revs_tokens |>
+  group_by(neighbourhood_cleansed) |>
+  mutate(total_words = sum(n)) |>
+  ungroup()
+```
+</div>  
+</div>  
+
+Then, we can use functions from the `tidytext` package to calculate the TF-IDF scores for each word in each neighborhood. In this code, I am also going to only show five keywords per neighborhood.
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+```{r}
+# Compute TF-IDF
+tf_idf <- revs_tokens |>
+  bind_tf_idf(term = word, document = neighbourhood_cleansed, n = n)
+
+tf_idf <- tf_idf |>
+  arrange(desc(tf_idf)) |>
+  select(neighbourhood_cleansed, word, tf_idf) |>
+  group_by(neighbourhood_cleansed) |>
+  slice_max(tf_idf, n = 5) |>
+  ungroup()
+
+# Print top keywords
+head(tf_idf, 20)
+```
+</div>  
+</div>  
+
+### What makes each neighborhood unique?
+
+Keyword extraction is most useful in distinguishing things. For example, we might want to know what keywords in each neighborhood are **different** from others. Here is one way we can do that:
+
+<h4 style="color: darkgreen;">Pre-Class Q14</h4>
+
+Step 1: Tokenize and count word frequencies by neighborhood
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+```{r}
+revs_tokens <- revs |> 
+  unnest_tokens(word, clean_text) |> 
+  count(neighbourhood_cleansed, word, sort = TRUE) |> 
+  group_by(neighbourhood_cleansed) |> 
+  mutate(total_words = sum(n)) |> 
+  ungroup()
+```
+</div>  
+</div>  
+
+
+<h4 style="color: darkgreen;">Pre-Class Q15</h4>
+
+Step 2: Compute TF-IDF to identify terms
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+```{r}
+tf_idf <- revs_tokens |> 
+  bind_tf_idf(term = word, document = neighbourhood_cleansed, n = n)
+```
+</div>  
+</div>  
+
+<h4 style="color: darkgreen;">Pre-Class Q16</h4>
+
+Step 3: Calculate "proportional frequencies" for comparison across neighborhoods. This shows how large of a proportion of all reviews in this neighborhood each word is, compared to the same proportion overall.
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+```{r}
+tf_idf <- tf_idf |> 
+  mutate(proportion = n / total_words) |> 
+  group_by(word) |> 
+  mutate(avg_proportion = mean(proportion), 
+         z_score = (proportion - avg_proportion) / sd(proportion)) |> 
+  ungroup()
+```
+</div>  
+</div>  
+
+<h4 style="color: darkgreen;">Pre-Class Q17</h4>
+
+Step 4: Identify the top distinctive keyword for each neighborhood.
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+```{r}
+distinctive_keywords <- tf_idf |> 
+  group_by(neighbourhood_cleansed) |> 
+  slice_max(z_score, n = 1) |>  # Select most distinctive term
+  arrange(neighbourhood_cleansed, desc(z_score)) |> 
+  ungroup()
+```
+</div>  
+</div>  
+
+<h4 style="color: darkgreen;">Pre-Class Q18</h4>
+
+Step 5: Interpret the results. What do you notice about these neighborhoods, based on their key words?
+
+<div class="code-fold-block">  
+<div class="code-fold-header">Click to show code and output</div>  
+<div class="code-fold-content">  
+```{r}
+print(distinctive_keywords)
+```
+</div>  
+</div>  
+
+<h4 style="color: darkgreen;">Pre-Class Q19</h4>
+
+This is going to be hard to do. But, for two points, I want you to try to make a map that has each keyword plotted in its neighborhood.

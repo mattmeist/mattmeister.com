@@ -1,0 +1,409 @@
+---
+title: "05 Treatment Effects"
+subtitle: "University of San Francisco, MSMI-608"
+include-in-header:
+  - text: |
+      <style>
+      .code-fold-block {
+          margin-bottom: 1em;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          overflow: hidden;
+      }
+      .code-fold-header {
+          background-color: #f7f7f7;
+          padding: 0.5em;
+          cursor: pointer;
+          font-weight: bold;
+          border-bottom: 1px solid #ddd;
+      }
+      .code-fold-content {
+          display: none;
+          padding: 0.5em;
+          background-color: #fdfdfd;
+      }
+      </style>
+  - text: |
+      <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('.code-fold-block').forEach(block => {
+              const header = block.querySelector('.code-fold-header');
+              const content = block.querySelector('.code-fold-content');
+              header.addEventListener('click', () => {
+                  const isHidden = content.style.display === 'none';
+                  content.style.display = isHidden ? 'block' : 'none';
+              });
+          });
+      });
+      </script>
+format: 
+  html:
+    self-contained: true
+    theme: flatly
+    fontsize: 12pt
+    code-fold: false  # Disable default code folding
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+## Pre-Class Code Assignment Instructions
+
+
+In this semester, I am going to ask you to do a fair bit of work before coming to class. This will make our class time shorter, more manageable, and *hopefully* less boring.
+
+I am also going to use this as an opportunity for you to directly earn grade points for your effort/labor, rather than "getting things right" on an exam.
+
+Therefore, I will ask you to work through the posted slides on Canvas before class. Throughout the slides, I will post **Pre-Class Questions** for you to work through in `R`. These will look like this:
+
+<h4 style="color: darkgreen;">Example</h4>
+
+<span style="color: darkgreen;">In `R`, please write code that will read in the `.csv` from Canvas called `sf_listings_2312.csv`. Assign this the name `bnb`.</span>
+
+You will then write your answer in a .r script:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q1
+#bnb <- read.csv("sf_listings_2312.csv")
+```
+
+  </div>
+</div> 
+
+
+### Important: 
+
+To earn full points, you need to organize your code correctly. Specifically, you need to:
+
+- Answer questions in order.
+  - If you answer them out of order, just re-arrange the code after.
+- Preface each answer with a comment (`# Q1`/`# Q2`/`# Q3`) that indicates exactly which question you are answering.
+  - Please just write the letter Q and the number in this comment.
+- Make sure your code runs on its own, on anyone's computer.
+  - To do this, I would always include `rm(list = ls())` at the top of every .r script. This will clean everything from the environment, allowing you to see if this runs on my computer.
+  
+
+### Handing this in:
+
+
+- You must submit this to Canvas **before 9:00am on the day of class**. Even if class starts at 10:00am that day, these are always due at 9:00.
+- You must submit this code as a `.txt` file. This is because Canvas cannot present `.R` files to me in SpeedGrader. To save as `.txt`:
+  - Click File -> New File -> Text File
+  - Copy and paste your completed code to that new text file.
+  - Save the file as `firstname_lastname_module.txt`
+    - For example, my file for Module 01 would be `matt_meister_01.txt`
+    - My file for module 05 would be `matt_meister_05.txt`
+    
+    
+### Grading:
+
+
+- I will grade these for completion. 
+- You will receive 1 point for every question you give an honest attempt to answer
+- Your grade will be the number of questions you answer, divided by the total number of questions.
+  - **This is why it is important that you number each answer with** `# Q1`.
+  - Any questions that are not numbered this way will be graded incomplete, because I can't find them.
+- You will receive a 25% penalty for submitting these late.
+- I will post my solutions after class.
+
+## Setup
+
+Load in these packages. If you do not have them, you will need to install them.
+
+- e.g., `install.packages("fixest")`
+  
+```{r}
+library(dplyr)
+library(ggplot2)
+library(fixest)
+```
+
+Read in `cola_data.csv` from Canvas, and assign it the name `DF`:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+DF <- read.csv("cola_data.csv")
+```
+
+  </div>
+</div> 
+
+## Causality
+
+We are often attempting to test some causal relationship with our data. Specifically, we want to know if the factor we care about is **causing** a change in the outcome that matters to us. We can visualize this like this:
+
+##### The Potential Outcomes Model
+
+![](Defining causality.png){fig-align="center" width="1000"}
+
+#### Example 1: Causal effect of getting a college degree on earnings
+
+![](Example 1.png){fig-align="center" width="1000"}
+
+## Example 2: Causal effect of receiving a Target coupon on purchasing
+
+![](Example 2.png){fig-align="center" width="1000"}
+
+This causal effect (*also called a treatment effect*) of the **treatment** *W*~i~ on individual *i* can be written as:
+
+  $Y_i(W_i = 1) - Y_i(W_i = 0)$
+
+All this estimates is the difference in earnings ($Y$) if individual ($i$) went to college ($W = 1$) vs. did not go to college ($W = 0$). Or the difference in purchase rate ($Y$) if individual ($i$) received a coupon ($W = 1$) vs. did not ($W = 0$)
+
+In the absolute **best** case, we would have a model of *parallel worlds*, where the treatment is the **only** (!) difference across the two worlds. Unfortunately, we only have access to a single world... for now. 
+
+
+
+### Potential outcomes vs. actually observed data
+
+In any data we only observe the **realized** outcome for each individual:
+
+  $Y_i(W_i = 1)$ **OR** $Y_i(W_i = 0)$
+
+This means we cannot directly estimate the *individual* causal effect (treatment effect) for each individual person. This is because each person only has a single outcome at a single time. Because... again... one universe for now.
+
+Instead of estimating *individual* treatment effects, we must estimate the *average* treatment effect in the population:
+
+  $ATE = Avg [Y_i(W_i = 1) - Y_i(W_i = 0)]$
+
+This is the average difference in outcomes between groups. The average difference in earnings for individuals who went to college vs. those who did not go to college, and the average difference in purchase rate when receiving vs. not receiving coupon. Unfortunately, this introduces the potential for "confounds".
+
+### Confounds
+
+If you have ever heard the saying that "correlation does not imply causation", then you have heard about confounds. These are "other explanations" that may cause the relationships we observe. In the examples above:
+
+-   Individuals who go to college may have better academic skills and a higher earnings potential than those who do not go to college
+-   Suppose coupon is targeted to individuals who buy the product at the current purchase occasion.
+  -   Individuals with a coupon will generally be more likely to buy in future than others.
+
+In general, this means that we cannot just subtract one group from the other. Treated individuals may be selected in systematic ways, and we only observe one outcome per person. So we can't just say that treatment **causes** an outcome... generally. 
+
+But all hope is not lost, and we do have some solutions. We will cover two this week:
+
+-   Randomization + experiments
+    -   "lab" conditions --- fully randomized, controlled experiments
+    -   "field" conditions --- partially randomized, controlled experiments
+-   Model based predictions
+    -   Idea: Use regression models to predict outcome of treated unit in control condition
+    -   Requires explicit assumptions on omitted factors
+    -   Used with observational data, field experiments
+    
+In class we will cover randomization and experiments. But first, we will talk about model-based predictions below.
+
+## To begin
+
+These data are observations of cola sales at a series of `stores` over a series of `months`. Sometimes, this cola was on `promotion`. We are going to use this data to analyze the effect of `price` and `promotion` on `sales`. Our goal is to understand these effects so that we can design some pricing policy for our stores.
+
+First, check how many stores and months we have here.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+length(unique(DF$store))
+length(unique(DF$month))
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q1</h4>
+
+Generate a scatterplot of `sales` vs. `price`. Then, in a comment discuss whether you think that there is a relationship between `price` and `sales`.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+ggplot(data = DF, aes(x = price, y = sales)) +
+  geom_point(alpha = .8, size = 2)
+#Possible relationship, but weak if at all
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q2</h4>
+
+Now, estimate a linear regression of `sales` as a function of `price` and `promotion`. In a comment, interpret the coefficients.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+summary(lm(sales ~ price + promo, data=DF))
+#   1 dollar price increase leads to +2.88 units sold
+#   Promotion month leads to +10.97 units sold
+```
+
+  </div>
+</div> 
+
+The estimated `price` coefficient is positive. This means that an increase in `price` will lead to **more** cola sold. That does not make much basic economic sense, since people shouldn't buy things more if price increases. Let's investigate this a bit.
+
+What we are worried about here is called **Omitted Variable Bias**. Omitted variable bias happens when some variable we *do not include in our model* is biasing our results. This is worrisome because we care about making causal claims---i.e., price increases *cause* people to buy more/less.
+
+One way we have tried to reconcile omitted variable bias in the past is by controlling for things in our models. When we have these other variables, we can remove their impact directly. However, these data do not have many control variables. For example, if we worry that demand for other items at a store might increase demand for cola, we cannot directly control for that here--we don't have "demand."
+
+Luckily, the data we have here is well-suited to addressing potential omitted variable bias through a second path. That path is by looking at *Within-person*/*Within-unit* variation in sales. We can do this whenever we have **panel data**, which is data that has repeated observations of the same units (i.e., stores) over time. This is also commonly called "cross-sectional" data, because we have a cross-section of stores, observed over many time periods.
+
+The fact that we have repeated observations on both `month` and `store` gives us  strong controls for omitted variables. We will do this through store fixed effects and time trends/fixed effects.
+
+
+### Omitted Variable Bias
+
+How does adding fixed effects/trends help with omitted variables? The variation absorbed by these parameters (controls) no longer enters the error in our regressions. This means that far fewer things are left to be potentially correlated with `price`. The "stronger" the set of controls (more parameters), the less concern for bias. We will build up to this step-by-step.
+
+First, let's estimate a linear regression of `sales` as a function of `price`, `promotion` and `month`. This would remove omitted variable bias if our omitted variable was something that correlated with **both** `sales` and `month`, and did so linearly. For example, inflation goes up every month, meaning that `price` has a slightly different meaning each month.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+summary(lm(sales~price + promo + month, data=DF))
+```
+
+  </div>
+</div> 
+
+From this, we see that each month, sales are increasing by 1.62 units from the prior month. This is linear growth---because it comes from a linear regression---and hence called a *linear time trend*.
+
+<h4 style="color: darkgreen;">Pre-Class Q3</h4>
+
+In a comment, answer whether there is statistical evidence of a linear time trend in sales.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+#Yes, the coefficient on month is highly significant (and positive).
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q4</h4>
+
+In a comment, answer:
+
+Has the inclusion of a linear time trend "fixed" the sign of the price coefficient? What does this mean?
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+#No, price still has a positive effect on demand.
+#This *suggests* we need further controls for omitted variables (e.g., time fixed effects).
+```
+
+  </div>
+</div> 
+
+What if the omitted variable is correlated with both sales and month, but not linearly? The previous regression handles omitted variable bias if the omitted variable follows the calendar (e.g., `1` > `2` > `3`...). But it may not. For example, if our stores were in vacation destinations, we should see higher sales in the summer and winter, and lower in spring/fall.
+
+With a fixed-effect for `month`, we can control for this non-linear relationship. This effectively removes variation across each individual month, rather than calculating a trend. We will use `feols()` from the `fixest` package to calculate this.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+summary(feols(sales ~ price + promo | month, data = DF))
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q5</h4>
+
+In a comment, answer:
+
+What do you notice about the coefficients for `price` and `promotion` in this model, compared to the others?
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+#Price still has a positive effect on demand.
+#This *suggests* we need further controls for omitted variables (e.g., store-specific fixed effects).
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q6</h4>
+
+Now, let's try to remove between-store variation with a `store` fixed effect.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+summary(feols(sales ~ price + promo | month + store, data = DF))
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q7</h4>
+
+In a comment, answer whether and why this changed our result.
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+#This changes our result a lot. This must be because different stores lead to different sales and prices.
+```
+
+  </div>
+</div> 
+
+
+## Summary
+
+-   When we did not control for `store` fixed effects, we got a surprising result
+-   The simplest model we ran showed what we think is the wrong result
+-   So we dug deeper
+    -   **"Is this result due to something we can't observe?"**
+- Removing `month` variation did not fix the issue
+
+
+## Panel Data... How does it work?
+
+### Within-Unit Transformation
+
+
+`feols()` does not use dummy variables to estimate fixed effects. Instead, it transforms the data to "eliminate" the fixed effect, then runs a regular linear regression.
+
+Rather than `sales ~ price + store`:
+
+- We subtract the average of `sales` for each `store` from each observation.
+- And we subtract the average of `price` for each `store` from each observation.
+
+This gives us **De-meaned y regressed on de-meaned X**. This means there is NO intercept in this regression (it is absorbed by fixed effects).
+
+#### Implications of this transformation:
+
+All time-constant factors entering `X` and `Y` are removed from the regression. **Including all unobserved time-constant omitted variables**. This leads to a major reduction in omitted variable bias, as we are only left with time-varying factors. The nice thing is that these fixed effects mean we don't even need to know what the omitted variables could be, let alone have data for them.

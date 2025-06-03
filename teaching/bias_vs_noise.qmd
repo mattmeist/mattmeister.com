@@ -1,0 +1,703 @@
+---
+title: "Bias vs. Noise"
+author: "Matt Meister"
+subtitle: "University of San Francisco"
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 3em;
+        color: black;
+      }
+      </style>
+format: 
+  revealjs:
+    self-contained: true
+    scrollable: true
+    theme: simple
+    fontsize: 20pt
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+```{r, echo = F, include = F}
+# List of packages
+pkgs <- c('ggplot2')
+
+# Check for packages that are not installed
+new.pkgs <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
+
+# Install the ones we need
+if(length(new.pkgs)) install.packages(new.pkgs,repos = "http://cran.us.r-project.org")
+
+#Load them all in
+lapply(pkgs, library, character.only = TRUE)
+
+# Remove lists
+rm(pkgs, new.pkgs)
+```
+
+
+## Bias vs Noise
+
+In statistics, the terms **bias** and **noise** refer to very specific things.
+
+::: fragment
+
+**Bias**: 
+
+- *Systematic* errors that *consistently* push measurements or estimates away from the true value
+- It is *predictable*, and often stems from flaws in the measurement process or the sampling method.
+- Bias tends to push measurements or estimates in a particular direction, either overestimating or underestimating the true value.
+
+:::
+
+::: fragment
+
+**Noise**: 
+
+- Randomness or fluctuations in data that *can't be attributed to a systematic cause*
+- Unpredictable. Can result from various sources, including measurement errors, and chance. 
+- Noise doesn't consistently push data in one direction but adds random fluctuations around the true value.
+
+:::
+
+## Bias vs Noise
+
+How we handle each also differs:
+
+::: incremental
+- **Bias:** 
+  - Usually involves identifying and eliminating or reducing sources of systematic error.
+  - Techniques such as calibration, randomization, and careful study design can help mitigate bias.
+- **Noise:** 
+  - Inherently random and cannot be eliminated entirely. 
+  - Techniques like averaging, statistical tests, and increasing sample sizes reduce the impact of noise.
+
+:::
+
+# Noise
+
+"Why isn't having a small sample size a source of bias?"
+
+## Noise
+
+*"Why isn't having a small sample size a source of bias?"*
+
+Read in the data `customerData.csv`
+
+```{r}
+customerData <- read.csv("customerData.csv")
+```
+
+Let's treat this full data set of `r nrow(customerData)` observations as the **population** -- the entire set of people we are interested in.
+
+In the **population**, what is the mean of `income`?
+
+::: fragment
+
+```{r}
+mean(customerData$income)
+```
+
+:::
+
+## Noise
+
+Imagine we did not know this number for the population
+
+- We could only **estimate** it by surveying a sample of people.
+
+::: fragment
+
+- Take a random subset of 10 observations by running this code:
+
+```{r}
+sample.size <- 10
+
+customerDataSmall <- customerData[
+  sample(x = 1:nrow(customerData),
+         size = sample.size,
+         replace = F), 
+  ]
+```
+
+:::
+
+## Noise
+
+If you did not know the population average of `income`, how would you estimate it with your survey sample?
+
+::: fragment
+
+- You would see what the mean in the sample is!
+
+```{r}
+mean(customerDataSmall$income)
+```
+
+:::
+
+::: fragment
+
+That sample estimate is going to be **noisy**
+
+- It's going to vary from sample to sample around the **population average**
+  - *"true mean"*
+
+:::
+
+## Noise
+
+That sample estimate is going to be **noisy**
+
+- It's going to vary from sample to sample around the **population average**.
+
+- If everyone in the class had their own sample (which you do), what might your different estimates look like?
+
+::: fragment
+
+
+```{r, echo = F}
+set.seed(12)
+nsims <- 1000
+sample.size <- 10
+sample.results <- data.frame(
+  sample = 1:nsims,
+  mean = rep(NA, times = nsims),
+  sample.size = sample.size
+)
+
+for (i in 1:nrow(sample.results)){
+  sample.results$mean[i] <- mean(customerData[
+  sample(x = 1:nrow(customerData),
+         size = sample.size,
+         replace = F), 
+  "income"])
+}
+
+ggplot(data = sample.results,
+       aes(x = mean)) +
+  geom_density(data = sample.results[sample.results$sample.size == 10,],
+               fill = 'blue',
+               alpha = .5) +
+  theme_minimal() +
+  geom_vline(xintercept = mean(customerData$income))
+```
+
+:::
+
+## Noise
+
+Are these estimates **biased**?
+
+::: fragment
+
+- Are they more likely to be above or below the true mean?
+
+:::
+
+::: fragment
+
+% above:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean > mean(customerData$income))/ # Is the sample mean > than the pop?
+  nsims
+```
+
+:::
+
+::: fragment
+
+% below:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean < mean(customerData$income))/ # Is the sample mean > than the pop?
+  nsims
+```
+
+:::
+
+## Noise
+
+With a small sample, our results are not more likely to fall on one side of the true mean than the other.
+
+- As long as our data don't have crazy outliers!!
+
+What is the benefit of larger samples, then?
+
+::: fragment
+
+- Precision!
+- How far off were our estimates, on average?
+
+```{r}
+mean(abs(sample.results$mean - mean(customerData$income))) |>
+  round(2)
+```
+
+:::
+
+## Noise
+
+Let's try with samples of 20:
+
+```{r, echo = F}
+set.seed(12)
+```
+
+```{r}
+sample.size <- 20
+
+customerDataSmall <- customerData[
+  sample(x = 1:nrow(customerData),
+         size = sample.size,
+         replace = F), 
+  ]
+
+mean(customerDataSmall$income)
+```
+
+## Noise
+
+Let's try with samples of 20:
+
+::: fragment
+
+```{r, echo = F}
+set.seed(12)
+nsims <- 1000
+sample.size <- 20
+sample.results.20 <- data.frame(
+  sample = (nsims+1):(nsims*2),
+  mean = rep(NA, times = nsims),
+  sample.size = sample.size
+)
+
+for (i in 1:nrow(sample.results.20)){
+  sample.results.20$mean[i] <- mean(customerData[
+  sample(x = 1:nrow(customerData),
+         size = sample.size,
+         replace = F), 
+  "income"])
+}
+
+sample.results <- rbind(sample.results, sample.results.20)
+
+ggplot(data = sample.results,
+       aes(x = mean, 
+           group = sample.size)) +
+  geom_density(data = sample.results[sample.results$sample.size == 10,],
+               aes(fill = "Sample Size 10"),
+               alpha = .5) +
+  geom_density(data = sample.results[sample.results$sample.size == 20,],
+               aes(fill = "Sample Size 20"),
+               alpha = .5) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Sample Size 10" = "blue", "Sample Size 20" = "red")) +
+  geom_vline(xintercept = mean(customerData$income))
+
+```
+
+:::
+
+## Noise
+
+Let's try with samples of 20:
+
+- How far off was our estimate, on average?
+
+```{r}
+mean(abs(sample.results[sample.results$sample.size==20,'mean'] - mean(customerData$income))) |>
+  round(2)
+```
+
+
+## Noise
+
+Let's try with samples of 100:
+
+```{r, echo = F}
+set.seed(12)
+```
+
+```{r}
+sample.size <- 100
+
+customerDataSmall <- customerData[
+  sample(x = 1:nrow(customerData),
+         size = sample.size,
+         replace = F), 
+  ]
+
+mean(customerDataSmall$income)
+```
+
+## Noise
+
+Let's try with samples of 100:
+
+```{r, echo = F}
+nsims <- 1000
+sample.size <- 100
+sample.results.100 <- data.frame(
+  sample = (nsims+1):(nsims*2),
+  mean = rep(NA, times = nsims),
+  sample.size = sample.size
+)
+
+for (i in 1:nrow(sample.results.100)){
+  sample.results.100$mean[i] <- mean(customerData[
+  sample(x = 1:nrow(customerData),
+         size = sample.size,
+         replace = F), 
+  "income"])
+}
+
+sample.results <- rbind(sample.results, sample.results.100)
+
+ggplot(data = sample.results,
+       aes(x = mean, 
+           group = sample.size)) +
+  geom_density(data = sample.results[sample.results$sample.size == 10,],
+               aes(fill = "Sample Size 10"),
+               alpha = .5) +
+  geom_density(data = sample.results[sample.results$sample.size == 20,],
+               aes(fill = "Sample Size 20"),
+               alpha = .5) +
+  geom_density(data = sample.results[sample.results$sample.size == 100,],
+               aes(fill = "Sample Size 100"),
+               alpha = .5) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Sample Size 10" = "blue", "Sample Size 20" = "red", "Sample Size 100" = "green")) +
+  geom_vline(xintercept = mean(customerData$income))
+
+```
+
+## Noise
+
+Let's try with samples of 100:
+
+- How far off was our estimate, on average?
+
+```{r}
+mean(abs(sample.results[sample.results$sample.size==100,'mean'] - mean(customerData$income))) |>
+  round(2)
+```
+
+
+## Noise
+
+Conclusion:
+
+- Noise is **random error**
+- It causes our estimates to bounce around the true/population mean
+- Makes our estimates imprecise
+- But it doesn't push them in one direction or another
+
+Bias on the other hand...
+
+# Bias
+
+Is bad...er
+
+## Bias
+
+::: incremental
+- *Systematic* errors that *consistently* push measurements or estimates away from the true value
+- It is *predictable*, and often stems from flaws in the measurement process or the sampling method.
+- Bias tends to push measurements or estimates in a particular direction, either overestimating or underestimating the true value.
+- Is **not** made better by increasing sample sizes
+
+:::
+
+## Bias
+
+Let's imagine that instead of estimating `income` with a **random** sample of 10/20/100 people, we sent out a survey, and got 10 responses. 
+
+- But young people were more likely to respond
+
+```{r}
+sample.size <- 10
+
+under30 <- customerData[customerData$age <= 29,]
+
+customerDataSmall <- under30[
+  sample(x = 1:nrow(under30),
+         size = sample.size,
+         replace = F), 
+  ]
+```
+
+## Bias
+
+What is our estimate of `income` from these samples?
+
+::: fragment
+
+
+```{r, echo = F}
+set.seed(123)
+nsims <- 1000
+sample.size <- 10
+sample.results <- data.frame(
+  sample = 1:nsims,
+  mean = rep(NA, times = nsims),
+  sample.size = sample.size
+)
+
+for (i in 1:nrow(sample.results)){
+  sample.results$mean[i] <- mean(under30[
+  sample(x = 1:nrow(under30),
+         size = sample.size,
+         replace = F), 
+  "income"])
+}
+
+ggplot(data = sample.results,
+       aes(x = mean)) +
+  geom_density(data = sample.results[sample.results$sample.size == 10,],
+               fill = 'blue',
+               alpha = .5) +
+  theme_minimal() +
+  geom_vline(xintercept = mean(customerData$income))
+```
+
+:::
+
+## Bias
+
+Are these estimates **biased**?
+
+::: fragment
+
+- Are they more likely to be above or below the true mean?
+
+:::
+
+::: fragment
+
+% above:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean > mean(customerData$income))/ # Is the sample mean > than the pop?
+  nrow(sample.results)
+```
+
+:::
+
+::: fragment
+
+% below:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean < mean(customerData$income))/ # Is the sample mean > than the pop?
+  nrow(sample.results)
+```
+
+:::
+
+
+## Bias
+
+Let's try with samples of 20:
+
+```{r}
+sample.size <- 20
+
+customerDataSmall <- under30[
+  sample(x = 1:nrow(under30),
+         size = sample.size,
+         replace = F), 
+  ]
+
+mean(customerDataSmall$income)
+```
+
+## Bias
+
+Let's try with samples of 20:
+
+```{r, echo = F}
+set.seed(123)
+nsims <- 1000
+sample.size <- 20
+sample.results.20 <- data.frame(
+  sample = (nsims+1):(nsims*2),
+  mean = rep(NA, times = nsims),
+  sample.size = sample.size
+)
+
+for (i in 1:nrow(sample.results.20)){
+  sample.results.20$mean[i] <- mean(under30[
+  sample(x = 1:nrow(under30),
+         size = sample.size,
+         replace = F), 
+  "income"])
+}
+
+sample.results <- rbind(sample.results, sample.results.20)
+
+ggplot(data = sample.results,
+       aes(x = mean, 
+           group = sample.size)) +
+  geom_density(data = sample.results[sample.results$sample.size == 10,],
+               aes(fill = "Sample Size 10"),
+               alpha = .5) +
+  geom_density(data = sample.results[sample.results$sample.size == 20,],
+               aes(fill = "Sample Size 20"),
+               alpha = .5) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Sample Size 10" = "blue", "Sample Size 20" = "red")) +
+  geom_vline(xintercept = mean(customerData$income))
+
+```
+
+
+## Bias
+
+Are these estimates **biased**?
+
+::: fragment
+
+- Are they more likely to be above or below the true mean?
+
+:::
+
+::: fragment
+
+% above:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean > mean(customerData$income))/ # Is the sample mean > than the pop?
+  nrow(sample.results)
+```
+
+:::
+
+::: fragment
+
+% below:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean < mean(customerData$income))/ # Is the sample mean > than the pop?
+  nrow(sample.results)
+```
+
+:::
+
+## Bias
+
+Let's try with samples of 100:
+
+```{r}
+sample.size <- 100
+
+customerDataSmall <- under30[
+  sample(x = 1:nrow(under30),
+         size = sample.size,
+         replace = F), 
+  ]
+
+mean(customerDataSmall$income)
+```
+
+## Bias
+
+Let's try with samples of 100:
+
+::: fragment
+
+```{r, echo = F}
+nsims <- 1000
+sample.size <- 100
+sample.results.100 <- data.frame(
+  sample = (nsims+1):(nsims*2),
+  mean = rep(NA, times = nsims),
+  sample.size = sample.size
+)
+
+for (i in 1:nrow(sample.results.100)){
+  sample.results.100$mean[i] <- mean(under30[
+  sample(x = 1:nrow(under30),
+         size = sample.size,
+         replace = F), 
+  "income"])
+}
+
+sample.results <- rbind(sample.results, sample.results.100)
+
+ggplot(data = sample.results,
+       aes(x = mean, 
+           group = sample.size)) +
+  geom_density(data = sample.results[sample.results$sample.size == 10,],
+               aes(fill = "Sample Size 10"),
+               alpha = .5) +
+  geom_density(data = sample.results[sample.results$sample.size == 20,],
+               aes(fill = "Sample Size 20"),
+               alpha = .5) +
+  geom_density(data = sample.results[sample.results$sample.size == 100,],
+               aes(fill = "Sample Size 100"),
+               alpha = .5) +
+  theme_minimal() +
+  scale_fill_manual(values = c("Sample Size 10" = "blue", "Sample Size 20" = "red", "Sample Size 100" = "green")) +
+  geom_vline(xintercept = mean(customerData$income))
+
+```
+
+:::
+
+## Bias
+
+Are these estimates **biased**?
+
+::: fragment
+
+- Are they more likely to be above or below the true mean?
+
+:::
+
+::: fragment
+
+% above:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean > mean(customerData$income))/ # Is the sample mean > than the pop?
+  nrow(sample.results)
+```
+
+:::
+
+::: fragment
+
+% below:
+
+```{r}
+sum( # Sum of the logical argument
+  sample.results$mean < mean(customerData$income))/ # Is the sample mean > than the pop?
+  nrow(sample.results)
+```
+
+:::
+
+
+## Bias
+
+Conclusion:
+
+- Bias is **not** random error
+- It causes our estimates to be higher **or** lower than the true/population mean
+- Makes our estimates **predictably wrong**
+- It does not get better with sample size

@@ -20,6 +20,8 @@ website:
         href: code_data.qmd
       - text: "<span class='btn btn-yellow'>Reviews HOF</span>"
         href: reviews_hall_of_fame.qmd
+      - text: "<span class='btn btn-yellow'>Teaching</span>"
+        href: teaching.qmd
   google-analytics: "G-KEYFNVVL8D"
 
 format:

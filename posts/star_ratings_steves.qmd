@@ -32,13 +32,13 @@ This is the first in a series about star ratings/online reviews. I plan to mainl
 
 #### The promise
 
-We make decisions by making comparisons.[^1] Sometimes, we compare the cost of doing something to the benefit of doing that thing---"Will I enjoy a vacation to Toledo enough to offset its cost?"---deciding **whether** to do/buy something. Other times, we compare options directly---"Where should I stay overnight on my vacation in Toledo?"---deciding **what** to do/buy. I am going to focus on the second type of comparison in this post. This is not because deciding **whether** to do something is any less important or complex, but because I think that we under-appreciate how misinformed we are in these decisions.
+We make decisions by making comparisons.[^1] Sometimes, we compare the cost of doing something to the benefit of doing that thing---asking questions like "Will I enjoy a vacation to Toledo enough to offset its cost?". Other times, we compare options directly---questions like "Where should I stay overnight on my vacation in Toledo?". This post is about the second type of comparison. I think that we under-appreciate how misinformed we are in these decisions.
 
 [^1]: Not *always*, of course; When I have to use the restroom, I don't compare the time cost to the time I would lose by changing my pants. But many of the decisions we care about result from comparisons.
 
-Making these comparisons is often difficult. If I have never been to Toledo, nor the area around it, how am I supposed to decide which of Toledo's hotels, Airbnbs, and Vrbos I will be happiest staying at? I almost certainly cannot do this alone. I simply do not have the information.
+Making these comparisons is often difficult. If I have never been to Toledo, nor the area around it, how am I supposed to decide which of Toledo's hotels, Airbnbs, and Vrbos I will be happiest staying at? I can't do this alone. I simply do not have the information.
 
-So, how do we compare alternatives? We collect more information. Two decades ago, I would have gone to Chapters,[^2] bought a copy of [Rick Steves' guidebook to Toledo and Madrid](https://store.ricksteves.com/shop/p/madrid-guidebook), and followed Mr. Steves. If he preferred the *Hotel Carlos V* over the *Hotel Pintor El Greco*, then Carlos V it would be for me. Because how else could I compare Toledo's lodging?
+So, how do we compare alternatives? We collect more information. Two decades ago, I would have gone to Chapters,[^2] bought a copy of [Rick Steves' guidebook to Toledo and Madrid](https://store.ricksteves.com/shop/p/madrid-guidebook), and followed Mr. Steves. If he preferred the *Hotel Carlos V* over the *Hotel Pintor El Greco*, then Carlos V it would be for me. Because how else could I compare?
 
 [^2]: In America, this translates to "Barnes and Noble".
 
@@ -46,13 +46,13 @@ The internet changed all of that. The internet democratized opinions, as it demo
 
 [^3]: If only temporarily in some cases.
 
-In theory, this is wonderful. The internet exposes us to opinions from people who are like us. Rick Steves is a professional traveler from [Barstow, California](https://en.wikipedia.org/wiki/Barstow,_California) (which might be more arid and empty than the moon). How could he possibly know what it is like to travel for me, a recreational traveler from El Cerrito, California? Certainly, the masses at Tripadvisor will know better *for me*. The internet also shows these opinions in clearly comparable formats---star ratings.
+In theory, this is wonderful. The internet exposes us to opinions from people who are like us. Rick Steves is a professional traveler from [Barstow, California](https://en.wikipedia.org/wiki/Barstow,_California).^[Which might be more arid and empty than the moon] How could he possibly know what it is like to travel for me, a recreational traveler from El Cerrito, California? Certainly, the masses at Tripadvisor will know better *for me*. The internet also shows these opinions in clearly comparable formats---star ratings.
 
 Therefore, if the *Hotel Carlos V* has an average star rating of 4.3, and the *Hotel Pintor El Greco* a 4.6, it *must* be true that the Pintor is the way to go! If it wasn't better, why would it have a higher rating?
 
 #### The problem
 
-Unfortunately, we don't create ratings in the same way that we use them. Specifically, we don't create a rating for a hotel by comparing our experience at that hotel to our experience at a different hotel---we can't do this, because we only stay at one hotel at a time. And even if we do stay at multiple hotels over some period of time, we certainly do not stay at them all, or even a substantial fraction.
+Unfortunately, reality is not so simple, in part because we don't create ratings in the same way that we use them. Specifically, we don't create a rating for a hotel by comparing our experience at that hotel to our experience at a different hotel---we can't do this, because we only stay at one hotel at a time. And even if we do stay at multiple hotels over some period of time, we certainly do not stay at them all, or even a substantial fraction.
 
 The result is that no two ratings mean the same thing; Even though they are on the same scale visually (1-5 stars), there is nothing to enforce ratings to be on the same scale mentally. In fact, they can be quite different, and misleading as a result. For example, we often evaluate things in comparison to our prior expectations for that thing. The higher our expectations, the more likely we are to be disappointed in a given experience,[^4] which leads to lower ratings. This can become a big problem when two conditions are met:
 

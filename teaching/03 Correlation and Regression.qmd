@@ -1,0 +1,1334 @@
+---
+title: "Correlation and Linear Regression"
+author: "Matt Meister"
+subtitle: "University of San Francisco"
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 3em;
+        color: black;
+      }
+      </style>
+format: 
+  revealjs:
+    scrollable: true
+    theme: simple
+    fontsize: 20pt
+    self-contained: true
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+```{r, echo = F, include = F}
+library(ggplot2); library(kableExtra); library(PerformanceAnalytics); library(dplyr)
+```
+
+
+## Relationships between multiple variables
+
+We've just started to talk about relationships between multiple variables.
+
+::: incremental
+
+- Do different *advertisements* lead to different *interest*?
+- How do different *features* of shoes lead to different *ratings*?
+- Do stores closer to population centers sign up more customers than further stores?
+
+:::
+
+::: fragment
+
+Why might we care **a lot** about relationships between multiple variables?
+
+:::
+
+::: fragment
+
+-   Often, we can manipulate factors related to them.
+-   etc.
+
+:::
+
+## Relationships between multiple variables
+
+Identifying **multivariate** relationships helps us as marketers.
+
+::: incremental
+
+-   *e.g.,* If stores in population centers do better than further ones, what is an obvious implication?
+    -   Move people closer to our stores
+        -   No!
+    -   Place new stores near population centers
+
+:::
+
+::: fragment
+
+In this module, we focus on:
+
+-   Understanding the relationships between pairs of variables (**multivariate** data)
+-   Visualizing these relationships
+-   Computing statistics that describe their associations
+    -   Correlation coefficients
+    -   Regression coefficients
+
+:::
+
+## Relationships between multiple variables
+
+I've taken real data from [rei.com](REI.com) and added a few simulated variables for class.
+
+Download it from Canvas, and load it into R!
+
+```{r}
+reiData <- read.csv('rei_products.csv')
+```
+
+## Our Setting
+
+::: incremental
+
+- For today's class, we are going to take the role of a market analyst at REI
+- Specifically, our job is to identify new types of shoes that we should stock
+- We are going to use data from REI stores to make this decision
+
+:::
+
+## These Data
+
+::: incremental
+-   How many shoes?
+  - `r length(unique(reiData$productId))`
+- How many brands?
+  - `r length(unique(reiData$brand))`
+- What's a good way to look at these data?
+- Describe these variables:
+  - `price`
+  - `avg_rating`
+  - `sales`
+  - `mens`
+  - `avg_size`
+  - `avg_running`
+  - `cushion`
+  - `weight`
+  
+:::
+
+## How Can We Predict `sales`?
+
+::: incremental
+
+- We want to know what variables impact `sales` 
+- If our goal is to increase future sales, these variables are *worth knowing*
+- Two general types of predictor variables 
+  - Groups (discrete)
+  - Continuous
+- Luckily, we can test them the same way
+  
+:::
+
+## Continuous Predictors
+
+With continuous predictors (independent variables), we are seeing if some numeric variable predicts outcomes
+
+::: fragment
+
+**Is there a meaningful relationship between these two variables?**
+
+- Does x cause y?
+
+:::
+
+## Outline for Today
+
+1. Data = Model + Error
+2. Why is the `mean` our best guess (model) when we know nothing else?
+3. Using `lm()` to find better (linear) models
+4. Testing whether that model is better
+
+## Data = Model + Error
+
+- The whole point of this is to find better models to predict our data
+- "model" can be a single guess, a guess at a relationship, or something else
+- Regardless, we are trying to minimize **Error**
+  - Which is the **sum of squared error**
+
+## Continuous Predictors
+
+In our REI data, our outcome is `sales`
+
+```{r, echo=F}
+ggplot(data = reiData,
+       aes(x = 0, y = sales)) +
+  geom_point() +
+  theme_bw()
+```
+
+## Continuous Predictors
+
+In our REI data, our outcome is `sales`
+
+- Without knowing anything else, what is our best guess at the sales a new shoe will bring?
+
+::: fragment
+
+- The *mean* of `sales` (`r round(mean(reiData$sales, na.rm = T),2)`)
+
+```{r, echo=F}
+ggplot(data = reiData,
+       aes(x = 0, y = sales)) +
+  geom_point() +
+  geom_hline(yintercept = mean(reiData$sales, na.rm = T)) +
+  theme_bw()
+```
+:::
+
+## Continuous Predictors
+
+In our REI data, our outcome is `sales`
+
+- Without knowing anything else, what is our best guess at the sales a new shoe will bring?
+  - The *mean* of `sales` (`r round(mean(reiData$sales, na.rm = T),2)`)
+- How wrong will we be normally?
+
+::: fragment
+
+- The *standard deviation* of `sales` (`r round(sd(reiData$sales, na.rm = T),2)`)
+
+```{r, echo=F}
+ggplot(data = reiData,
+       aes(x = 0, y = sales)) +
+  geom_point() +
+  geom_hline(yintercept = mean(reiData$sales, na.rm = T)) +
+  geom_hline(yintercept = mean(reiData$sales, na.rm = T) - sd(reiData$sales, na.rm = T), linetype = "dotted") +
+  geom_hline(yintercept = mean(reiData$sales, na.rm = T) + sd(reiData$sales, na.rm = T), linetype = "dotted") +
+  theme_bw()
+```
+:::
+
+## Continuous Predictors
+
+In our REI data, our outcome is `sales`
+
+- Without knowing anything else, what is our best guess at the sales a new shoe will bring?
+  - The *mean* of `sales` (`r round(mean(reiData$sales, na.rm = T),2)`)
+- How wrong will we be normally?
+  - The *standard deviation* of `sales` (`r round(sd(reiData$sales, na.rm = T),2)`)
+- How could we get better guesses?
+
+::: fragment
+
+- Use some other variable!
+  - Like `weight`
+
+:::
+
+## Continuous Predictors
+
+In our REI data, our outcome is `sales`
+
+::: incremental
+
+- We can use `weight` to predict `sales` better
+  - Why would we care whether `weight` predicts `sales`?
+  - Because we can make new shoes with different weights!
+- What is one way we have looked at **continuous predictors** so far (in R)?
+  
+:::
+
+## Continuous Predictors: Scatterplots
+
+::: fragment
+
+```{r}
+ggplot(data = reiData,
+       aes(x = weight, y = sales)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = 'lm', se = F, size = 1) +
+  theme_bw()
+```
+:::
+
+## Continuous Predictors
+
+Is this scatterplot showing a strong relationship?
+
+::: incremental
+
+-   Scatterplots provide a lot of visual information
+-   But they're very \~**vibesy**\~
+    -   Not precise
+-   And when there are more than a few variables, they're a mess
+-   Therefore, it's nice to also have a number
+
+:::
+
+## Continuous Predictors
+
+Are these scatterplots showing strong relationships?
+
+Two ways to know with numbers:
+
+::: incremental
+
+- Regression
+  - Using `lm()` in R
+  - Bueno
+- Correlations:
+  -   Using `cor()` in R
+
+:::
+
+
+## Linear Regression
+
+Regression does the following:
+
+-   It helps us to understand how two (or more) variables vary together
+-   We can make clear predictions from regression coefficients
+-   We can test regression coefficients against a **null hypothesis**
+
+## Linear Regression
+
+So what is linear regression?
+
+- Why did I say that the *mean* of a variable is our **best guess** at any given value of that variable?
+- Let's try some guesses of `reiData$sales`
+
+::: fragment
+
+To understand this, let's look the first 10 values of `reiData`
+
+```{r}
+reiDataSmall <- head(reiData, 20)
+```
+
+And I'm going to only keep the columns I think are useful for this example
+
+```{r}
+reiDataSmall <- reiDataSmall[, c('weight', 'sales')]
+reiDataSmall
+```
+
+:::
+
+## Why is the mean the best guess?
+
+If we are interested in the `sales` column, let's see what it looks like:
+
+```{r}
+ggplot(data = reiDataSmall, # Scatterplot
+       aes(x = 0, 
+           # ^ This is just a hacky way to get everything on the same spot on the x-axis
+           y = sales)) +
+  geom_point() +
+  theme_bw()
+
+```
+
+## Why is the mean the best guess?
+
+::: incremental
+- We are going to try to make the BEST guess we can at each value of `sales`
+- The best guess will be the one with the lowest possible **squared** error (residuals) between:
+  - Our guess and the real data
+- Why **squared**?
+  - This makes every *error* positive
+    - Penalizing us for guessing too high **and** too low
+  - This penalizes us for **very** wrong guesses more than slightly wrong ones
+  
+:::
+
+## Why is the mean the best guess?
+
+I'll start by guessing the mean, or average
+
+```{r}
+guess <- mean(reiDataSmall$sales)
+reiDataSmall$guess <- guess
+reiDataSmall
+```
+
+## Why is the mean the best guess?
+
+How wrong was I?
+
+- Subtract the real data from the guess
+
+```{r}
+reiDataSmall$how_wrong <- reiDataSmall$guess - reiDataSmall$sales
+```
+
+::: fragment
+
+- Square them to make them all positive
+```{r}
+reiDataSmall$how_wrong2 <- (reiDataSmall$guess - reiDataSmall$sales) ^ 2
+reiDataSmall
+```
+
+:::
+
+## Why is the mean the best guess?
+
+The column `how_wrong2` is equal to `guess` - `sales`, **squared**
+  - ...i.e., the guess, minus the real data, **squared**
+
+::: fragment
+How wrong was I in total?
+```{r}
+sum(reiDataSmall$how_wrong2)
+```
+:::
+
+## Why is the mean the best guess?
+
+To see if that's the best guess we could have made:
+
+::: incremental
+- Let's try some others!
+
+:::
+
+
+## Why is the mean the best guess?
+
+I'll guess something else
+
+```{r}
+guess <- 11
+reiDataSmall$guess <- guess
+reiDataSmall
+```
+
+## Why is the mean the best guess?
+
+How wrong was I?
+
+- Subtract the real data from the guess
+
+```{r}
+reiDataSmall$how_wrong <- reiDataSmall$guess - reiDataSmall$sales
+```
+
+::: fragment
+
+- Square them to make them all positive
+```{r}
+reiDataSmall$how_wrong2 <- (reiDataSmall$guess - reiDataSmall$sales) ^ 2
+reiDataSmall
+```
+
+:::
+
+## Why is the mean the best guess?
+
+The column `how_wrong2` is equal to `guess` - `sales`, **squared**
+  - ...i.e., the guess, minus the real data, **squared**
+
+::: fragment
+How wrong was I in total?
+```{r}
+sum(reiDataSmall$how_wrong2)
+```
+:::
+
+
+## Why is the mean the best guess?
+
+I'll guess something else
+
+```{r}
+guess <- 9
+reiDataSmall$guess <- guess
+reiDataSmall
+```
+
+## Why is the mean the best guess?
+
+How wrong was I?
+
+- Subtract the real data from the guess
+
+```{r}
+reiDataSmall$how_wrong <- reiDataSmall$guess - reiDataSmall$sales
+```
+
+::: fragment
+
+- Square them to make them all positive
+```{r}
+reiDataSmall$how_wrong2 <- (reiDataSmall$guess - reiDataSmall$sales) ^ 2
+reiDataSmall
+```
+
+:::
+
+## Why is the mean the best guess?
+
+The column `how_wrong2` is equal to `guess` - `sales`, **squared**
+  - ...i.e., the guess, minus the real data, **squared**
+
+::: fragment
+How wrong was I in total?
+```{r}
+sum(reiDataSmall$how_wrong2)
+```
+:::
+
+## Why is the mean the best guess?
+
+To see if that's the best guess we could have made:
+
+::: incremental
+- Let's try some others!
+- Let's simulate a thousand other guesses:
+  - From the **minimum** `sales` to the **maximum**
+
+:::
+
+::: fragment
+
+```{r}
+# Set up simulation with a data frame to hold results
+sims <- 1000
+simulation.results <- data.frame(
+  guess = c(mean(reiDataSmall$sales),
+            seq(length.out = sims-1, 
+              from = min(reiDataSmall$sales),
+              to = max(reiDataSmall$sales))),
+  how_wrong2 = rep(NA, times = sims)
+)
+```
+
+:::
+
+## Why is the mean the best guess?
+
+- Run simulation with `for()` loop
+
+```{r}
+for( i in 1:sims){
+  simulation.results$how_wrong2[i] <- sum(
+    (simulation.results$guess[i] - reiDataSmall$sales) ^2 )
+}
+```
+
+## Why is the mean the best guess?
+
+- What does it look like if I plot how wrong I was by what my guess was?
+
+```{r}
+ggplot(data = simulation.results,
+       aes(x = guess,
+           y = how_wrong2)) +
+  geom_point()
+```
+
+## Why is the mean the best guess?
+
+- What is the minimum amount I was wrong?
+
+
+```{r}
+min(simulation.results$how_wrong2)
+```
+
+- What was my guess at that point?
+
+```{r}
+bestguess <- min(simulation.results$how_wrong2)
+simulation.results[simulation.results$how_wrong2 == bestguess,]
+```
+
+- And what was the mean again?
+```{r}
+mean(reiDataSmall$sales)
+```
+
+## Why is the mean the best guess?
+
+```{r}
+ggplot(data = simulation.results,
+       aes(x = guess,
+           y = how_wrong2)) +
+  geom_point() + 
+  geom_point(data = simulation.results[simulation.results$guess == mean(reiDataSmall$sales),],
+             aes(x = guess,
+                 y = how_wrong2),
+             color = 'red',
+             size = 4)
+```
+
+## Fun fact:
+
+- The median will minimize the sum of absolute error:
+
+```{r}
+simulation.results.median <- data.frame(
+  guess = c(median(reiDataSmall$sales),
+            seq(length.out = sims-1, 
+              from = min(reiDataSmall$sales),
+              to = max(reiDataSmall$sales))),
+  how_wrong = rep(NA, times = sims)
+)
+
+for( i in 1:sims){
+  simulation.results.median$how_wrong[i] <- sum(abs(simulation.results.median$guess[i] - reiDataSmall$sales))
+}
+```
+
+## Fun fact:
+
+- The median will minimize the sum of absolute error:
+
+```{r}
+ggplot(data = simulation.results.median,
+       aes(x = guess,
+           y = how_wrong)) +
+  geom_point()
+```
+
+## Fun fact:
+
+The median will minimize the sum of absolute error:
+
+- What is the minimum amount I was wrong?
+
+```{r}
+min(simulation.results.median$how_wrong)
+```
+
+- What was my guess at that point?
+
+```{r}
+
+bestguess.median <- min(simulation.results.median$how_wrong)
+simulation.results.median[simulation.results.median$how_wrong == bestguess.median,]
+```
+
+## Linear Regression
+
+If we did not know a shoe's `weight`, what would be our best guess of `sales`?
+
+::: fragment
+The mean sales!
+
+```{r}
+mean(reiDataSmall$sales)
+```
+:::
+
+## Linear Regression
+
+Graphically, that "guess" looks like this:
+
+```{r}
+ggplot(reiDataSmall,
+       aes(x = 1, 
+           y = sales)) +
+  geom_point() +
+  geom_hline(yintercept = mean(reiDataSmall$sales))
+```
+
+## Linear Regression
+
+But what if we have information about their weight?
+
+::: fragment
+```{r}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point()
+
+```
+:::
+
+
+## Linear Regression
+
+- How does our old guess look?
+
+::: fragment
+
+```{r}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point() +
+  geom_hline(yintercept = mean(reiDataSmall$sales))
+```
+
+:::
+
+## Linear Regression
+
+-   That flat line is no longer our best guess, is it?
+
+::: fragment
+
+- In this case, the mean is no longer the best possible guess
+    - This is because there are large **residuals** between the line we guess and many points
+        - Especially on the edges
+
+```{r, echo = F}
+ggplot(reiDataSmall,
+       aes(x = weight, y = sales)) +
+  geom_point() +
+  geom_hline(yintercept = mean(reiDataSmall$sales)) +
+  geom_segment(aes(xend = weight, yend = mean(reiDataSmall$sales)), 
+               color = "red",
+               linetype = 'dashed',
+               size = 1) +
+  geom_point() 
+```
+
+:::
+
+## Linear Regression
+
+Instead, what is our new best guess?
+
+::: incremental
+
+- It's the one that minimizes the **sum of squared residuals**, given that we now know `weight`
+- We can find it the same way we found the best guess **without weight**
+- But rather than guessing one number, we'll guess that the slope of this line is:
+
+:::
+
+::: fragment
+```{r, echo = F}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point() +
+  geom_smooth(formula = 'y~x',
+              method = 'lm', 
+              se = F)
+```
+:::
+
+## Linear Regression
+
+What is our new best guess?
+
+- I'm going to test a bunch of different intercepts and slopes
+
+```{r}
+sims <- 10000
+simulation.results <- data.frame(
+   guess.intercept = runif(n = sims,
+               min = 400,
+               max = 500),
+   guess.slope = runif(n = sims,
+               min = 0,
+               max = 15),
+   how_wrong2 = rep(NA, times = sims)
+)
+ 
+for( i in 1:sims){
+   for( j in 1:nrow(reiDataSmall)){
+     reiDataSmall$how_wrong2[j] <- ((simulation.results$guess.intercept[i] + simulation.results$guess.slope[i] * reiDataSmall$weight[j]) - reiDataSmall$sales[j])^2
+   }
+   simulation.results$how_wrong2[i] <- sum(reiDataSmall$how_wrong2)
+ }
+```
+
+## Linear Regression
+
+What is our new best guess?
+
+- I'm going to test a bunch of different intercepts and slopes
+- What gets us the lowest squared error?
+
+```{r}
+simulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]
+```
+
+To get the exact numbers
+
+-   Use `lm()` to find the coefficient for `weight`
+
+```{r}
+lm(data = reiDataSmall,
+   formula = sales ~ weight)
+```
+
+## Linear Regression
+
+That's how we end up with this line:
+
+::: fragment
+```{r, echo = F}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point() +
+  geom_smooth(formula = 'y~x',
+              method = 'lm', 
+              se = F)
+```
+:::
+
+## Linear Regression
+
+These best guesses are now different at each level of weight:
+
+```{r}
+weight.lm <- lm(data = reiDataSmall,
+   formula = sales ~ weight)
+reiDataSmall$bestguess.lm <- weight.lm$coef["(Intercept)"] + 
+  weight.lm$coef["weight"]  * reiDataSmall$weight
+reiDataSmall$how_wrong2.lm <- ( reiDataSmall$bestguess.lm - reiDataSmall$sales)^2
+
+reiDataSmall[, c('weight', 'bestguess.lm')]
+```
+
+## Linear Regression
+
+And what are the residuals if we take `weight` into account?
+
+```{r}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point() +
+  geom_smooth(formula = 'y~x',
+              method = 'lm', 
+              se = F, color = 'black') +
+  geom_segment(aes(xend = weight, yend = reiDataSmall$bestguess.lm), 
+               color = "red",
+               linetype = 'dashed',
+               size = 1) +
+  geom_point() 
+```
+
+## Linear Regression
+
+And what are the residuals if we take `weight` into account?
+
+::: fragment
+```{r}
+reiDataSmall[, c('weight', 'bestguess.lm', 'how_wrong2.lm')]
+
+```
+
+```{r}
+sum(reiDataSmall$how_wrong2.lm)
+```
+:::
+
+
+## Linear Regression
+
+Is that smaller than before?
+
+
+::: fragment
+
+*SSE* from mean:
+
+```{r}
+sum(reiDataSmall$how_wrong2)
+```
+:::
+
+::: fragment
+
+*SSE* including weight:
+
+```{r}
+sum(reiDataSmall$how_wrong2.lm)
+```
+:::
+
+## But is it worth drawing that line?
+
+::: incremental
+-   Is the reduction in squared error worth it?
+-   We're always going to reduce error when we add more things into a model
+-   But we only want to add things that are really worth it
+    -   Overfitting old data makes us likely to make worse predictions in the future
+    -   Complexity makes our results hard to explain
+    
+:::
+
+## But is it worth drawing that line?
+
+::: fragment
+
+::: columns
+::: {.column width="50%"}
+```{r}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point() +
+  geom_hline(yintercept = mean(reiDataSmall$sales))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+ggplot(reiDataSmall,
+       aes(x = weight, 
+           y = sales)) +
+  geom_point() +
+  geom_smooth(formula = 'y~x',
+              method = 'lm', 
+              se = F)
+```
+:::
+:::
+
+:::
+
+## Testing Linear Regression
+
+Use `summary()` around `lm()` to find the coefficient **and p-value** `weight`
+
+```{r}
+summary(lm(data = reiDataSmall,
+   formula = sales ~ weight))
+```
+
+::: incremental
+
+- What is the meaning of this p-value?
+- It's the same as any p-value
+  - "What is the probability of seeing a **slope** this far (or more) from zero?"
+    - If there was **no true relationship** between `weight` and `sales`
+    
+:::
+
+## Linear Regression
+
+What *(I think)* you should take away from this lesson *if nothing else.*
+
+::: incremental
+
+-   All linear regression is is answering the question:
+    -   "If I know something about variable `x`, what is my best guess about the value of `y`?"
+    -   Specifically, what is the best line I can draw through my data
+-   And *for the most part*, "fancier" statistics essentially boil down to linear regression.
+
+:::
+
+# Linear Regression with Discrete/Group Predictors
+
+## Discrete/Group Predictors
+
+We can use regression as just an extension of a t-test
+
+::: fragment
+
+- Does cushion impact sales?
+- Let's simplify this by removing the "Medium" cushion group
+
+```{r}
+reiData <- reiData[reiData$cushion != "Medium",]
+```
+
+First, let's plot this
+
+:::
+
+## Discrete/Group Predictors
+
+Does cushion impact sales?
+
+Plot!
+
+::: fragment
+```{r}
+reiData |>
+  group_by(cushion) |>
+  summarise(sales = mean(sales, na.rm = T)) |> # Not sure if we have missing data
+  ggplot(
+    aes(x = cushion,
+        y = sales)) +
+  geom_bar(stat = "identity")
+
+```
+:::
+
+
+## Discrete/Group Predictors
+
+What we are basically doing is comparing these plots:
+
+::: columns
+::: {.column width="50%"}
+```{r, echo=F}
+reiData |>
+  group_by(cushion) |>
+  summarise(sales = mean(sales, na.rm = T)) |> # Not sure if we have missing data
+  ggplot(
+    aes(x = cushion,
+        y = sales)) +
+  geom_bar(stat = "identity")
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo=F}
+reiData |>
+  group_by(cushion = 1) |>
+  summarise(sales = mean(sales, na.rm = T)) |> # Not sure if we have missing data
+  ggplot(
+    aes(x = cushion,
+        y = sales)) +
+  geom_bar(stat = "identity")
+```
+:::
+:::
+
+And answering the question:
+
+*Is it worth knowing that we can separate the data into these two groups?*
+
+## Group Predictors
+
+So let's see!
+
+Using the `lm()` function in R:
+
+```{r}
+#| code-line-numbers: "1|2|3|4"
+lm( 
+  data = reiData, 
+  formula = sales ~ cushion ) |> # The dv is sales, IV is "cushion"
+  summary() # Summarise it
+```
+
+::: fragment
+What do you notice about this result, compared to the one from the t-test?
+
+:::
+
+::: fragment
+
+```{r}
+t.test( 
+  reiData[reiData$cushion == 'Low', 'sales'], 
+  reiData[reiData$cushion == 'High', 'sales']) 
+```
+
+It's the same thing!
+
+:::
+
+
+## Discrete/Group Predictors
+
+Why is the result the same thing?
+
+- Because a regression and a t-test are **mostly** the same thing
+  - Take some data
+  - Compare the difference in two groups to the difference that would happen from **chance alone**
+
+## Discrete/Group Predictors
+
+Let's extend this.
+
+Read the entire data back in, which has the third group
+
+```{r}
+reiData <- read.csv('rei_products.csv')
+```
+
+## Discrete/Group Predictors
+
+I want to know:
+
+- If `cushion` is worth knowing for `sales`:
+  - If the three levels differ from eachother
+
+
+## Answer
+
+::: fragment
+
+Null hypothesis: That there is no difference in `sales` between cushion levels.
+
+```{r}
+#| code-line-numbers: "1|2|3|4|1-4|6|7|8|9|10|11|12|1-13"
+lm(
+  data = reiData, 
+  sales ~ cushion) |>
+  summary()
+
+reiData |>
+  group_by(cushion) |>
+  summarise(sales = mean(sales, na.rm = T)) |>
+  ggplot(
+    aes(x = cushion,
+        y = sales)) +
+  geom_bar(stat = 'identity', fill = c('seagreen', 'goldenrod', 'seagreen3')) +
+  theme_bw()
+```
+
+Conclusion: There is likely a difference between conditions, as the likelihood that a difference this large arises by chance alone is < .001%.
+
+:::
+
+## Answer
+
+To make the plot less gross
+
+```{r}
+reiData$cushion <- factor(reiData$cushion, levels = c("Low", "Medium", "High"))
+lm(
+  data = reiData, 
+  sales ~ cushion) |>
+  summary()
+
+reiData |>
+  group_by(cushion) |>
+  summarise(sales = mean(sales, na.rm = T)) |>
+  ggplot(
+    aes(x = cushion,
+        y = sales)) +
+  geom_bar(stat = 'identity', fill = c('seagreen', 'goldenrod', 'seagreen3')) +
+  theme_bw()
+```
+
+
+## Discrete/Group Predictors
+
+But what if I want to know:
+
+- If it is worth knowing if `cushion` is "High" specifically
+  - Vs. Low and Medium
+  - You'll have to construct a "dummy code"
+  - Google this
+- Test with `lm()`
+- Plot the condition means
+
+## Discrete/Group Predictors
+
+Answer
+
+::: fragment
+
+Null hypothesis: That there is no difference in `sales` between cushion high and the **combination** of low and medium.
+
+
+```{r}
+reiData$cushionHigh <- ifelse(reiData$cushion == "High", 1, 0)
+
+lm(
+  data = reiData, 
+  sales ~ cushionHigh) |>
+  summary()
+
+reiData |>
+  group_by(cushionHigh) |>
+  summarise(sales = mean(sales, na.rm = T)) |>
+  ggplot(
+    aes(x = cushionHigh,
+        y = sales)) +
+  geom_bar(stat = 'identity', fill = c('seagreen', 'goldenrod')) +
+  theme_bw()
+```
+
+Conclusion: There is likely a difference.
+
+:::
+
+## Discrete/Group Predictors
+
+But what if I want to know whether the relationship between the three conditions is linear?
+
+- i.e., Low is worst, then medium, then high?
+
+::: fragment
+
+- We can construct a **contrast code**
+
+```{r}
+reiData$cushionLinear <- ifelse( reiData$cushion == "Low", -1,
+                                 ifelse(reiData$cushion == "Medium", 0, 1))
+
+summary(lm(data = reiData, sales ~ cushionLinear))
+```
+
+:::
+
+## Linear Regression: Controlling for variables
+
+Controlling for variables
+
+Sometimes we think that some... *other* variable predicts our outcome, and we want to take its effect away.
+
+- e.g., If we thought shoes sold more when they were high `cushion`, but we know that cushion effects `weight`
+- To "control" for this `weight`, we can add (`+`) it to our model:
+
+```{r}
+#| code-line-numbers: "1|2|3|4|1-4"
+lm(
+  data = reiData, 
+  formula = sales ~ cushion + weight) |>
+  summary()
+```
+
+## Controlling for variables
+
+Rules for controlling for variables:
+
+**First:** 
+
+- Test the effect of the control on the `DV` alone 
+
+
+```{r}
+#| code-line-numbers: "3|1-4"
+lm(
+  data = reiData, 
+  formula = sales ~ weight) |>
+  summary()
+```
+
+- If it is meaningful, it's worth controlling for
+- If the control does not predict the `DV`, it can't affect our result
+
+## Controlling for variables
+
+Rules for controlling for variables:
+
+**Second:** 
+
+- Test the effect of the `IV` on the control
+
+
+```{r}
+#| code-line-numbers: "3|1-4"
+lm(
+  data = reiData, 
+  weight ~ cushion) |>
+  summary()
+```
+
+
+## Controlling for variables
+
+If the control predicts the `DV` AND `IV` predicts control:
+
+- We say this "`IV` is **confounded** with the control variable"
+  - It is harder to disentangle:
+    - "`IV` leads to `DV`" *from*
+    - "control leads to `DV`, and that is why it **looks like** `IV` leads to `DV`"
+    
+::: fragment
+
+If the control predicts the `DV` BUT `IV` DOES NOT predict control:
+
+- We include the control, and it makes our `IV` appear more reliable
+  - It reduces the amount of variance in the `DV` that our `IV` has to explain
+    
+:::
+
+## Controlling for variables
+
+To know from this:
+
+- What a "control variable" is
+- What two steps we perform to decide whether to include a control
+- What if the control predicts our `DV`?
+- What if the `IV` **also** predicts our control?
+
+## Linear Regression Wrap Up
+
+::: incremental
+
+-   We're basically always drawing lines through points in statistics:
+    -   Logistic regression:
+        -   Lines, but they have to be between 0 and 1
+    -   Lasso Regression (machine learning):
+        -   Lines, but a little more conservative
+    -   Random Forests (machine learning):
+        -   Lines, but lots of lines, and just to a single end point
+:::
+
+# Correlation
+
+## Correlation
+
+Are these scatterplots showing strong relationships?
+
+Two ways to know with numbers:
+
+::: incremental
+
+- Regression
+  - Using `lm()` in R
+  - Bueno
+- Correlations:
+  -   Using `cor()` in R
+
+:::
+
+## Correlation Coefficients
+
+Specifically, this is a *Pearson* correlation coefficient
+
+-   Often abbreviated with *r*.
+-   This is a continuous metric between -1 and 1.
+    -   Perfectly positive (x goes up, y goes up **the same**): +1
+    -   Perfectly negative: -1
+
+::: fragment
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+plot(c(1:50), 
+     c(51:100))
+```
+
+::: 
+
+::: {.column width="50%"}
+
+```{r}
+plot(c(50:1), 
+     c(51:100))
+```
+
+:::
+
+:::
+
+:::
+
+## Correlation Matrices
+
+For more than two variables, you can compute the correlations between all pairs x, y at once as a **correlation matrix**.
+
+-   Let's look at one:
+
+```{r}
+cor(reiData[, c("sales", "price", "weight")], use = 'pairwise.complete.obs') |>
+  round(3)
+```
+
+## Correlation Coefficients
+
+Problem with correlation:
+
+::: fragment
+
+We can't make predictions with correlations
+
+- We can say "`y` increases as `x` increases" *generally*
+  - But not "`y` increases **this much** as `x` increases **this much**"
+
+:::

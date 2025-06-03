@@ -1,0 +1,640 @@
+---
+title: "Intro to R"
+author: "Matt Meister"
+subtitle: "University of San Francisco"
+include-in-header:
+  - text: |
+      <style>
+      .code-fold-block {
+          margin-bottom: 1em;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          overflow: hidden;
+      }
+      .code-fold-header {
+          background-color: #f7f7f7;
+          padding: 0.5em;
+          cursor: pointer;
+          font-weight: bold;
+          border-bottom: 1px solid #ddd;
+      }
+      .code-fold-content {
+          display: none;
+          padding: 0.5em;
+          background-color: #fdfdfd;
+      }
+      </style>
+  - text: |
+      <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('.code-fold-block').forEach(block => {
+              const header = block.querySelector('.code-fold-header');
+              const content = block.querySelector('.code-fold-content');
+              header.addEventListener('click', () => {
+                  const isHidden = content.style.display === 'none';
+                  content.style.display = isHidden ? 'block' : 'none';
+              });
+          });
+      });
+      </script>
+format: 
+  html:
+    self-contained: true
+    theme: flatly
+    fontsize: 12pt
+    code-fold: false  # Disable default code folding
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+## Pre-Class Code Assignment Instructions
+
+
+In this semester, I am going to ask you to do a fair bit of work before coming to class. This will make our class time shorter, more manageable, and *hopefully* less boring.
+
+I am also going to use this as an opportunity for you to directly earn grade points for your effort/labor, rather than "getting things right" on an exam.
+
+Therefore, I will ask you to work through these worksheets before class. Throughout, I will post **Pre-Class Questions** for you to work through in `R`. These will look like this:
+
+<h4 style="color: darkgreen;">Pre-Class Q0</h4>
+
+<span style="color: darkgreen;">In `R`, please write code that will read in the `.csv` from Canvas called `sf_listings_2312.csv`. Assign this the name `bnb`.</span>
+
+You will then write your answer in a `.r` script:
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q0
+#bnb <- read.csv("sf_listings_2312.csv")
+```
+
+  </div>
+</div> 
+
+
+### Important: 
+
+To earn full points, you need to organize your code correctly. Specifically, you need to:
+
+- Answer questions in order.
+  - If you answer them out of order, just re-arrange the code after.
+- Preface each answer with a comment (`# Q1`/`# Q2`/`# Q3`) that indicates exactly which question you are answering.
+  - Please just write the letter Q and the number in this comment.
+- Make sure your code runs on its own, on anyone's computer.
+  - To do this, I would always include `rm(list = ls())` at the top of every .r script. This will clean everything from the environment, allowing you to see if this runs on my computer.
+  
+
+### Handing this in:
+
+
+- You must submit this to Canvas **before the start of class**. 
+- You must submit this code as a `.txt` file. This is because Canvas cannot present `.R` files to me in SpeedGrader. To save as `.txt`:
+  - Click File -> New File -> Text File
+  - Copy and paste your completed code to that new text file.
+  - Save the file as `firstname_lastname_module.txt`
+    - For example, my file for Module 01 would be `matt_meister_01.txt`
+    - My file for module 05 would be `matt_meister_05.txt`
+    
+    
+### Grading:
+
+
+- I will grade these for completion. 
+- You will receive 1 point for every question you give an honest attempt to answer
+- Your grade will be the number of questions you answer, divided by the total number of questions.
+  - **This is why it is important that you number each answer with** `# Q1`.
+  - Any questions that are not numbered this way will be graded incomplete, because I can't find them.
+- You will receive a 25% penalty for submitting these late.
+
+## Getting Started
+
+### R for Data Science 
+
+This book: <https://r4ds.hadley.nz/> is a **great** tool for this class. I am going to require you to work through Chapters 9-11 by next class, but I think you should work through it all throughout this semester. If you get stuck on R in class, look back to this book!
+
+I will not ask specific test questions from this book, but it helped me immensely to learn R.
+
+
+### Make sure you have R and RStudio downloaded
+
+If you do not, go to this link <https://www.r-project.org> for R. Download whatever version matches your computer. Then, once this is downloaded, go to <https://posit.co/download/rstudio-desktop/> and download RStudio. RStudio is an IDE (integrated development environment), which will help you to organize, run, and edit your code **a lot**.
+
+### My Notes/Code/Slides this semester
+
+I write my notes/slides/code in `.qmd` (called "Quarto") documents. I will upload these as `.html` documents. `.html` files are webpages. You open them in your browser, but you do not need an internet connection to open them.
+
+I write my code in Quarto for four reasons:
+
+-  I want to be able to share my code with you
+-  I kind of like the organization of it all
+-  This way, I don't have to write both R scripts AND powerpoint (or these documents)
+-  This gives me an excuse to have boring slides
+
+
+There are some differences between `.R` and `.qmd`, which you only need to know if you download my `.qmd` files and are confused. 
+
+In an R script (`.R`), you can just write code in lines (i.e., nothing special to do). To run that code, you can either: (a) Hit cmd+enter (or cntrl+enter) to run the line of code you are on, *or* (b) Highlight a section of code and hit cmd/enter (or cntrl/enter). To "comment" (i.e., write text that is not code), you have to place a \# at the start of each comment.
+
+```{r}
+#This comment will not run as code
+```
+
+In a Quarto document (`.qmd`), you write **comments** in line. This means that if you want to write code, you do so in **chunks**. You can create a chunk by: (a) Typing \`\`\`\{r\}, (b) Pressing option + cmd (cntrl) + i, *or* (c) Clicking *Code* \> *Insert chunk*. Within a chunk, you behave just like within an R script.
+
+For yourselves right now, open a new `.R` script in RStudio. Do this by opening RStudio, then clicking *File* \> *New File* \> *R Script*. Then:
+
+- Make a new folder on your computer called `MSMI_603`
+  - I'd prefer you put this in your `Documents` folder or on your `Desktop`
+- Find `cereals.csv` on Canvas
+  - Download it, and move it into the `MSMI_603` folder
+- Save this `.R` file into the `MSMI_603` folder
+
+## StaRting
+
+We're going to start by **reading** data into our workspace.
+
+For this introduction to R, we will take the role of a **Junior Market Researcher** at **Safeway Grocery Stores**. You have two jobs:
+
+- Describe the relationship between customers' `rating` and cereals' `calories`
+- Describe how Safeway's shelves are ordered
+
+To read in data, we will first have to set our working directory. The **working directory** is a **folder** on our computers. Setting it tells R what **folder** we are: (a) Reading data from, (b) Saving data to, and (c) Saving code to. I repeat: **Your working directory is a folder**. There are three ways to set it in RStudio:
+
+- Option A: Click `Session` -> `Set Working Directory` -> `To Source File Location`
+  - This only works if your `.R` script is saved to the right folder
+- Option B: Click `Session` -> `Set Working Directory` -> `Choose Directory`
+  - Then find the folder you want, and **Open** the **folder**
+- Option C: Write `setwd(~/Documents/MSMI_603)` in the console (the bottom left panel in RStudio), and then hit enter
+  - If you have saved this folder to your desktop, you'd write `setwd(~/Desktop/MSMI_603)`
+  
+### Read in `cereals.csv`
+
+We are going to read our first data frame into R. Very exciting! To do so, please and run write the following code:
+
+```{r, eval=FALSE}
+read.csv("cereals.csv")
+```
+
+Here's an explanation:
+
+- `read.csv()`
+  - Is a **function**. We can tell because it is to the left of `()`.
+  - Inside of the `()`, we write **arguments**, which tell the function specifically what to do.
+  - It *reads* a *.csv* file into R.
+  - A *.csv* file is a spreadsheet.
+- `"cereals.csv"`
+  - Is the file we want to read in.
+  - Note that you need the `""`, and you need the `.csv`
+  
+If you ran that code, you should have seen a bunch of numbers and letters pop up in your *console*. However, you won't see that data **anywhere else**. So... What's going on?
+
+`read.csv()` will read in a `.csv`, but it won't do anything else unless we specifically tell R we want it to keep the data. This probably seems silly (why would we read it in if we didn't want to use it?), but R will *almost* never assume things for us. We will usually have to tell R what we want explicitly every time, and in a lot of detail. This is going to be annoying at first, but it is what makes everything work.
+
+So, we need to tell R we want to keep these data. We can do that by assigning the data to some name (similar to how naming a stray cat may make your parents more likely to let you keep it). We can do this with `<-` or `=`.
+
+<h4 style="color: darkgreen;">Pre-Class Q1</h4>
+
+<span style="color: darkgreen;">In `R`, please read in the `.csv` from Canvas called `cereals.csv`. Assign this the name `cereals`.</span>
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q1
+cereals <- read.csv("cereals.csv")
+```
+
+  </div>
+</div> 
+
+Note that when you assign something, it won't print out into the console. For example, this will print out:
+
+```{r}
+1 + 1
+```
+
+But this will not:
+
+```{r}
+two <- 1 + 1 # add one and one
+```
+
+When you assign a name to something, you are telling R that you want to use it later. So R doesn't print it out. Instead, you will see the name of this object appear in the **Environment** pane in the top right of your RStudio. (Look there now! You should see `cereals`, as *"75 obs. of 17 variables"* because it has 75 rows and 17 columns).
+
+### Comments
+
+I mentioned comments above, and you may have noticed this `#`:
+
+```{r}
+two <- 1 + 1 # add one and one
+```
+
+This is how we **comment** in R. Anything to the right of the `#` will be ignored by R. Anything to the left will run like code. This can be a very useful way to remind yourself (or team members) what some code does. Best practice is to comment a **lot**.
+
+<h4 style="color: darkgreen;">Pre-Class Q2</h4>
+
+<span style="color: darkgreen;">In `R`, please read in the `.csv` from Canvas called `cereals.csv`. Assign this the name `cereals`. This time, write a note to yourself that explains what this code does. Do not use the same comment as I do.</span>
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q2
+cereals <- read.csv("cereals.csv") # read in cereals.csv
+```
+
+  </div>
+</div> 
+
+While we are here, note that you can also write code on multiple lines, **as long as the lines above are an incomplete command**:
+
+```{r}
+cereals <- read.csv( # Use read.csv
+  "cereals.csv") # to bring this file in
+# Save it as "cereals"
+```
+
+<h4 style="color: darkgreen;">Pre-Class Q3</h4>
+
+<span style="color: darkgreen;">This example does not work because the first line is complete. The second line is then incomplete, which throws an error. I would like you to change what I have to get something that will work.</span>
+  
+```{r, eval=FALSE}
+# Q3
+(1+1)
+/2
+```
+
+
+### Back to `cereals`
+
+It is usually good to have a unique identifier (ID) for each *unit of analysis* in our data. In this case, the *unit of analysis* is a given cereal. You may notice that we do not have a unique ID yet. We have `name`, but there may be duplicates. We don't know yet. So, let's add a new column called `id`.
+
+I want `id` to be a unique number for each row in `cereals`. Here's the worst way I could do this, which you **should not do**:
+
+```{r}
+cereals$id <- c(1,2,3,4,5,6,7,8,9,
+        10,11,12,13,14,15,16,17,18,19,
+        20,21,22,23,24,25,26,27,28,29,
+        30,31,32,33,34,35,36,37,38,39,
+        40,41,42,43,44,45,46,47,48,49,
+        50,51,52,53,54,55,56,57,58,59,
+        60,61,62,63,64,65,66,67,68,69,
+        70,71,72,73,74,75)
+```
+
+This is terrible because it is so manual. There are a lot of things about R that are difficult, but we push through them so that we can **avoid doing hard things manually**. So we will figure out a better way. But first, here is an explanation of what that just did.
+
+In R, data are often contained in **vectors**. Vectors are effectively like columns in an Excel file, or columns in a table. All of the columns in our data frame `cereals` are individual vectors. Therefore, to add a column, we need to first create a vector, and then attach it to `cereals`.
+
+We can create vectors with a `function`, called `c()`. The c refers to "concatenate". For example. to *concatenate* the numbers *1*, *2*, and *3* into a vector, you could write this:
+
+```{r}
+c(1, 2, 3)
+```
+
+Therefore, the code `cereals$id <- c(...)` says:
+
+- Make a vector that goes from 1 to 75
+- Then assign that vector to the `cereals` data frame
+- In the place where column `id` is
+  - If a column doesn't exist, we create it
+  - If it does exist, we **overwrite** it
+
+When we see a `(`, we know that the thing to the left is the name of a *function*, and the thing(s) inside of the `()` are *arguments*. 
+
+When we see a `$`, we should know that the thing to the left is the name of a *data.frame*, and the thing to the right is the name of a *column*.^[Later in the semester, this will not be exactly true. Sometimes, the thing to the left will be the name of a list, and the thing to the right an item in that list. We will make this more specific later.]
+
+This `$` also works for accessing columns. 
+
+`c()` works well when we have small vectors. But there are better ways to make longer vectors:
+
+- `seq()` function
+  - *seq refers to "sequence"*
+- `rep()` function
+  - *rep refers to "repeat"*
+    
+<h4 style="color: darkgreen;">Pre-Class Q4</h4>
+
+<span style="color: darkgreen;">Create a `sequence` that goes from *1* to *3*, and does so by *1*:</span>
+
+- Hint: Run `?seq()` in your console to pull up help
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+
+```{r}
+#Q4
+seq(from=1, to=3, by=1)
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q5</h4>
+
+<span style="color: darkgreen;">Repeat the number **1** 75 times:</span>
+
+- Hint: Run `?rep()` in your console to pull up help
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+#Q5
+rep(x = 1, times = 75)
+```
+
+  </div>
+</div> 
+
+Now, use this to create the `id` column
+
+```{r}
+cereals$id <- seq(from=1, to=75, by=1)
+```
+
+In this case, you could do this simpler, with:
+
+```{r}
+cereals$id <- 1:75
+```
+
+Which will work when you want sequential numbers that increase by 1.
+
+### Nesting functions and the order of operations
+
+A better solution is to use a function inside of `seq()` so that you don't have to even know how many rows there are in cereals (again, we are trying to minimize manual effort). The function `nrow()` will take a *data.frame* and tell you how many rows it has.
+
+```{r}
+cereals$id <- seq(from=1, to=nrow(cereals), by=1)
+```
+
+**What was that??**
+
+- R works by:
+  - Starting immediately **right** of the assignment arrow
+  - Reading left to right
+  - **But** following the order of operations
+- "Create a sequence" (`seq(`)
+  - "Start at 1" (`from = 1`)
+  - "End at nrow(cereals)" (`nrow(cereals)`)
+    - What is that?? `?nrow()`
+    - 75!
+  - "Go by 1 at a time" (`by = 1`)
+  - "End the function" (`)`)
+    
+The way I think of it is that *R reads inside to out, left to right.*
+
+
+### Functions
+
+Functions are super useful. They also can be very easy to learn when you understand the rhythm/grammar of them.
+
+Each function in R takes some set of **arguments**. These tell the function what to do. We separate arguments with commas.
+
+For example, `seq()` **can** take the arguments `from`, `to`, `by`, `length.out`, and `along.with`.
+
+We'll try some examples of using these arguments. Take note of what the different arguments do.
+
+```{r}
+seq( #Create a sequence
+  from=0, #starting at 0
+  to=10, #ending at 10
+  by=2) #by 2 (at a time)
+```
+
+```{r}
+seq( #Create a sequence
+  from=0, #starting at 0
+  by=2, #by 2 (at a time)
+  length.out=6) # Make it 6 items long
+```
+
+```{r}
+seq(#Create a sequence
+  from=0, #starting at 0
+  to=10, #ending at 10
+  length.out=6) # Make it 6 items long
+```
+
+```{r}
+seq( #Create a sequence
+  to=100, #To 10
+  by=2, #By 2s
+  length.out=6 ) # Make it 6 items long
+```
+
+```{r}
+seq( #Create a sequence
+  0, 10, 2 ) #???
+```
+
+You might be curious why that last one worked. To find out, look at the help by running `?seq()`.
+
+If you input the arguments in the "default" order, you don't need to explicitly name them.
+
+In my code, I write everything out. It's much better if you ever share your code (including with your future self). Sometimes that's super unnecessary. Sometimes it's obvious what each argument is. Ultimately, this choice is up to you.
+
+### Why did I recommend using `?seq()`?
+
+I also recommend you go to a function's documentation online (Google it) if you have problems. For specific questions about specific functions, I do not recommend going to chatGPT first.
+
+- Couple reasons 
+- Main: functions are updated constantly
+  - LLMs are not amazing at picking this up
+  - This can give **extremely confusing errors**
+- Second: 
+  - Even if a function has not been updated, a LLM does not know how it **"works"**
+  - It knows how people have talked about it (and functions like it) on stackOverflow
+  - It makes **predictions** of how the function works, based on some information it has seen
+  - This also can cause some strange errors
+
+Instead, it is best to start with `?` in R. I normally scroll to the bottom and look at examples. If this does not help, go to the function's documentation (Google it). If this is hard to read, go to an LLM.
+
+Additionally, if you have problems with a function you already know a bit, go to an LLM! They can do the last mile pretty well. But be ware of **"wishful"** coding, which is when GPT gives you code that *looks* correct, but is not.
+
+### What I do recommend chatGPT for
+
+LLMs work by analysing a **ton** of data. When you ask an LLM a question, it predicts what words should go together in an answer, based on what words have appeared together in similar answers. This means that it doesn't *know* anything--it predicts what a good answer would be.
+
+For coding, this means that you need to ask **narrow**, **direct** questions (i.e., "I have this very specific problem, how can I solve it in R?", or "I have this code that should work, but need help with this one bit"). You also need to give as much information as possible (i.e., "I am trying to plot group means using ggplot2 in R"). If your questions are too broad or don't contain enough info, you are giving an LLM too much room. And at this point, you are not comfortable enough in R to know if it is wrong.
+
+
+<h4 style="color: darkgreen;">Pre-Class Q6</h4>
+
+<span style="color: darkgreen;">Print out the column `sodium` from `cereals`.</span>
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q6
+cereals$sodium
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q7</h4>
+
+<span style="color: darkgreen;">Use the function `mean` to find the mean of the column `calories`.</span>
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q7
+mean(cereals$calories)
+```
+
+  </div>
+</div> 
+
+### Pipes
+
+Let's say I want to split these cereals into five groups, so I write:
+
+```{r, eval = F}
+rep( #Repeat
+  seq( #A sequence
+    from=1, #Starting at 1
+    to=5, # Ending at 5
+    by=1), # By 1
+  times= nrow(cereals)/5 ) # As many times as we can
+```
+
+This may be a little confusing, because nested parentheses can get messy. Instead, we can use a `pipe` (`|>`) to clean it up. A pipe PIPES the result of one function into another. You can read them as if they say "and then...". Here's what our code would look like with a pipe:
+
+```{r, eval=F}
+seq( from=1, to=5, by=1) |>
+  rep(times = nrow(cereals)/5 ) #Repeat as many times as we can
+```
+
+Each line needs to be complete **before** the pipe, and the pipe has to end the line.
+
+Let's assign that `group` as a column:
+
+```{r}
+cereals$group <- seq( from=1, to=5, by=1) |>
+  rep(times = nrow(cereals)/5 ) #Repeat as many times as we can
+```
+
+### Naming Objects
+
+Those names also didn't mean anything. They can be **almost** anything.
+
+Over the next few weeks, see what works, what doesn't.
+
+In general:
+
+- Names should be **useful, readable (for someone else), and follow some common convention**
+  -   Variable names should be nouns and function names should be verbs.
+  -   Avoid re-using names of common functions and variables.
+  - Separate words with \_, ., or capital letters
+
+### Data Types
+
+R has many different types of data. We'll focus on:
+
+- Numbers
+- Characters (*strings*)
+- Logical
+
+You can check what type something is with `str()`.
+
+```{r}
+str(cereals)
+```
+
+### Numbers:
+
+```{r}
+str(cereals$calories)
+```
+
+### Strings (characters/text)
+
+```{r}
+str(cereals$name)
+```
+
+Quotes (" or ') make strings
+
+```{r}
+aString <- "5"
+str(aString)
+```
+
+
+### Logical
+
+-   `TRUE` or `T` for true
+-   `FALSE` or `F` for false.
+
+If you don't use all caps, you'll get an error.
+
+```{r}
+logical <- T
+str(logical)
+```
+
+Logical data matters because it is the result of a logical test, like this:
+
+```{r}
+cereals$fat == 0
+```
+
+This code *tests* for each observation in `cereals$fat`, whether that observation is `0`. This results in a logical vector that is `TRUE` if `fat` is `0`. So, if I asked you to make a vector that indicated whether a cereal was fat free, you could just write:
+
+```{r}
+cereals$fat_free <- cereals$fat == 0
+```
+
+To finish the pre-class code, make two new columns in `cereals`. First,
+
+<h4 style="color: darkgreen;">Pre-Class Q8</h4>
+
+<span style="color: darkgreen;">`low_cal` that is TRUE if `calories` is less than 100</span>
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q8
+cereals$low_cal <- cereals$calories < 100
+```
+
+  </div>
+</div> 
+
+<h4 style="color: darkgreen;">Pre-Class Q9</h4>
+
+<span style="color: darkgreen;">`not_shelf3` that is TRUE if `shelf` is NOT 3</span>
+
+<div class="code-fold-block">
+  <div class="code-fold-header">Click to show code and output</div>
+  <div class="code-fold-content">
+  
+```{r}
+# Q9
+cereals$not_shelf3 <- cereals$shelf != 3
+```
+
+  </div>
+</div> 

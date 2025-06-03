@@ -1,0 +1,438 @@
+---
+title: "Effect Sizes"
+author: "Matt Meister"
+subtitle: "University of San Francisco, MSMI-603"
+date: "2023"
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 3em;
+        color: black;
+      }
+      </style>
+format: 
+  revealjs:
+    self-contained: true
+    scrollable: true
+    theme: simple
+    fontsize: 20pt
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+editor: source
+execute: 
+  error: true
+  echo: true
+  include: true
+  warning: false
+---
+
+## Thus far
+
+So far, we have learned about:
+
+-   Means
+-   Variance
+-   Statistical significance
+
+*(among other things)*
+
+## Thus far
+
+We've learned to say things like:
+
+::: incremental
+-   The difference in `clicking` between group A and B is 2%
+    -   And this is significant because *p \< .001*
+-   With every \$10,000 increase in `income`, customers spend \$25 more in our stores
+    -   And this slope is significantly different from 0 because *p = .02*
+-   Customers who are 25-34 are more interested in our product than those who are 35-44
+    -   $M_{25-34}$ = 4.85/6
+    -   $M_{25-34}$ = 4.32/6
+    -   This might be due to chance, as *p = .09*
+:::
+
+## Thus far
+
+Have we learned to say things like:
+
+::: incremental
+-   The difference in `clicking` between group A and B is 2%
+    -   This is a **big difference**?
+-   With every \$10,000 increase in `income`, customers spend \$25 more in our stores
+    -   This is a **big difference**?
+-   Customers who are 25-34 are more interested in our product than those who are 35-44
+    -   $M_{25-34}$ = 4.85/6
+    -   $M_{25-34}$ = 4.32/6
+    -   This is a **big difference**?
+:::
+
+## Thus far
+
+No!
+
+For the clearest example, let's focus on the third:
+
+-   *The one that uses a 0-6 scale*
+
+::: incremental
+-   What is a difference of .53 on a 0-6 scale?
+    -   Is that big?
+    -   Does it matter in this context?
+    -   **To answer this, we are going to learn about effect sizes**
+:::
+
+## Effect sizes
+
+Effect sizes put our results into a standard format.
+
+::: incremental
+-   They do not tell us if our result is statistically significant or not.
+    -   We use them after that
+-   They tell us about how **big** our results are
+    -   Again, in a standardized format
+:::
+
+## Effect sizes
+
+Effect sizes put our results into a standard format.
+
+There are two kinds of effect sizes, broadly:
+
+::: incremental
+-   Standardized differences
+    -   These give us a standardized way to say whether the difference between groups is **big**
+-   Variance explained
+    -   These tell us whether some variable explains **a lot** or **a little** of our DV
+:::
+
+## Effect sizes
+
+Effect sizes put our results into a standard format.
+
+We will learn two today
+
+::: incremental
+-   Standardized differences
+    -   Cohen's d
+        -   $\frac{(M_A - M_B)}{SD_{AB}}$
+-   Variance explained
+    -   $R^2$
+        -   $1 - \frac{SSR}{n - p - 1} \div \frac{SST}{n - 1}$
+    -   These tell us whether some variable explains **a lot** or **a little** of our DV
+:::
+
+## Cohen's d
+
+$\frac{(M_A - M_B)}{SD_{AB}}$
+
+-   $M_A$: Mean of group A
+-   $M_B$: Mean of group B
+-   $SD_{AB}$: Pooled standard deviation
+    -   Averaging the standard deviation is fine
+
+This tells us how large the difference between groups is in terms of total variance in the data.
+
+## Cohen's d - Examples
+
+Heights of men and women in the US:
+
+*Are men and women different heights on average?*
+
+::: incremental
+-   $M_{Male}$ = 69 inches
+-   $M_{Female}$ = 64 inches
+-   $SD_{Height}$ = 2.75 inches
+-   Cohen's d?
+    -   1.81
+:::
+
+## Cohen's d - Examples
+
+Heights of men and women in the US:
+
+-   Cohen's d = 1.81
+
+::: fragment
+```{r, echo = F}
+library(ggplot2); library(data.table)
+set.seed(123)
+
+# Specify the sample size for both groups
+sample_size_group1 <- 1000
+sample_size_group2 <- 1000
+
+# Calculate the means and standard deviations for the two groups
+mean_group1 <- 69
+mean_group2 <- 64
+sd_group1 <- 2.75
+sd_group2 <- 2.75
+
+# Generate random numbers for both groups based on a normal distribution
+group1 <- rnorm(sample_size_group1, mean_group1, sd_group1)
+group2 <- rnorm(sample_size_group2, mean_group2, sd_group2)
+
+# Create a data frame for the two groups
+data <- data.table(Group = factor(c(rep("Men", sample_size_group1), rep("Women", sample_size_group2))),
+                   Values = c(group1, group2))
+
+# Create density plots
+ggplot(data[Group != "Women"], aes(x = Values, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  labs(title = " ",
+       x = "Height",
+       y = "Density") +
+  coord_cartesian(xlim = c(min(data[Group == "Women"]$Values), max(data[Group == "Men"]$Values))) +
+  theme_minimal()
+```
+:::
+
+## Cohen's d - Examples
+
+Heights of men and women in the US:
+
+-   Cohen's d = 1.81
+
+::: fragment
+```{r, echo = F}
+ggplot(data, aes(x = Values, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  labs(title = " ",
+       x = "Height",
+       y = "Density") +
+  coord_cartesian(xlim = c(min(data[Group == "Women"]$Values), max(data[Group == "Men"]$Values))) +
+  theme_minimal()
+```
+:::
+
+## Cohen's d - Examples
+
+*Are people are more aggressive toward individuals who have provoked them?*
+
+::: incremental
+-   $M_{Provoked}$ = 8.232/10
+-   $M_{Unprovoked}$ = 4.4/10
+-   $SD_{Aggression}$ = 3.22
+-   Cohen's d?
+    -   1.19
+:::
+
+## Cohen's d - Examples
+
+*Are people are more aggressive toward individuals who have provoked them?*
+
+-   Cohen's d = 1.19
+
+::: fragment
+```{r, echo = F}
+set.seed(123)
+# Specify the sample size for both groups
+sample_size_group1 <- 1000
+sample_size_group2 <- 1000
+
+# Calculate the means and standard deviations for the two groups
+mean_group1 <- 8.232
+mean_group2 <- 4.4
+sd_group1 <- 3.22
+sd_group2 <- 3.22
+
+# Generate random numbers for both groups based on a normal distribution
+group1 <- rnorm(sample_size_group1, mean_group1, sd_group1)
+group2 <- rnorm(sample_size_group2, mean_group2, sd_group2)
+
+# Create a data frame for the two groups
+data <- data.table(Group = factor(c(rep("Provoked", sample_size_group1), rep("Unprovoked", sample_size_group2))),
+                   Values = c(group1, group2))
+
+# Create density plots
+ggplot(data[Group != "Unprovoked"], aes(x = Values, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  labs(title = " ",
+       x = "Aggression",
+       y = "Density") +
+  coord_cartesian(xlim = c(min(data[Group == "Unprovoked"]$Values), max(data[Group == "Provoked"]$Values))) +
+  theme_minimal()
+```
+:::
+
+## Cohen's d - Examples
+
+*Are people are more aggressive toward individuals who have provoked them?*
+
+-   Cohen's d = 1.19
+
+::: fragment
+```{r, echo = F}
+ggplot(data, aes(x = Values, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  labs(title = " ",
+       x = "Aggression",
+       y = "Density") +
+  coord_cartesian(xlim = c(min(data[Group == "Unprovoked"]$Values), max(data[Group == "Provoked"]$Values))) +
+  theme_minimal()
+```
+:::
+
+## Cohen's d - Examples
+
+*Are people who are seen as more credible are also more persuasive?*
+
+::: incremental
+-   $M_{Credible}$ = 5.42/10
+-   $M_{Not}$ = 4.76/10
+-   $SD_{Persuasion}$ = 3.29
+-   Cohen's d?
+    -   .20
+:::
+
+## Cohen's d - Examples
+
+*Are people who are seen as more credible are also more persuasive?*
+
+-   Cohen's d = .20
+
+::: fragment
+```{r, echo = F}
+set.seed(123)
+# Specify the sample size for both groups
+sample_size_group1 <- 1000
+sample_size_group2 <- 1000
+
+# Calculate the means and standard deviations for the two groups
+mean_group1 <- 5.42
+mean_group2 <- 4.76
+sd_group1 <- 3.29
+sd_group2 <- 3.29
+
+# Generate random numbers for both groups based on a normal distribution
+group1 <- rnorm(sample_size_group1, mean_group1, sd_group1)
+group2 <- rnorm(sample_size_group2, mean_group2, sd_group2)
+
+# Create a data frame for the two groups
+data <- data.table(Group = factor(c(rep("Credible", sample_size_group1), rep("Not", sample_size_group2))),
+                   Values = c(group1, group2))
+
+# Create density plots
+ggplot(data[Group != "Not"], aes(x = Values, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  labs(title = " ",
+       x = "Persuasion",
+       y = "Density") +
+  coord_cartesian(xlim = c(min(data[Group == "Not"]$Values), max(data[Group == "Credible"]$Values))) +
+  theme_minimal()
+```
+:::
+
+## Cohen's d - Examples
+
+*Are people who are seen as more credible are also more persuasive?*
+
+-   Cohen's d = .20
+
+::: fragment
+```{r, echo = F}
+ggplot(data, aes(x = Values, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  labs(title = " ",
+       x = "Persuasion",
+       y = "Density") +
+  coord_cartesian(xlim = c(min(data[Group == "Not"]$Values), max(data[Group == "Credible"]$Values))) +
+  theme_minimal()
+```
+:::
+
+## Contextualize your effect sizes
+
+Sometimes you can look to other research
+
+-   Or benchmarks like the things above
+
+Sometimes you cannot
+
+-   One good comparison is **covariates**
+
+## Contextualizing with covariates
+
+*Hypothesis:* Mode of ordering (smartphone vs. desktop) will influence people's portion choices
+
+$Portion Size = \beta_{Device}xDevice + \beta_{Hunger}Hunger + \beta_{Dieting}Dieting$
+
+![](portion.png){fig-align="center"}
+
+## Contextualizing with covariates
+
+*Hypothesis:* Mode of ordering (smartphone vs. desktop) will influence people's portion choices
+
+$Portion Size = \beta_{Device}xDevice + \beta_{Hunger}Hunger + \beta_{Dieting}Dieting$
+
+![](covariates.png)
+
+::: fragment
+
+...And use common sense...
+
+:::
+
+## R-Squared
+
+$1 - \frac{SSR}{n - p - 1} \div \frac{SST}{n - 1}$
+
+This tells you:
+
+::: incremental
+-   For an entire model, how much of **all** of the variance you are explaining
+    -   We get this result from `lm()`
+-   For each individual effect, how much of **all** of the variance it explains
+    -   We can get this result from `anova()`
+:::
+
+## R-Squared
+
+From `anova()`
+
+```{r}
+customerData <- read.csv('customerData.csv')
+
+m_1 <- lm( data = customerData, sat.service ~ 1) # Just the mean
+m_2 <- lm( data = customerData, sat.service ~ email) # Effect of email
+m_3 <- lm( data = customerData, sat.service ~ email + income) # Effect of email and income
+
+anova(m_1, m_2, m_3)
+```
+
+## R-Squared
+
+From `anova()`
+
+```{r, echo = F}
+anova(m_1, m_2, m_3)
+```
+
+::: incremental
+-   $R^2_{email}$?
+    -   $1 - \frac{1592}{658 - 1 - 1} \div \frac{1606}{658 - 1}$
+    -   .009
+-   $R^2_{income}$?
+    -   $1 - \frac{945}{658 - 2 - 1} \div \frac{1606}{658 - 1}$
+    -   .407
+:::
+
+## R-Squared
+
+From `lm()`
+
+```{r}
+summary(m_2)
+```
+
+## Effect Size Conclusion
+
+::: incremental
+-   There are **lots** of effect size measures out there
+-   They are useful, in that it's nice to contextualize our effects
+-   They come in two forms:
+    -   Standardized differences
+        -   These give us a standardized way to say whether the difference between groups is **big**
+    -   Variance explained
+        -   These tell us whether some variable explains **a lot** or **a little** of our DV
+:::
