@@ -33,17 +33,11 @@ I have linked below a few examples of materials I use in class. This is not exha
 ### Code exercises
 
 - <a href="teaching/R_pcc.qmd" class="btn btn-yellow" role="button">Intro to R</a>
-- <a href="teaching/Plotting_pcc.qmd" class="btn btn-yellow" role="button">Intro to ggplot2</a>
-- <a href="teaching/01 Prediction.qmd" class="btn btn-yellow" role="button">Prediction</a>
-- <a href="teaching/02 Text Analysis.qmd" class="btn btn-yellow" role="button">Text Analysis</a>
 - <a href="teaching/03 Logistic Regression.qmd" class="btn btn-yellow" role="button">Logistic Regression</a>
 - <a href="teaching/04 Treatment Effects.qmd" class="btn btn-yellow" role="button">Treatment Effect Estimation</a>
 
 ### Slides
 
-- <a href="teaching/01 Hypotheses and Statistical Inference.qmd" class="btn btn-yellow" role="button">Hypotheses and Statistical Inference</a>
 - <a href="teaching/06 effect sizes.qmd" class="btn btn-yellow" role="button">Effect Sizes</a>
 - <a href="teaching/bias_vs_noise.qmd" class="btn btn-yellow" role="button">Bias vs Noise</a>
 - <a href="teaching/03 Correlation and Regression.qmd" class="btn btn-yellow" role="button">Correlation and Regression</a>
-- <a href="teaching/Logistic Regression Slides.qmd" class="btn btn-yellow" role="button">Logistic Regression</a>
-- <a href="teaching/Pricing Demand Slides.qmd" class="btn btn-yellow" role="button">Pricing and Demand</a>
