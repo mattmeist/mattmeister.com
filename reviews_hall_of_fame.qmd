@@ -7,7 +7,7 @@ format:
     toc: true
     page-layout: full
     search: false
-editor: visual
+editor: source
 ---
 
 Online reviews are a decent source of unintentional comedy online.
