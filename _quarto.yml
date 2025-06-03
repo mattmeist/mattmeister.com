@@ -12,8 +12,6 @@ website:
     logo: favicon/dog.png       # Also removed leading slash
     background: primary
     left:
-      - text: "<span class='btn btn-yellow'>Home</span>"
-        href: index.qmd
       - text: "<span class='btn btn-yellow'>Blog</span>"
         href: soap_box.qmd
       - text: "<span class='btn btn-yellow'>Papers</span>"
