@@ -28,7 +28,7 @@ University of Colorado Boulder
 
 ## Materials
 
-I have linked below a few examples of materials I use in class. This is not exhaustive, as these change frequently.
+I have linked below a sampling of materials I use in my stats and analytics classes.
 
 ### Code exercises
 
