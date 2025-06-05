@@ -2,7 +2,7 @@
 title: "Star ratings are a bad way to compare products (1)"
 subtitle: "We don't know enough about what goes into other people's ratings"
 author: "Matt Meister"
-date: 2024-06-03
+date: 2025-06-03
 image: "star_ratings_steves/steves_books.jpg"  
 categories: ["academic", "research", "star ratings"]
 editor: source

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matt Meister">
+<meta name="dcterms.date" content="2025-06-05">
+
+<title>MattMeister.com - Star ratings are a bad way to compare products (2)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon/dog.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KEYFNVVL8D"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
+</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../favicon/dog.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MattMeister.com</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../soap_box.html"> 
+<span class="menu-text"><span class="btn btn-yellow">Blog</span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../papers.html"> 
+<span class="menu-text"><span class="btn btn-yellow">Papers</span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../code_data.html"> 
+<span class="menu-text"><span class="btn btn-yellow">Code &amp; Data</span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reviews_hall_of_fame.html"> 
+<span class="menu-text"><span class="btn btn-yellow">Reviews HOF</span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../teaching.html"> 
+<span class="menu-text"><span class="btn btn-yellow">Teaching</span></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Star ratings are a bad way to compare products (2)</h1>
+<p class="subtitle lead">Stars are not kilograms</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">academic</div>
+    <div class="quarto-category">research</div>
+    <div class="quarto-category">star ratings</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matt Meister </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 5, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+  p {
+    margin-top: 1.25em;
+  }
+  h4 {
+    margin-top: 2em;
+  }
+</style>
+<div style="text-align: left; margin-top: 3em;">
+<p>This is the second in a series about star ratings/online reviews. I plan to mainly talk about my own research. But who knows.</p>
+</div>
+<p>The kilogram is a useful measure of mass. The kilogram is widely used because it is objectively defined. One kilogram is equal to the weight of one liter of liquid water—so a bathroom scale tells users how much liquid water they equate to. Beyond providing a good ice breaker for dinner parties, this also makes the kilogram easy to interpret and compare; the kilogram helps people to compare objects to important benchmarks (e.g., “Is this truck too heavy to cross this bridge?”), and to other objects (e.g., “Which truck should I take to cross this rickety bridge?”). It is a good thing that the kilogram is widely used—the kilogram is a good measure.</p>
+<p>Star ratings are similar to the kilogram in one sense, but very different in another. Ratings are also widely used. Almost anywhere we shop online, we find some form of ratings. However, star ratings are absolutely not objectively defined. There is no equivalent to the liter of water that defines what each star in a rating represents, and not even guidance as to what ratings <em>should</em> measure. As a result, ratings are open to being swayed by context. In <a href="../posts/star_ratings_steves.html">my last post</a>, I wrote about one example of mental context—expectations; influenced by Airbnb Superhost certifications—and its effect on ratings. In this post, I’ll write about this in a more general sense, explaining why (I think) context influences our evaluations.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="evaluations-with-bad-scales" class="level4">
+<h4 data-anchor-id="evaluations-with-bad-scales">Evaluations with bad scales</h4>
+<p>What would the world look like without standardized measurements?</p>
+<p>Imagine that we did not have <strong>any</strong> standardized measure of weight. Instead, we could only say that things were (i) “very light”, (ii) “light”, (iii) “neither light nor heavy”, (iv) “heavy”, or (v) “very heavy”.</p>
+<p>In this world, how heavy would you say that André the Giant is?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="star_ratings_kilos/andre.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="Photo of Andre the Giant"></p>
+</figure>
+</div>
+<div style="text-align: left; margin-top: 4em;">
+<p>Now, how heavy would you say this elephant is?<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="star_ratings_kilos/elephant.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="Photo of an elephant"></p>
+</figure>
+</div>
+<div style="text-align: left; margin-top: 4em;">
+<p>Were they both “very heavy”?</p>
+</div>
+<p>Now, how about a this 2012 Mini Coupe?<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="star_ratings_kilos/mini.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="Photo of a 2012 Mini Coupe"></p>
+</figure>
+</div>
+<p>I am guessing that your ratings are a mess.</p>
+<p>André the Giant? Clearly, a giant. It’s right there in the title. So he is “very heavy”.</p>
+<p>The elephant? An elephant. Famously “very heavy”. But heavier than André the Giant for sure, so it probably doesn’t feel great to not be able to distinguish them.</p>
+<p>The Mini Coupe is where this exercise really falls apart. It is a smaller version of a small vehicle. Calling it “very heavy” seems wrong, but it is also <strong>much</strong> heavier than André the Giant.</p>
+<p>There is no perfect way to judge the heaviness of these three things, based purely on the scale and instructions I provided. If the scale was objective (like a kilogram), this would obviously be easy. It would also be relatively easier if I clearly explained <strong>how</strong> you should judge heaviness—for example, if I said “Judge the heaviness of these three things, in relation to eachother,” or “Judge the heaviness of these three things, in relation to the category they come from.”</p>
+<p>Without clear instructions for how to judge the heaviness of these three things, we use whatever reference points come to mind. André the Giant was called such because he was extremely large, <em>compared to other humans</em>. This is a natural point of comparison for humans—other humans. Meanwhile, elephants are seen as large <em>compared to other animals</em>, because that is a natural comparison. Finally, the entire Mini car branding only makes sense in comparison to other cars.</p>
+<p>Obviously however, this falls apart when we consider these judgments <strong>across</strong> things in different categories. These judgments only make sense when we know the comparisons they resulted from. But, even if we knew these comparisons, the scale (i.e., “very light” to “very heavy”) still lets us down; if all you know is that André the Giant is a very heavy human, and an elephant is a very heavy animal, you still have no idea how many André the Giants it would take to balance the weight of an elephant.</p>
+</section>
+<section id="i-thought-this-was-about-star-ratings" class="level4">
+<h4 data-anchor-id="i-thought-this-was-about-star-ratings">I thought this was about star ratings?</h4>
+<p>In <a href="../posts/star_ratings_steves.html">my last post</a>, I wrote about how Airbnb listings that are certified as Superhosts receive lower ratings than they would if they were not Superhosts. I said that this was because people don’t make the same comparisons when they evaluate Superhosts and regular hosts on Airbnb—they expect more from Superhosts. That was a specific example of a general problem.</p>
+<p>When we evaluate anything online, we are not told <em>how</em> to make this evaluation. For example, here is the most recent review solicitation email I have received:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="star_ratings_kilos/thriftbooks.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Photo of an online review solicitation"></p>
+</figure>
+</div>
+<p>That’s all the instruction I received. No benchmarks and no guidance for things to consider or compare my experience to (e.g., “Was the shipping time faster or shorter than Barnes and Noble?”). And this type of solicitation is the industry standard—you won’t find better most places.</p>
+<p>This means we—as reviewers—have to decide for ourselves what a 1-, 2-, 3-, 4-, or 5-star experience is, for everything we review. There is nothing keeping us consistent to ourselves over time (if I am grumpy about work, I may write more negative reviews for socks), across experiences (I may be more harsh to Superhosts than regular Airbnbs), or across people (<a href="https://reinholtzresearch.com">Nick Reinholtz</a> is a ray of sunshine, while I am an under-bridge troll).</p>
+<p>This problem is most serious in a case like Superhost status—when something that differs between alternatives also affects ratings. For an even clearer example, consider an experiment that Nick and I ran a few years ago. This experiment was previously in a <a href="https://papers.ssrn.com/abstract=4119082">working paper</a> alongside the Airbnb data, but is now in its own manuscript, under review at JEP: General.]</p>
+<p>In this experiment,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> we had participants complete ten rounds of a boring, effortful task. They were shown a screen of 36 ones and zeros in a 6×6 grid, and reported the number of zeros in that grid:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="star_ratings_kilos/grid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="Grid of 36 1s and 0s."></p>
+</figure>
+</div>
+<p>Participants were paid a small amount for each grid they answered correctly. However, we did not tell people exactly what their pay would be before starting. Instead, we told them it would be <strong>one</strong> of the following pairs of possible payments:</p>
+<ul>
+<li>Either 5¢ (90%) or 25¢ (10%) per correct answer</li>
+<li>Either 5¢ (90%) or 4¢ (10%) per correct answer</li>
+</ul>
+<p>Then, after participants completed their ten rounds, we actually randomly drew their payment rate, showed it to them, and asked them to rate the task from 1–5 stars.</p>
+<p>The participants who were told they <em>could</em> be paid either 5¢ (90%) or 25¢ (10%) gave the task far lower ratings on average than the participants who were told they could be paid either 5¢ (90%) or 4¢ (10%).<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> This is despite the fact that they were paid more on average!<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Obviously, however, they were not comparing their pay to this other group of people—they were not thinking of them—but to the reference points we gave them. For one group, 5¢ is awful pay (compared to 25¢). For the other, 5¢ is pretty good (compared to 4¢).</p>
+<p>As with the last post, this is only an issue if people do not realize it when using ratings. Unfortunately, they don’t. In a pair of experiments in the paper, we frame these groups as different tasks, and ask people to select which of these two tasks they would like to complete.</p>
+<p>When we only show participants the payment information, almost nobody selects the lower-paying task. This makes sense, as all of the information they can see suggests that task is better.</p>
+<p>However, when we merely add the star ratings (similar to how Airbnb shows both Superhost status and star ratings), we find that many more people select the task which pays them lower. This makes sense to them! If the payment is different, the star ratings must contain some valuable information about the tasks, right??</p>
+<p>Obviously, the ratings <em>do</em> contain some information. But that information is only relevant to people who are not comparing the two tasks to eachother. It is relevant to people who only experienced the one task—just the same as someone who only experiences one Airbnb at a time, or one restaurant in an evening, or any consumption experience.</p>
+</section>
+<section id="so-what" class="level4">
+<h4 data-anchor-id="so-what">So what?</h4>
+<p>I am hoping that at least one person who reads this thinks about André the Giant when they look at ratings online in the future. Partly because that seems like fun. But partly because star ratings really are not much less silly. Star ratings are a poor scale with no instruction, and a lot of people act like they are kilograms—at least within similar categories (e.g., I might compare ratings for McDonald’s to Wendy’s, but be less likely to compare McDonald’s to French Laundry).</p>
+<p>For ratings, the takeaway here is similar to the last post. They cannot make fine distinctions between alternatives, and can be biased in more ways than we can anticipate. But at the same time, I am not sure these fine distinctions really matter in our lives. Most things are pretty good. Once we have a set of “good” alternatives, we’re probably just as happy flipping a coin.</p>
+<p>Or, again, just stay at a Holiday Inn Express.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>In a later post, I will move onto physical contexts.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Photo by <a href="https://en.wikipedia.org/wiki/User:Muhammad_Mahdi_Karim" class="extiw" title="w:User:Muhammad Mahdi Karim">Muhammad Mahdi Karim</a> <a rel="nofollow" class="external text" href="https://facebook.com/micro2macro">Facebook</a><span typeof="mw:File"><span title="Wikimédia CH"></span></span>The making of this document was supported by <a href="https://meta.wikimedia.org/wiki/Wikimedia_CH" class="extiw" title="m:Wikimedia CH">Wikimedia CH</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>By IFCAR, Public Domain, https://commons.wikimedia.org/w/index.php?curid=17491394<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The main paradigm is adapted from Abeler, J., Falk, A., Goette, L., &amp; Huffman, D. (2011). “Reference points and effort provision.” <em>American Economic Review</em>, 101(2), 470-492.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Means of 3.73 v. 4.44, F(1, 199) = 22.91, <em>p</em> &lt; .001, <em>d</em> = .68.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Means of $1.16 v. $.93<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.mattmeister\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

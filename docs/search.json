@@ -273,11 +273,25 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
+    "objectID": "posts/star_ratings_kilos.html",
+    "href": "posts/star_ratings_kilos.html",
+    "title": "Star ratings are a bad way to compare products (2)",
+    "section": "",
+    "text": "This is the second in a series about star ratings/online reviews. I plan to mainly talk about my own research. But who knows.\nThe kilogram is a useful measure of mass. The kilogram is widely used because it is objectively defined. One kilogram is equal to the weight of one liter of liquid water—so a bathroom scale tells users how much liquid water they equate to. Beyond providing a good ice breaker for dinner parties, this also makes the kilogram easy to interpret and compare; the kilogram helps people to compare objects to important benchmarks (e.g., “Is this truck too heavy to cross this bridge?”), and to other objects (e.g., “Which truck should I take to cross this rickety bridge?”). It is a good thing that the kilogram is widely used—the kilogram is a good measure.\nStar ratings are similar to the kilogram in one sense, but very different in another. Ratings are also widely used. Almost anywhere we shop online, we find some form of ratings. However, star ratings are absolutely not objectively defined. There is no equivalent to the liter of water that defines what each star in a rating represents, and not even guidance as to what ratings should measure. As a result, ratings are open to being swayed by context. In my last post, I wrote about one example of mental context—expectations; influenced by Airbnb Superhost certifications—and its effect on ratings. In this post, I’ll write about this in a more general sense, explaining why (I think) context influences our evaluations.1"
+  },
+  {
+    "objectID": "posts/star_ratings_kilos.html#footnotes",
+    "href": "posts/star_ratings_kilos.html#footnotes",
+    "title": "Star ratings are a bad way to compare products (2)",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIn a later post, I will move onto physical contexts.↩︎\nPhoto by Muhammad Mahdi Karim FacebookThe making of this document was supported by Wikimedia CH.↩︎\nBy IFCAR, Public Domain, https://commons.wikimedia.org/w/index.php?curid=17491394↩︎\nThe main paradigm is adapted from Abeler, J., Falk, A., Goette, L., & Huffman, D. (2011). “Reference points and effort provision.” American Economic Review, 101(2), 470-492.↩︎\nMeans of 3.73 v. 4.44, F(1, 199) = 22.91, p &lt; .001, d = .68.↩︎\nMeans of $1.16 v. $.93↩︎"
+  },
+  {
     "objectID": "soap_box.html",
     "href": "soap_box.html",
     "title": "Blog",
     "section": "",
-    "text": "Star ratings are a bad way to compare products (1)\n\n\nWe don’t know enough about what goes into other people’s ratings\n\n\n\n\n\nJun 3, 2024\n\n\nMatt Meister\n\n\n\n\n\n\nNo matching items"
+    "text": "Star ratings are a bad way to compare products (2)\n\n\nStars are not kilograms\n\n\n\n\n\nJun 5, 2025\n\n\nMatt Meister\n\n\n\n\n\n\n\n\n\n\n\n\nStar ratings are a bad way to compare products (1)\n\n\nWe don’t know enough about what goes into other people’s ratings\n\n\n\n\n\nJun 3, 2025\n\n\nMatt Meister\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/star_ratings_steves.html",
@@ -298,7 +312,7 @@
     "href": "index.html",
     "title": "\nMatt Meister\n",
     "section": "",
-    "text": "Matt Meister\n\n\n(.com)\n\n\n\n\nI study how people learn about and evaluate their choices—especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.\n\n\nI teach applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize real (messy) data, decision-making, and gaining comfort with difficult topics.\n\n\n\n  Email: mmeister@usfca.edu \n  GitHub \n  LinkedIn \n  CV \n\n\n\nYou are visitor #loading…\n\n\n*Rough estimate"
+    "text": "Matt Meister\n\n\n(.com)\n\n\n\n\nI study how people learn about and evaluate their choices—especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.\n\n\nI teach applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize real (messy) data, decision-making, and gaining comfort with difficult topics.\n\n\n\n  Email: mmeister@usfca.edu \n  GitHub \n  LinkedIn \n  CV \n\n\nRecent Blogs\nStar ratings are a bad way to compare products (2)\nStar ratings are a bad way to compare products (1)"
   },
   {
     "objectID": "teaching/bias_vs_noise.html#bias-vs-noise",
@@ -333,7 +347,7 @@
     "href": "teaching/bias_vs_noise.html#noise-3",
     "title": "Bias vs. Noise",
     "section": "Noise",
-    "text": "Noise\nIf you did not know the population average of income, how would you estimate it with your survey sample?\n\n\nYou would see what the mean in the sample is!\n\n\nmean(customerDataSmall$income)\n\n[1] 60464.8\n\n\n\n\nThat sample estimate is going to be noisy\n\nIt’s going to vary from sample to sample around the population average\n\n“true mean”"
+    "text": "Noise\nIf you did not know the population average of income, how would you estimate it with your survey sample?\n\n\nYou would see what the mean in the sample is!\n\n\nmean(customerDataSmall$income)\n\n[1] 59718.8\n\n\n\n\nThat sample estimate is going to be noisy\n\nIt’s going to vary from sample to sample around the population average\n\n“true mean”"
   },
   {
     "objectID": "teaching/bias_vs_noise.html#noise-4",
@@ -809,7 +823,7 @@
     "href": "teaching/03 Correlation and Regression.html#linear-regression-9",
     "title": "Correlation and Linear Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\nWhat is our new best guess?\n\nI’m going to test a bunch of different intercepts and slopes\nWhat gets us the lowest squared error?\n\n\nsimulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]\n\n    guess.intercept guess.slope how_wrong2\n455        400.6015  0.07798414    3053991\n\n\nTo get the exact numbers\n\nUse lm() to find the coefficient for weight\n\n\nlm(data = reiDataSmall,\n   formula = sales ~ weight)\n\n\nCall:\nlm(formula = sales ~ weight, data = reiDataSmall)\n\nCoefficients:\n(Intercept)       weight  \n    10.9061      -0.1764"
+    "text": "Linear Regression\nWhat is our new best guess?\n\nI’m going to test a bunch of different intercepts and slopes\nWhat gets us the lowest squared error?\n\n\nsimulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]\n\n     guess.intercept guess.slope how_wrong2\n6597        400.2369     0.17702    3054818\n\n\nTo get the exact numbers\n\nUse lm() to find the coefficient for weight\n\n\nlm(data = reiDataSmall,\n   formula = sales ~ weight)\n\n\nCall:\nlm(formula = sales ~ weight, data = reiDataSmall)\n\nCoefficients:\n(Intercept)       weight  \n    10.9061      -0.1764"
   },
   {
     "objectID": "teaching/03 Correlation and Regression.html#linear-regression-10",
@@ -844,7 +858,7 @@
     "href": "teaching/03 Correlation and Regression.html#linear-regression-14",
     "title": "Correlation and Linear Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\nIs that smaller than before?\n\nSSE from mean:\n\nsum(reiDataSmall$how_wrong2)\n\n[1] 4738096\n\n\n\n\nSSE including weight:\n\nsum(reiDataSmall$how_wrong2.lm)\n\n[1] 6.739911"
+    "text": "Linear Regression\nIs that smaller than before?\n\nSSE from mean:\n\nsum(reiDataSmall$how_wrong2)\n\n[1] 4728849\n\n\n\n\nSSE including weight:\n\nsum(reiDataSmall$how_wrong2.lm)\n\n[1] 6.739911"
   },
   {
     "objectID": "teaching/03 Correlation and Regression.html#but-is-it-worth-drawing-that-line",

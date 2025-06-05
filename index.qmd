@@ -2,7 +2,8 @@
 format:
   html:
     page-layout: full
-editor: visual
+    toc: false
+editor: source
 ---
 
 ::: text-center
@@ -32,18 +33,11 @@ editor: visual
 :::
 
 ::: {.text-center .mt-5}
-<p>You are visitor \#[loading...]{#visitor-count}</p>
 
-<p style="font-size: 0.5rem; color: gray; margin-top: -0.5rem;">
+#### Recent Blogs
 
-\*Rough estimate
+[**Star ratings are a bad way to compare products (2)**](/posts/star_ratings_kilos.html)
 
-</p>
+[**Star ratings are a bad way to compare products (1)**](/posts/star_ratings_steves.html)
+
 :::
-
-```{=html}
-<script>
-  const count = Math.floor(Math.random() * 30000000) + 10000;
-  document.getElementById("visitor-count").textContent = count.toLocaleString();
-</script>
-```

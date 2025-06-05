@@ -3,8 +3,9 @@ title: "Blog"
 listing:
   contents:
     - posts/*.qmd
+  sort: "date desc"
   feed: true
-  image-height: "100"   # optional; tweak to your style
+ # image-height: "50%"   # optional; tweak to your style
   categories: unnumbered    # optional; enables filtering
   fields: [author, image, date, title, subtitle]
 ---

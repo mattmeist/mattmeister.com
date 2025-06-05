@@ -38,6 +38,6 @@ I have linked below a sampling of materials I use in my stats and analytics clas
 
 ### Slides
 
-- <a href="teaching/06 effect sizes.qmd" class="btn btn-yellow" role="button">Effect Sizes</a>
+- <a href="teaching/06 effect sizes.qmd" class="btn btn-yellow" role="button">Effect Sizes</a> (This borrows heavily from [Quentin André](https://quentinandre.net/post/a-critical-perspective-on-effect-sizes/))
 - <a href="teaching/bias_vs_noise.qmd" class="btn btn-yellow" role="button">Bias vs Noise</a>
 - <a href="teaching/03 Correlation and Regression.qmd" class="btn btn-yellow" role="button">Correlation and Regression</a>
