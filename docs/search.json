@@ -347,7 +347,7 @@
     "href": "teaching/bias_vs_noise.html#noise-3",
     "title": "Bias vs. Noise",
     "section": "Noise",
-    "text": "Noise\nIf you did not know the population average of income, how would you estimate it with your survey sample?\n\n\nYou would see what the mean in the sample is!\n\n\nmean(customerDataSmall$income)\n\n[1] 65858.9\n\n\n\n\nThat sample estimate is going to be noisy\n\nIt’s going to vary from sample to sample around the population average\n\n“true mean”"
+    "text": "Noise\nIf you did not know the population average of income, how would you estimate it with your survey sample?\n\n\nYou would see what the mean in the sample is!\n\n\nmean(customerDataSmall$income)\n\n[1] 54949.2\n\n\n\n\nThat sample estimate is going to be noisy\n\nIt’s going to vary from sample to sample around the population average\n\n“true mean”"
   },
   {
     "objectID": "teaching/bias_vs_noise.html#noise-4",
@@ -823,7 +823,7 @@
     "href": "teaching/03 Correlation and Regression.html#linear-regression-9",
     "title": "Correlation and Linear Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\nWhat is our new best guess?\n\nI’m going to test a bunch of different intercepts and slopes\nWhat gets us the lowest squared error?\n\n\nsimulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]\n\n     guess.intercept guess.slope how_wrong2\n1298        401.3774  0.02219569    3062451\n\n\nTo get the exact numbers\n\nUse lm() to find the coefficient for weight\n\n\nlm(data = reiDataSmall,\n   formula = sales ~ weight)\n\n\nCall:\nlm(formula = sales ~ weight, data = reiDataSmall)\n\nCoefficients:\n(Intercept)       weight  \n    10.9061      -0.1764"
+    "text": "Linear Regression\nWhat is our new best guess?\n\nI’m going to test a bunch of different intercepts and slopes\nWhat gets us the lowest squared error?\n\n\nsimulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]\n\n    guess.intercept guess.slope how_wrong2\n848        400.0106   0.1137502    3047116\n\n\nTo get the exact numbers\n\nUse lm() to find the coefficient for weight\n\n\nlm(data = reiDataSmall,\n   formula = sales ~ weight)\n\n\nCall:\nlm(formula = sales ~ weight, data = reiDataSmall)\n\nCoefficients:\n(Intercept)       weight  \n    10.9061      -0.1764"
   },
   {
     "objectID": "teaching/03 Correlation and Regression.html#linear-regression-10",
@@ -858,7 +858,7 @@
     "href": "teaching/03 Correlation and Regression.html#linear-regression-14",
     "title": "Correlation and Linear Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\nIs that smaller than before?\n\nSSE from mean:\n\nsum(reiDataSmall$how_wrong2)\n\n[1] 5245806\n\n\n\n\nSSE including weight:\n\nsum(reiDataSmall$how_wrong2.lm)\n\n[1] 6.739911"
+    "text": "Linear Regression\nIs that smaller than before?\n\nSSE from mean:\n\nsum(reiDataSmall$how_wrong2)\n\n[1] 4607416\n\n\n\n\nSSE including weight:\n\nsum(reiDataSmall$how_wrong2.lm)\n\n[1] 6.739911"
   },
   {
     "objectID": "teaching/03 Correlation and Regression.html#but-is-it-worth-drawing-that-line",
