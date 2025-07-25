@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Matt Meister">
+<meta name="dcterms.date" content="2025-07-24">
 
-<title>MattMeister.com - Blog</title>
+<title>MattMeister.com - Star ratings are a bad way to compare products (3)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon/dog.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon/dog.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-author','listing-image','listing-date','listing-title','listing-subtitle',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-KEYFNVVL8D"></script>
 
 <script type="text/javascript">
@@ -108,37 +78,8 @@ gtag('js', new Date());
 gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="alternate" type="application/rss+xml" title="MattMeister.com" href="soap_box.xml" data-external="1"></head>
+</head>
 
 <body class="nav-fixed">
 
@@ -147,10 +88,10 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./favicon/dog.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../favicon/dog.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MattMeister.com</span>
     </a>
   </div>
@@ -161,23 +102,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./soap_box.html" aria-current="page"> 
+    <a class="nav-link" href="../soap_box.html"> 
 <span class="menu-text"><span class="btn btn-yellow">Blog</span></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./papers.html"> 
+    <a class="nav-link" href="../papers.html"> 
 <span class="menu-text"><span class="btn btn-yellow">Papers</span></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./code_data.html"> 
+    <a class="nav-link" href="../code_data.html"> 
 <span class="menu-text"><span class="btn btn-yellow">Code &amp; Data</span></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./reviews_hall_of_fame.html"> 
+    <a class="nav-link" href="../reviews_hall_of_fame.html"> 
 <span class="menu-text"><span class="btn btn-yellow">Reviews HOF</span></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./teaching.html"> 
+    <a class="nav-link" href="../teaching.html"> 
 <span class="menu-text"><span class="btn btn-yellow">Teaching</span></span></a>
   </li>  
 </ul>
@@ -193,20 +134,38 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-unnumbered"><div class="category" data-category="academic">academic</div><div class="category" data-category="research">research</div><div class="category" data-category="star ratings">star ratings</div></div></div>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
+<h1 class="title">Star ratings are a bad way to compare products (3)</h1>
+<p class="subtitle lead">YOTO: You only try one (product at a time)</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">academic</div>
+    <div class="quarto-category">research</div>
+    <div class="quarto-category">star ratings</div>
+  </div>
+  </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matt Meister </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 24, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -216,92 +175,78 @@ window.Quarto = {
 </header>
 
 
+<style>
+  p {
+    margin-top: 1.25em;
+  }
+  h4 {
+    margin-top: 2em;
+  }
+</style>
+<div style="text-align: left; margin-top: 3em;">
+<p>This is the third in a series about star ratings/online reviews. I plan to mainly talk about my own research.</p>
+</div>
+<p>In the previous two blogs (<a href="../posts/star_ratings_steves.html">1</a>, <a href="../posts/star_ratings_kilos.html">2</a>), I argued that star ratings (or online reviews, customer ratings, etc.) are an exceptionally bad way to compare our options as consumers. The simplest reason I gave was that star ratings are not kilograms. Unlike kilograms, there is no standard or objective benchmark against which we can compare ratings. We plainly do not know what a star <em>is</em>.</p>
+<p>But of course stars are not kilograms! What a stupid thing to write.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Of course we cannot compare ratings to something objective. What would that even mean? Surely, a star rating is a measure of enjoyment. And if more people enjoy something, it should receive higher ratings, and <em>I should like it too</em>!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>I see this argument as the “promise” of star ratings. In theory, a star might be equivalent to a <strong>util</strong>—a unit of utility or, for those who did not take or do not remember Econ 101, an objective measure of enjoyment.</p>
+<p>The previous two posts make a plain argument that star ratings are not clearly a measure of enjoyment; instead, they reflect <a href="../posts/star_ratings_steves.html">prior expectations</a> and other things that influence <a href="../posts/star_ratings_kilos.html">what a person considers to be good or bad</a> when they rate something. This makes it more difficult to argue that a past consumer’s rating will be a good predictor of my own enjoyment, because their ratings are not all about enjoyment.</p>
+<p>This post takes a slightly different tact. Even when ratings <em>are</em> about enjoyment, another person’s enjoyment might still be a poor predictor of my own—for reasons I cannot see in their reviews. This is because our experiences are shaped by many different things; us, the product or service, and the environment around us—including all that “the environment” entails. Therefore, how much we enjoy an experience—and how we rate it online—is also dependent on <em>all</em> those same factors.</p>
+<p>The main consequence of this is that ratings are much more random than we might hope. Someone does not <em>just</em> rate something five stars because it is awesome, and four because it is okay—they might rate a winter jacket four stars because it was bitterly cold outside, for example.</p>
+<section id="enjoyment-is-a-bad-predictor-of-enjoyment" class="level4">
+<h4 data-anchor-id="enjoyment-is-a-bad-predictor-of-enjoyment">Enjoyment is a bad predictor of enjoyment</h4>
+<p>This blog post accompanies a recent paper that Nick Reinholtz and I published in the Journal of Marketing, titled “<a href="https://papers.ssrn.com/abstract=4155522">Quality in Context: Evidence for the Arbitrary Influence of Situational Factors on User-Generated Product Ratings</a>. The example from that paper is clear enough that I re-use it here.</p>
+<p>Nick and I both own more winter jackets than we (or our spouses) think we need to.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> For any one of my jackets, I care primarily about how warm it keeps me, how it looks, and how convenient it makes life. Therefore, my experience of owning it is shaped by the jacket’s style, build quality, technical features like extra pockets, type and amount of insulation, and more.</p>
+<p>However, other things that have nothing to do with the jacket itself affect my experience of owning it. For example, the weather: temperature, wind, rain, sun. This second list of factors are properties of the context in which I wear this jacket. If the point is to keep me warm, and being cold will make me unhappy, I will reasonably be less happy on a 30º<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> day than a 50º day.</p>
+<p>Ideally, this would not influence my eventual rating. The weather I wear something in has nothing to do with the jacket itself, so I should remove the influence of weather from my ratings, right? But <em>how</em> can I do this—how can I know exactly what influence my context (in this case, weather) had on my rating? If this seems incredibly complex, that is because it is.</p>
+<p>To test whether context influences ratings, Nick and I scraped over 200,000 ratings from REI.com for cold-weather gear (things designed to keep people warm) and other products, and merged these ratings with local weather data from the day of the review and two before. This is a noisy measure of context, as we cannot see exactly when and where something was used. But, any problems should affect all products equally—and we are not interested in whether context affects ratings for all products equally.</p>
+<p>Instead, we are interested in whether there is a distinct effect of recent temperature on products designed to keep users warm. This is because, by definition, temperature is directly relevant to the experience of wearing a winter jacket in ways it is not relevant to, say, a bicycle helmet. Therefore, if there is a different impact of temperature on these products designed to keep people warm, it stands to reason that this is because temperature has a unique effect on the enjoyment of these products, which leaks into people’s ratings.</p>
+<p>The figure below shows the relationship between temperature (on the x-axis) and ratings (on the y-axis) for cold-weather products<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> (light blue) and all other products sold on REI.com (dark blue). Because “cold” and “warm” are inherently relative to location and season (40º Fahrenheit is extremely cold in San Francisco in September, but not so in Boulder in February), this figure does not plot raw temperatures, but temperatures <em>minus</em> normal temperature in the same location on the same day in other years.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> For simplicity, I have aggregated these observations into deciles for each product type—the points furthest left represent the average ratings in the coldest 10% of days, furthest right represent the average ratings in the warmest 10% of days, and so on.</p>
+<div class="image-box">
+<p>
+<strong>Relationship between ratings and temperature on REI.com</strong>
+</p>
+<img src="star_ratings_rei/figure_1.png" alt="Relationship between ratings and abnormal temperature for cold weather and other products.">
+<p class="caption-note">
+<em>Lines extending from each point show the 95% confidence interval around each estimate. Dotted lines represent the linear trend across points in a category.</em>
+</p>
+</div>
+<p>As is hopefully evident, ratings for products designed to keep people warm increase with temperature—warmer days lead to higher ratings. This is unique to cold-weather products, as the darker blue points have a largely flat relationship with temperature.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>We also find the same result in rain jackets—people give lower ratings to rain jackets if it has rained more in recent days. And, if you are skeptical and concerned that Nick and I have stumbled upon a spurious correlation, the published paper includes a <a href="https://doi.org/10.1038/s41562-020-0912-z">specification curve analysis</a>, where we test out 20,736 different models, finding the same result. As best as these data will tell us, it appears that people are allowing their context to affect their ratings.</p>
+</section>
+<section id="but-surely-the-reviewers-mention-this" class="level4">
+<h4 data-anchor-id="but-surely-the-reviewers-mention-this">But surely the reviewers mention this?</h4>
+<p>Whenever I present this paper—up to this point—someone inevitably comments something along the lines of “Even if ratings are influenced by context, people surely explain this influence in their written reviews, right?” If this were the case, the problem I have written about here would be relatively limited—for example, if a negative review is accompanied by “I did not like this jacket, but it was -30º when I wore it,” you might reasonably conclude that the jacket would be fine for you, since you do not encounter such temperatures.</p>
+<p>It turns out that a fair portion of people actually do mention the weather in which they use a product. Using GPT-4o-mini (which is uniquely great at pulling specific context out of complicated text), 42% of reviews for cold weather products and 60% of reviews for rain jackets mentioned context (temperature and precipitation, respectively). Unfortunately, the good news ends here, for two reasons. First, this “mention” of context is rarely specific enough to be useful; only 10% of reviews for cold-weather gear mention the weather with objective language—the rest use subjective words like “cold” and “warm,” which are individual-specific.</p>
+<p>More damningly, reviews that mention weather actually show a much smaller effect of temperature on ratings than the ones that did not. In fact, there is not a significant relationship of temperature on ratings for reviews that do mention temperature. The main result is driven by those that do not mention temperature. This leaves consumers with no way to know what effect temperature had on these ratings—short of merging NCEI weather observations with each review, which I do not recommend from experience.</p>
+</section>
+<section id="so-what" class="level4">
+<h4 data-anchor-id="so-what">So what?</h4>
+<p>There are more consequences of this result than I will go into in this post,<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> but all fall under the umbrella of “there is a ton of noise in individual ratings.” This means that average ratings are often not calculated from large enough samples. For example, Nick and I find that sorting products by ratings is effectively random; there is a very low correlation between products sorted by actual ratings and by ratings re-calculated to remove the effect of weather—and we only observe a single form of context in this paper, meaning there is almost certainly a lot we do not remove when re-sorting.</p>
+<p>A second important consequence is that considering individual ratings or reviews is almost certainly a bad idea. These ratings do not contain enough information to explain <em>themselves</em>, let alone an entire product.</p>
+<p>In combination, these consequences are not awesome. They mean that we cannot trust individual ratings, but also that we almost certainly do not have enough ratings for the majority of products to trust a summary of ratings. As a result, the biases I have written about in the past three posts are purely detrimental for people shopping online. Platforms like REI do not provide enough information for people to realize all of the influences on ratings, nor do these platforms use this information to help consumers.</p>
+<p>But, luckily, at least this blog post comes with a potential solution. In fact, one of the things I find most promising about this research is that someone smarter than I can figure out how to use context information (like weather) to improve recommendation systems without needing to ask reviewers themselves to provide more information. As I hope this post has shown, there is a ton of information contained <em>around</em> a rating that can be used to help consumers. If I can do this from my office and apartment, a data science team should not have a problem.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
+<p>In the paper, Nick and I also show some ways that platforms can collect better ratings. In two experiments we show that it is possible to attenuate the effect of context on ratings by explicitly explaining to consumers (i) how their context was unique, and (ii) what impact this had on their experience with a product. The catch is that this <strong>needs</strong> to be quite heavy-handed. It is not enough to simply ask people to think about context—they do not anticipate its effect on their ratings. As a result of this heavy-handedness, these attenuation strategies are also product-specific, meaning that there is not one catch-all for every product that is reviewed on a site. However, it is possible.</p>
+<p>As with the prior two posts, my recommendation for people shopping online is to help yourself by considering ratings or reviews very cautiously. Be aware of what they cannot tell you, and what information you are missing about how someone came to their evaluation. And learn about technical aspects of products! In the context of a winter jacket, do some reading about filling, build quality, etc. <strong>That</strong> information has certainly never been easier to acquire.</p>
+<p>In future posts, I plan to talk about some of my other research on decision-making around personal finances and advice-taking. However, at some point I will also get back to the idea of sample sizes in online reviews, touched on here.</p>
 
 
+</section>
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="academic,research,star ratings" data-listing-date-sort="1753340400000" data-listing-file-modified-sort="1753380563305" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2067">
-<div class="thumbnail">
-<p><a href="./posts/star_ratings_rei.html" class="no-external"></a></p><a href="./posts/star_ratings_rei.html" class="no-external">
-<p><img src="./posts/star_ratings_rei/" class="thumbnail-image"></p>
-</a><p><a href="./posts/star_ratings_rei.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/star_ratings_rei.html" class="no-external">Star ratings are a bad way to compare products (3)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/star_ratings_rei.html" class="no-external">YOTO: You only try one (product at a time)</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/star_ratings_rei.html" class="no-external">
-<div class="listing-date">
-Jul 24, 2025
-</div>
-<div class="listing-author">
-Matt Meister
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="academic,research,star ratings" data-listing-date-sort="1749106800000" data-listing-file-modified-sort="1749141123732" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1646">
-<div class="thumbnail">
-<p><a href="./posts/star_ratings_kilos.html" class="no-external"></a></p><a href="./posts/star_ratings_kilos.html" class="no-external">
-<p><img src="./posts/star_ratings_kilos/andre_elephant.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/star_ratings_kilos.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/star_ratings_kilos.html" class="no-external">Star ratings are a bad way to compare products (2)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/star_ratings_kilos.html" class="no-external">Stars are not kilograms</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/star_ratings_kilos.html" class="no-external">
-<div class="listing-date">
-Jun 5, 2025
-</div>
-<div class="listing-author">
-Matt Meister
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="academic,research,star ratings" data-listing-date-sort="1748934000000" data-listing-file-modified-sort="1749080576560" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2278">
-<div class="thumbnail">
-<p><a href="./posts/star_ratings_steves.html" class="no-external"></a></p><a href="./posts/star_ratings_steves.html" class="no-external">
-<p><img src="./posts/star_ratings_steves/steves_books.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/star_ratings_steves.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/star_ratings_steves.html" class="no-external">Star ratings are a bad way to compare products (1)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/star_ratings_steves.html" class="no-external">We don’t know enough about what goes into other people’s ratings</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/star_ratings_steves.html" class="no-external">
-<div class="listing-date">
-Jun 3, 2025
-</div>
-<div class="listing-author">
-Matt Meister
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Even in a blog.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is largely the argument Itamar Simonson made in his book “Absolute Value” (https://www.amazon.com/Absolute-Value-Influences-Customers-Information/dp/B00XWCYXW4), and in a Journal of Consumer Research commentary (https://doi.org/10.1093/jcr/ucv091) in 2016.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Nick moreso than me, if you are counting.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Unfortunately, I will write temperatures in Fahrenheit in this post.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Specifically, these products were listed in at least one of ten categories: gloves and mittens, snowboard clothing, ski clothing, men’s and women’s jackets, men’s and women’s snow jackets, and men’s and women’s insulated jackets.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Specifically, we subtract the average three-day daily mean temperature from the years 2015-2023, other than the year of the review.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>The obvious exception to this is the coldest 10% of days for other products, where ratings are higher than any other decile. I do not have a reason for this to be the case, but I am all ears.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>More are available in the paper itself.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Or, shamelessly, send me an email: mmeister@usfca.edu<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -322,13 +267,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
