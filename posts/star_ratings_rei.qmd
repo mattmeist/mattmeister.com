@@ -3,7 +3,7 @@ title: "Star ratings are a bad way to compare products (3)"
 subtitle: "YOTO: You only try one (product at a time)"
 author: "Matt Meister"
 date: 2025-07-24
-image: "star_ratings_rei/"  
+image: "star_ratings_rei/util.png"  
 categories: ["academic", "research", "star ratings"]
 editor: source
 format:
@@ -26,7 +26,7 @@ format:
 This is the third in a series about star ratings/online reviews. I plan to mainly talk about my own research. 
 :::
 
-In the previous two blogs ([1](star_ratings_steves.qmd), [2](star_ratings_kilos.qmd)), I argued that star ratings (or online reviews, customer ratings, etc.) are an exceptionally bad way to compare our options as consumers. The simplest reason I gave was that star ratings are not kilograms. Unlike kilograms, there is no standard or objective benchmark against which we can compare ratings. We plainly do not know what a star *is*.
+In two previous blogs ([1](star_ratings_steves.qmd), [2](star_ratings_kilos.qmd)), I argued that star ratings (or online reviews, customer ratings, etc.) are an exceptionally bad way to compare our options as consumers. The simplest reason I gave was that star ratings are not kilograms. Unlike kilograms, there is no standard or objective benchmark against which we can compare ratings. We plainly do not know what a star *is*.
 
 But of course stars are not kilograms! What a stupid thing to write.^[Even in a blog.] Of course we cannot compare ratings to something objective. What would that even mean? Surely, a star rating is a measure of enjoyment. And if more people enjoy something, it should receive higher ratings, and *I should like it too*!^[This is largely the argument Itamar Simonson made in his book "Absolute Value" (https://www.amazon.com/Absolute-Value-Influences-Customers-Information/dp/B00XWCYXW4), and in a Journal of Consumer Research commentary (https://doi.org/10.1093/jcr/ucv091) in 2016.]
 
@@ -40,7 +40,7 @@ The main consequence of this is that ratings are much more random than we might 
 
 #### Enjoyment is a bad predictor of enjoyment
 
-This blog post accompanies a recent paper that Nick Reinholtz and I published in the Journal of Marketing, titled "[Quality in Context: Evidence for the Arbitrary Influence of Situational Factors on User-Generated Product Ratings](https://papers.ssrn.com/abstract=4155522). The example from that paper is clear enough that I re-use it here.
+This blog post accompanies a recent paper that Nick Reinholtz and I published in the Journal of Marketing, titled "[Quality in Context: Evidence for the Arbitrary Influence of Situational Factors on User-Generated Product Ratings](https://doi.org/10.1177/00222429251365883). The example from that paper is clear enough that I re-use it here.
 
 Nick and I both own more winter jackets than we (or our spouses) think we need to.^[Nick moreso than me, if you are counting.] For any one of my jackets, I care primarily about how warm it keeps me, how it looks, and how convenient it makes life. Therefore, my experience of owning it is shaped by the jacket’s style, build quality, technical features like extra pockets, type and amount of insulation, and more. 
 

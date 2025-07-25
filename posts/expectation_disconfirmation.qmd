@@ -1,0 +1,12 @@
+---
+title: "It's all expectation disconfirmation"
+subtitle: "But maybe that's fine"
+author: "Matt Meister"
+date: 2025-07-24
+image: "expectation_disconfirmation/ed.jpg"  
+categories: ["academic", "research"]
+editor: source
+format:
+  html:
+    anchor-sections: false
+---

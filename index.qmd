@@ -36,6 +36,8 @@ editor: source
 
 #### Recent Blogs
 
+[**Star ratings are a bad way to compare products (3)**](/posts/star_ratings_rei.html)
+
 [**Star ratings are a bad way to compare products (2)**](/posts/star_ratings_kilos.html)
 
 [**Star ratings are a bad way to compare products (1)**](/posts/star_ratings_steves.html)
