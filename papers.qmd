@@ -10,7 +10,7 @@ editor: source
 
 ### Quality Certifications Influence User-Generated Ratings
 
-<a href="https://doi.org/10.1093/jcr/ucaf008" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_steves.html" class="btn btn-yellow" role="button">Blog link</a>
+<a href="https://doi.org/10.1093/jcr/ucaf008" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_steves.html" class="btn btn-yellow" role="button">Blog link</a> <a href="portfolio/airbnb_ptf.html" class="btn btn-yellow" role="button">UX Portfolio link</a>
 
 -   *Published* at Journal of Consumer Research
 -   With [Nick Reinholtz](https://reinholtzresearch.com)

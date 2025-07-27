@@ -85,5 +85,17 @@
   },
   "drafts/expectation_disconfirmation.qmd": {
     "expectation_disconfirmation.html": "ff50650b"
+  },
+  "airbnb_ptf.qmd": {
+    "airbnb_ptf.html": "6f4af409"
+  },
+  "portfolio/airbnb_ptf.qmd": {
+    "airbnb_ptf.html": "bc645130"
+  },
+  "portfolio/airbnb_ptf_slides.qmd": {
+    "airbnb_ptf_slides.html": "f92c9080"
+  },
+  "portfolio.qmd": {
+    "portfolio.html": "fae79877"
   }
 }

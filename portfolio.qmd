@@ -1,0 +1,53 @@
+---
+title: "Quantitative UX Research Portfolio"
+search: false
+format:
+  html:
+    toc: false
+    page-layout: full
+editor: source
+---
+
+I am a marketing professor and quantitative behavioral scientist. My focus is on understanding how people make evaluations and decisions in complex, data-rich environments. Over the past seven years, I have led research projects using both experiments (including online samples and large field experiments with digital platforms) and econometric analyses of observational data sets scraped using Python (including from Airbnb.com, Vrbo.com, REI.com). I have built tools to share and present this work including interactive slides and blog posts with Quarto, and share all of my data and code on [Github](https://github.com/mattmeist).
+
+I have also developed and taught statistics and marketing analytics at the undergraduate and graduate levels, where I have also built things---courses, dashboards, experimental tools, interactive learning assignments. 
+
+I am interested in quantitative user experience research roles that will help me to use these skills impactfully, while continuing to grow and learn.
+
+### Resume
+
+<a href="https://drive.google.com/file/d/1pSQbzEMwtxv8dXJdDOoZYx4D224fRcM7/view?usp=share_link" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="resume" target="_blank"> <i class="bi bi-file-earmark-person" style="font-size: 1.5rem;"></i> UXR Resume </a>
+
+<a href="https://drive.google.com/file/d/1ZE4Mjpl4ZE-L9ZwNCL54vZR3rCHU01pO/view" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="CV" target="_blank"> <i class="bi bi-file-earmark-person" style="font-size: 1.5rem;"></i> Academic CV </a>
+
+### Portfolio
+
+- [Quality Certifications Influence User-Generated Ratings](https://www.mattmeister.com/portfolio/airbnb_ptf.html)
+
+### Research Experience
+
+##### Quality Certifications Influence User-Generated Ratings
+
+<a href="https://doi.org/10.1093/jcr/ucaf008" class="btn btn-yellow me-2" role="button" target="_blank">Academic Paper</a> <a href="posts/star_ratings_steves.html" class="btn btn-yellow" role="button">Blog Post</a> <a href="portfolio/airbnb_ptf.html" class="btn btn-yellow" role="button">UXR Portfolio</a>
+
+-   Superhost status on Airbnb negatively influences ratings, in ways regular consumers do not correct for. 
+-   Across over 1.5 million ratings and several follow-up studies, certified properties receive lower subsequent ratings. 
+-   Consumers do not correct for this when choosing properties to stay at.
+
+##### Quality in Context: Evidence That Consumption Context Influences User-Generated Product Ratings
+
+<a href="https://doi.org/10.1177/00222429251365883" class="btn btn-yellow me-2" role="button" target="_blank">Academic Paper</a> <a href="posts/star_ratings_rei.html" class="btn btn-yellow" role="button">Blog Post</a>
+
+-   Situational context---like weather---affects user-generated product ratings.
+-   Analyzing over 218,000 ratings from REI.com, we find that cold-weather gear receives lower ratings during unseasonably cold weather, despite being designed for those conditions. 
+-   Other products are not affected. 
+-   Follow-up experiments show that consumers consistently overlook how context shapes their experiences, and this bias proves difficult to correct.
+
+##### Unexpected Benefits of Personal Financial Disclosure
+
+<a href="https://doi.org/10.1016/j.obhdp.2025.104430" class="btn btn-yellow me-2" role="button" target="_blank">Academic Paper</a>
+
+-   Talking about money can reduce financial anxiety. 
+-   This is especially true for controllable topics like budgeting.
+-   Using experiments, large-scale surveys, and text analysis of online discussion forums.
+-   The effect is strongest when people feel a greater sense of control, such as when communicating online, suggesting financial communication is a scalable tool for improving well-being.
