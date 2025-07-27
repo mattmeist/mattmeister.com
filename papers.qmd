@@ -40,7 +40,7 @@ editor: source
 -   With [Nick Reinholtz](https://reinholtzresearch.com)
 -   This research questions at a more fundamental level whether user-generated star ratings help consumers make optimal choices. We show that ratings are influenced by the expectations a product creates, making them context-dependent and often incomparable across alternatives. Using four experiments, we find that higher expectations lead to lower ratings, and that consumers *can* mistakenly prefer higher-rated products even when they are objectively worse.
 
-### The Dispersion Between Forecasts changes How People Combine Them
+### The Dispersion Between Forecasts Changes How People Combine Them
 
 -   Under review at Journal of Consumer Research
 -   With [Katie Mehr](https://www.katie-mehr.com)
