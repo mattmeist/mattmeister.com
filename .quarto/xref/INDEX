@@ -97,5 +97,8 @@
   },
   "portfolio.qmd": {
     "portfolio.html": "fae79877"
+  },
+  "portfolio/rei_ptf.qmd": {
+    "rei_ptf.html": "b9d131b4"
   }
 }

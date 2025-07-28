@@ -7,7 +7,7 @@ format:
 editor: source
 ---
 
-### Background & Context
+### Situation
 
 Many platforms present signals of quality to customers. Among the most popular are consumer-generated ratings (e.g., star ratings). However, there are very basic unanswered questions about these ratings:
 

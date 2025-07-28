@@ -1,12 +1,14 @@
 ---
 title: "Portfolio Project 1"
+title-slide-attributes: 
+  data-background-color: "#17a2b8"
 subtitle: "Airbnb Superhost Status Influences Consumers' Ratings"
 author: "Matt Meister (mattmeister.com)"
-format: 
+format:
   revealjs:
-    css: 
-      - styles/mattmeister.css
-    toc: true
+    smaller: true
+    scrollable: true
+    css: styles/mattmeister.css
 editor: source
 ---
 

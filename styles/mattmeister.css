@@ -1,155 +1,133 @@
-/* bootswatch_with_yellow_green.css */
-/* ---------------------------------------------------
-   Color palette (from your SCSS)
-   --------------------------------------------------- */
+/* custom.css — Reveal.js theme overrides based on your bootswatch_with_yellow_green.scss */
+
+/* 1. Color palette */
 :root {
-  --quarto-yellow:  #ffc700;
-  --quarto-green:   #68d391;
-  --bs-primary:     #17a2b8;
-  --bs-secondary:   #325D88;
-  --bs-danger:      #dc3545;
-
-  /* Reveal.js core overrides */
-  --reveal-background: #343a40;
-  --reveal-text:       #f8f9fa;
+  --quarto-yellow: #ffc700;
+  --quarto-green:  #68d391;
+  --primary:       #17a2b8;
+  --secondary:     #325D88;
+  --tertiary:      #dc3545;
+  --text-color:    #2a2a2a;
+  --black:         #000;
 }
 
-/* ---------------------------------------------------
-   Slide container
-   --------------------------------------------------- */
-.reveal {
-  background-color: var(--reveal-background) !important;
-  color:            var(--reveal-text)       !important;
-  font-family:      system-ui, sans-serif     !important;
+/* 2. Base slide styling */
+.reveal .slides {
+  background-color: #17a2b8;
+  color: var(--text-color);
+  font-family: "Helvetica Neue", Arial, sans‑serif;
 }
 
-/* ---------------------------------------------------
-   Headings
-   --------------------------------------------------- */
+/* 3. Headings */
 .reveal h1,
 .reveal h2,
 .reveal h3,
-.reveal h4 {
-  color: var(--quarto-yellow) !important;
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: var(--secondary);
+  font-weight: 300;           /* matches Bootstrap’s $headings-font-weight */
+  margin-bottom: 0.5em;
 }
 
-/* ---------------------------------------------------
-   Links
-   --------------------------------------------------- */
+/* 4. Links */
 .reveal a {
-  color: var(--bs-primary) !important;
-  text-decoration: underline;
+  color: var(--primary);
+  text-decoration: none;
 }
 .reveal a:hover {
-  color: var(--quarto-yellow) !important;
+  text-decoration: underline;
 }
 
-/* ---------------------------------------------------
-   Blockquotes
-   --------------------------------------------------- */
+/* 5. Button variants */
+.reveal .btn {
+  display: inline-block;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;      /* approximate Bootstrap’s $border-radius-lg */
+  text-decoration: none;
+  color: #000;
+}
+.reveal .btn-yellow {
+  background-color: var(--quarto-yellow);
+  border: 1px solid var(--quarto-yellow);
+}
+.reveal .btn-green {
+  background-color: var(--quarto-green);
+  border: 1px solid var(--quarto-green);
+}
+.reveal .btn-tertiary {
+  background-color: var(--tertiary);
+  border: 1px solid var(--tertiary);
+  color: #fff;
+}
+
+/* 6. Code blocks & inline code */
+.reveal code,
+.reveal pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+  padding: 0.2em 0.4em;
+}
+
+/* 7. Blockquotes */
 .reveal blockquote {
-  border-left: 4px solid var(--bs-secondary) !important;
-  background:   rgba(255,255,255,0.1)         !important;
-  color:        var(--reveal-text)           !important;
-  padding:      0.5em 1em                    !important;
-  margin:       1em 0                        !important;
+  border-left: 0.25em solid var(--primary);
+  color: #555;
+  padding-left: 1em;
+  margin: 1em 0;
 }
 
-/* ---------------------------------------------------
-   Code blocks & inline code
-   --------------------------------------------------- */
-.reveal pre,
-.reveal code {
-  background-color: #1e1e1e                  !important;
-  color:            var(--quarto-green)      !important;
-  font-family:      Menlo, monospace         !important;
-}
-.reveal code .hljs-keyword { color: var(--bs-danger)    !important; }
-.reveal code .hljs-string  { color: var(--quarto-yellow) !important; }
-.reveal code .hljs-comment { color: #6c757d               !important; }
-
-/* ---------------------------------------------------
-   Tables
-   --------------------------------------------------- */
+/* 8. Tables */
 .reveal table {
-  border-collapse: collapse !important;
-  margin:          1em 0    !important;
+  border-collapse: collapse;
+  margin: 1em 0;
 }
-.reveal table th {
-  background-color: var(--bs-secondary) !important;
-  color:            var(--reveal-text)   !important;
-  padding:          0.5em 1em            !important;
-}
+.reveal table th,
 .reveal table td {
-  border: 1px solid var(--bs-secondary) !important;
-  padding: 0.5em                        !important;
+  border: 1px solid #dee2e6;
+  padding: 0.5em 1em;
 }
 
-/* ---------------------------------------------------
-   Lists
-   --------------------------------------------------- */
-.reveal ul li::marker,
-.reveal ol li::marker {
-  color: var(--quarto-yellow) !important;
+/* 9. Image‐box utility */
+.reveal .image-box {
+  border: 1px solid var(--black);
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
-/* ---------------------------------------------------
-   Horizontal rules
-   --------------------------------------------------- */
-.reveal hr {
-  border: none                  !important;
-  border-top: 1px solid var(--quarto-yellow) !important;
-  margin: 2em 0                 !important;
+/* 10. Tab‐content & nav‐pills (if you reuse them in slides) */
+.reveal .tab-content {
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 2px solid var(--black);
+  border-radius: 0.5rem;
+}
+.reveal .nav-pills {
+  display: flex;
+  gap: 4px;
+  font-weight: 600;
+}
+.reveal .nav-pills .nav-link {
+  border: 2px solid var(--black);
+  padding: 0.5em 1em;
+  border-radius: 0.25rem;
+  text-decoration: none;
 }
 
-/* ---------------------------------------------------
-   Images
-   --------------------------------------------------- */
-.reveal img {
-  border:        2px solid var(--bs-secondary) !important;
-  border-radius: 0.25rem                   !important;
-  margin:        1em 0                    !important;
-  display:       block;
-  max-width:     100%;
+/* shrink overall slide font */
+html.reveal {
+  /* default is 32px — try 20px or adjust to taste */
+  font-size: 10px;
 }
 
-/* ---------------------------------------------------
-   Buttons (e.g., when using reveal.js fragments or custom controls)
-   --------------------------------------------------- */
-.reveal .button {
-  background-color: var(--bs-primary) !important;
-  color:            var(--reveal-text) !important;
-  border:           none               !important;
-  padding:          0.5em 1em         !important;
-  border-radius:    0.25rem           !important;
-  cursor:           pointer           !important;
+/* if you’d rather use a scale factor:
+html.reveal {
+  font-size: 0.8em;   /* 80% of the default size */
 }
-.reveal .button:hover {
-  background-color: var(--quarto-yellow) !important;
-}
+*/
 
-/* ————— Override Reveal.js base font size ————— */
-.reveal {
-  /* pick whatever feels right: 16px–24px is common */
-  font-size: 12px !important;
-}
-
-/* ————— Shrink overall slide text ————— */
-.reveal .slides section {
-  /* 0.8 means 80% of the default; tweak as you like */
-  font-size: 0.8em !important;
-}
-
-/* ————— Further adjust body copy ————— */
-.reveal section p,
-.reveal section li {
-  /* make paragraphs and list items a bit smaller */
-  font-size: 0.85em !important;
-  line-height: 1.2em !important;
-}
-
-/* ————— Tweak headings relative to the new base ————— */
-.reveal section h1 { font-size: 2em   !important; }   /* ~160% of slide text */
-.reveal section h2 { font-size: 1.75em!important; }   /* ~140% */
-.reveal section h3 { font-size: 1.5em !important; }   /* ~120% */
-
+/* optionally tighten headings (if they still feel too big) */
+.reveal h1 { font-size: 2.2em; }
+.reveal h2 { font-size: 1.8em; }
+.reveal h3 { font-size: 1.4em; }

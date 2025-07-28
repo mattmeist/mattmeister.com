@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Custom Themed Presentation</title>
+    
+    <!-- RevealJS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    
+    <!-- Custom theme CSS -->
+    <link rel="stylesheet" href="revealjs-theme.css">
+    
+    <!-- Code highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+    
+    <style>
+        /* Additional custom styles */
+        .reveal .slides section {
+            text-align: left;
+        }
+        
+        .reveal .slides section.center {
+            text-align: center;
+        }
+        
+        .reveal .slides section.right {
+            text-align: right;
+        }
+        
+        /* Custom animations */
+        .reveal .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+                /* Custom slide backgrounds - clean like your website */
+        .reveal .slide-bg-yellow {
+          background: var(--white) !important;
+          border-left: 4px solid var(--quarto-yellow) !important;
+        }
+        
+        .reveal .slide-bg-green {
+          background: var(--white) !important;
+          border-left: 4px solid var(--quarto-green) !important;
+        }
+        
+        .reveal .slide-bg-blue {
+          background: var(--white) !important;
+          border-left: 4px solid var(--primary) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section class="slide-title center">
+                <h1>Your Presentation Title</h1>
+                <div class="subtitle">A subtitle that describes your presentation</div>
+                <div class="author">Your Name</div>
+                <div class="date">Date</div>
+                <aside class="notes">
+                    Welcome to my presentation! This is a note for the presenter.
+                </aside>
+            </section>
+
+            <!-- Agenda Slide -->
+            <section>
+                <h2>Agenda</h2>
+                <ul>
+                    <li class="fragment">Introduction and overview</li>
+                    <li class="fragment">Key concepts and methodology</li>
+                    <li class="fragment">Results and findings</li>
+                    <li class="fragment">Conclusions and next steps</li>
+                </ul>
+                <aside class="notes">
+                    This slide outlines the structure of our presentation.
+                </aside>
+            </section>
+
+            <!-- Content Slide with Two Columns -->
+            <section>
+                <h2>Two Column Layout</h2>
+                <div class="two-column">
+                    <div class="left">
+                        <h3>Left Column</h3>
+                        <p>This is the left column content. You can put text, lists, or other content here.</p>
+                        <ul>
+                            <li>Point one</li>
+                            <li>Point two</li>
+                            <li>Point three</li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <h3>Right Column</h3>
+                        <p>This is the right column content. Perfect for comparing concepts or showing different perspectives.</p>
+                        <ol>
+                            <li>Step one</li>
+                            <li>Step two</li>
+                            <li>Step three</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Slide -->
+            <section>
+                <h2>Code Examples</h2>
+                <p>Here's an example of how code looks in your theme:</p>
+                <pre><code class="language-python">def hello_world():
+    print("Hello, World!")
+    return "Success"
+
+# This is a comment
+result = hello_world()
+print(result)</code></pre>
+                <p>Inline code like <code>print()</code> is also styled consistently.</p>
+            </section>
+
+            <!-- Table Slide -->
+            <section>
+                <h2>Data Presentation</h2>
+                <p>Tables are styled with your theme colors:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Value</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Feature A</td>
+                            <td>85%</td>
+                            <td>Complete</td>
+                        </tr>
+                        <tr>
+                            <td>Feature B</td>
+                            <td>60%</td>
+                            <td>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td>Feature C</td>
+                            <td>25%</td>
+                            <td>Planning</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Highlight Boxes Slide -->
+            <section>
+                <h2>Highlight Boxes</h2>
+                <p>Use highlight boxes to emphasize important information:</p>
+                
+                <div class="highlight-box">
+                    <h4>Important Note</h4>
+                    <p>This is a yellow highlight box for important information that needs attention.</p>
+                </div>
+                
+                <div class="highlight-box green">
+                    <h4>Success Message</h4>
+                    <p>This is a green highlight box for positive outcomes or successful results.</p>
+                </div>
+                
+                <div class="highlight-box blue">
+                    <h4>Information</h4>
+                    <p>This is a blue highlight box for informational content or tips.</p>
+                </div>
+            </section>
+
+            <!-- Image Slide -->
+            <section>
+                <h2>Images and Graphics</h2>
+                <p>Images are automatically styled with borders and shadows:</p>
+                <div style="text-align: center;">
+                    <img src="https://via.placeholder.com/400x300/ffc700/000000?text=Your+Image" 
+                         alt="Placeholder image" 
+                         style="max-width: 400px;">
+                    <div class="image-caption">Figure 1: A placeholder image demonstrating the styling</div>
+                </div>
+            </section>
+
+            <!-- Blockquote Slide -->
+            <section>
+                <h2>Quotes and Citations</h2>
+                <p>Blockquotes are styled with your green theme:</p>
+                <blockquote>
+                    <p>"The best way to predict the future is to invent it."</p>
+                    <p>— Alan Kay</p>
+                </blockquote>
+                <p>You can use blockquotes for important quotes, citations, or highlighted text.</p>
+            </section>
+
+            <!-- Math Slide (if using MathJax) -->
+            <section>
+                <h2>Mathematical Content</h2>
+                <p>If you need mathematical notation, you can include MathJax:</p>
+                <div style="text-align: center; font-size: 1.5rem;">
+                    <p>\[ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\,e^{2 \pi i \xi x} \,d\xi \]</p>
+                </div>
+                <p>This is the Fourier transform formula as an example.</p>
+            </section>
+
+            <!-- Custom Background Slide -->
+            <section class="slide-bg-yellow">
+                <h2>Custom Background Colors</h2>
+                <p>You can use custom background colors for special slides:</p>
+                <ul>
+                    <li>Yellow background for emphasis</li>
+                    <li>Green background for success</li>
+                    <li>Blue background for information</li>
+                </ul>
+            </section>
+
+            <!-- Conclusion Slide -->
+            <section>
+                <h2>Conclusions</h2>
+                <div class="highlight-box">
+                    <h4>Key Takeaways</h4>
+                    <ul>
+                        <li>Your theme is now consistent across website and presentations</li>
+                        <li>All elements are styled with your yellow and green accents</li>
+                        <li>Bold borders and shadows match your website design</li>
+                    </ul>
+                </div>
+                <p>Thank you for your attention!</p>
+            </section>
+
+            <!-- Questions Slide -->
+            <section class="center">
+                <h1>Questions?</h1>
+                <div style="margin-top: 2rem;">
+                    <p>Feel free to ask any questions</p>
+                    <p>Contact: your.email@example.com</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- RevealJS JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    
+    <!-- RevealJS Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/zoom/zoom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/math/math.js"></script>
+
+    <!-- Initialize RevealJS -->
+    <script>
+        Reveal.initialize({
+            // Configuration options
+            hash: true,
+            center: false,
+            progress: true,
+            controls: true,
+            transition: 'slide',
+            
+            // Plugins
+            plugins: [ 
+                RevealMarkdown,
+                RevealHighlight,
+                RevealNotes,
+                RevealZoom,
+                RevealMath
+            ],
+            
+            // MathJax configuration
+            math: {
+                mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+                config: 'TeX-AMS_HTML-full',
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+                    displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
+                    balanceBraces: true,
+                    processEscapes: false,
+                    processRefs: true,
+                    processEnvironments: true,
+                    preview: 'TeX',
+                    skipTags: ['script','noscript','style','textarea','pre','code'],
+                    ignoreClass: 'tex2jax_ignore',
+                    processClass: 'tex2jax_process'
+                },
+                svg: {
+                    fontCache: 'global'
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

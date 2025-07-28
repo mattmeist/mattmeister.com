@@ -18,7 +18,7 @@ editor: source
 
 ### Quality in Context: Evidence That Consumption Context Influences User-Generated Product Ratings
 
-<a href="https://doi.org/10.1177/00222429251365883" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_rei.html" class="btn btn-yellow" role="button">Blog link</a>
+<a href="https://doi.org/10.1177/00222429251365883" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_rei.html" class="btn btn-yellow" role="button">Blog link</a><a href="portfolio/rei_ptf.html" class="btn btn-yellow" role="button">UXR Portfolio</a>
 
 -   *Published* at Journal of Marketing
 -   With [Nick Reinholtz](https://reinholtzresearch.com)

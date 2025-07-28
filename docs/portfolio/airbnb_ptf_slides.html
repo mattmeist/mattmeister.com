@@ -255,6 +255,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -336,7 +337,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" data-background-color="#17a2b8" class="quarto-title-block center">
   <h1 class="title">Portfolio Project 1</h1>
   <p class="subtitle">Airbnb Superhost Status Influences Consumers’ Ratings</p>
 
@@ -348,22 +349,6 @@ Matt Meister (mattmeister.com)
 </div>
 </div>
 
-</section><section id="TOC">
-<nav role="doc-toc"> 
-<h2 id="toc-title">Table of contents</h2>
-<ul>
-<li><a href="#/background-context" id="/toc-background-context">Background &amp; Context</a></li>
-<li><a href="#/research-objective" id="/toc-research-objective">Research Objective</a></li>
-<li><a href="#/data" id="/toc-data">Data</a></li>
-<li><a href="#/method" id="/toc-method">Method</a></li>
-<li><a href="#/main-difficulty" id="/toc-main-difficulty">Main Difficulty</a></li>
-<li><a href="#/result" id="/toc-result">Result</a></li>
-<li><a href="#/follow-up-experiments" id="/toc-follow-up-experiments">Follow-Up Experiments</a></li>
-<li><a href="#/takeaways" id="/toc-takeaways">Takeaways</a></li>
-<li><a href="#/implications" id="/toc-implications">Implications</a></li>
-<li><a href="#/links-resources" id="/toc-links-resources">Links &amp; Resources</a></li>
-</ul>
-</nav>
 </section>
 <section id="background-context" class="slide level2">
 <h2>Background &amp; Context</h2>
@@ -437,7 +422,7 @@ Matt Meister (mattmeister.com)
 </ul></li>
 </ul>
 </section>
-<section id="result" class="slide level2">
+<section id="result" class="slide level2 scrollable">
 <h2>Result</h2>
 <p>Estimated difference in each quarter in ratings between Airbnb and Vrbo, <strong>compared to the difference when status changed</strong><sup>1</sup></p>
 <p>If Superhost status did not affect ratings, we would see the light blue dots (right side) to be at zero. Instead, when listings <strong>gain</strong> status, their ratings are <strong>lower</strong> on Airbnb than on Vrbo:</p>
@@ -578,7 +563,7 @@ Matt Meister (mattmeister.com)
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
+'smaller': true,
  
         // Display controls in the bottom right corner
         controls: false,
