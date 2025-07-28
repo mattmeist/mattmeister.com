@@ -42,7 +42,7 @@ The main consequence of this is that ratings are much more random than we might 
 
 This blog post accompanies a recent paper that Nick Reinholtz and I published in the Journal of Marketing, titled "[Quality in Context: Evidence for the Arbitrary Influence of Situational Factors on User-Generated Product Ratings](https://doi.org/10.1177/00222429251365883). The example from that paper is clear enough that I re-use it here.
 
-Nick and I both own more winter jackets than we (or our spouses) think we need to.^[Nick moreso than me, if you are counting.] For any one of my jackets, I care primarily about how warm it keeps me, how it looks, and how convenient it makes life. Therefore, my experience of owning it is shaped by the jacket’s style, build quality, technical features like extra pockets, type and amount of insulation, and more. 
+Nick and I both own more winter jackets than we (or our spouses) think we need.^[Nick moreso than I, if you are counting.] For any one of my jackets, I care primarily about how warm it keeps me, how it looks, and how convenient it makes life. Therefore, my experience of owning it is shaped by the jacket’s style, build quality, technical features like extra pockets, type and amount of insulation, and more. 
 
 However, other things that have nothing to do with the jacket itself affect my experience of owning it. For example, the weather: temperature, wind, rain, sun. This second list of factors are properties of the context in which I wear this jacket. If the point is to keep me warm, and being cold will make me unhappy, I will reasonably be less happy on a 30º^[Unfortunately, I will write temperatures in Fahrenheit in this post.] day than a 50º day. 
 
