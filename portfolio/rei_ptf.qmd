@@ -53,7 +53,7 @@ This is especially true if reviews do not mention context (temperature). Without
 
 ------------------------------------------------------------------------
 
-### Methods---REI Data
+### Method---REI Data
 
 -   Merged every REI review that had location information with a temperature observation for the day of the review and two prior^[This assumes that a person used the product in the three days before reviewing. In the academic paper, we show our results are robust to relaxing this.]
 -   REI sells products **designed to keep people warm** (e.g., winter jackets, gloves, mittens, hats, etc.), and other products for other purposes (e.g., bicycles).
@@ -113,11 +113,7 @@ I have aggregated these observations into deciles for each product type---the po
 
 Ratings for products designed to keep people warm increase with temperature---warmer days lead to higher ratings. This is unique to cold-weather products, as the darker blue points have a largely flat relationship with temperature.^[The obvious exception to this is the coldest 10% of days for other products, where ratings are higher than any other decile.]
 
-##### Other REI Results
-
 We also find the same result in rain jackets---people give lower ratings to rain jackets if it has rained more in recent days. The published paper also includes a [specification curve analysis](https://doi.org/10.1038/s41562-020-0912-z), where we test out 20,736 different models, finding the same result.
-
-### Results---REI Data {.unnumbered}
 
 ##### Reviewers do not mention this
 
@@ -133,7 +129,9 @@ However, while a fair portion of people do mention the weather in their reviews 
 2.  Reviews that mention weather show a much smaller effect of temperature on ratings.
     - Meaning that the effect is within the ratings that do not mention weather.
     
-### Method---Debiasing Experiment
+### Debiasing Experiment
+
+##### Method 
 
 To see if we could reduce the effect of context, we ran an experiment with 1,399 people, testing whether the effect of context could be reduced by specific reviewing prompts.
 
@@ -148,7 +146,7 @@ To see if we could reduce the effect of context, we ran an experiment with 1,399
     -   **Explanation:** "When you wore this jacket, it was especially warm/cold! Many people underestimate the impact of things like weather on their experiences."
 -   People then rated the jacket.
 
-### Result---Debiasing Experiment
+##### Result
 
 Only the two strongest prompts (**expectation** and **explanation**), which explicitly mention the **impact of context** had a significant debiasing effect on ratings. This suggests that it is **necessary to explain the effect of context, not just make people aware of its existence**:
 

@@ -139,11 +139,9 @@ gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
   <li><a href="#situation" id="toc-situation" class="nav-link active" data-scroll-target="#situation">Situation</a></li>
   <li><a href="#research-objectives" id="toc-research-objectives" class="nav-link" data-scroll-target="#research-objectives">Research Objectives</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#methodsrei-data" id="toc-methodsrei-data" class="nav-link" data-scroll-target="#methodsrei-data">Methods—REI Data</a></li>
+  <li><a href="#methodrei-data" id="toc-methodrei-data" class="nav-link" data-scroll-target="#methodrei-data">Method—REI Data</a></li>
   <li><a href="#resultsrei-data" id="toc-resultsrei-data" class="nav-link" data-scroll-target="#resultsrei-data">Results—REI Data</a></li>
-  <li><a href="#resultsrei-data-1" id="toc-resultsrei-data-1" class="nav-link" data-scroll-target="#resultsrei-data-1">Results—REI Data</a></li>
-  <li><a href="#methoddebiasing-experiment" id="toc-methoddebiasing-experiment" class="nav-link" data-scroll-target="#methoddebiasing-experiment">Method—Debiasing Experiment</a></li>
-  <li><a href="#resultdebiasing-experiment" id="toc-resultdebiasing-experiment" class="nav-link" data-scroll-target="#resultdebiasing-experiment">Result—Debiasing Experiment</a></li>
+  <li><a href="#debiasing-experiment" id="toc-debiasing-experiment" class="nav-link" data-scroll-target="#debiasing-experiment">Debiasing Experiment</a></li>
   <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
   </ul>
 </nav>
@@ -213,8 +211,8 @@ gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
 </ul>
 <hr>
 </section>
-<section id="methodsrei-data" class="level3">
-<h3 class="anchored" data-anchor-id="methodsrei-data">Methods—REI Data</h3>
+<section id="methodrei-data" class="level3">
+<h3 class="anchored" data-anchor-id="methodrei-data">Method—REI Data</h3>
 <ul>
 <li>Merged every REI review that had location information with a temperature observation for the day of the review and two prior<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>REI sells products <strong>designed to keep people warm</strong> (e.g., winter jackets, gloves, mittens, hats, etc.), and other products for other purposes (e.g., bicycles).</li>
@@ -276,13 +274,7 @@ gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
 </p>
 </div>
 <p>Ratings for products designed to keep people warm increase with temperature—warmer days lead to higher ratings. This is unique to cold-weather products, as the darker blue points have a largely flat relationship with temperature.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<section id="other-rei-results" class="level5">
-<h5 class="anchored" data-anchor-id="other-rei-results">Other REI Results</h5>
 <p>We also find the same result in rain jackets—people give lower ratings to rain jackets if it has rained more in recent days. The published paper also includes a <a href="https://doi.org/10.1038/s41562-020-0912-z">specification curve analysis</a>, where we test out 20,736 different models, finding the same result.</p>
-</section>
-</section>
-<section id="resultsrei-data-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="resultsrei-data-1">Results—REI Data</h3>
 <section id="reviewers-do-not-mention-this" class="level5">
 <h5 class="anchored" data-anchor-id="reviewers-do-not-mention-this">Reviewers do not mention this</h5>
 <p>You may be thinking that <em>“Even if ratings are influenced by context, people surely explain this influence in their written reviews, right?”</em></p>
@@ -301,8 +293,10 @@ gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
 </ol>
 </section>
 </section>
-<section id="methoddebiasing-experiment" class="level3">
-<h3 class="anchored" data-anchor-id="methoddebiasing-experiment">Method—Debiasing Experiment</h3>
+<section id="debiasing-experiment" class="level3">
+<h3 class="anchored" data-anchor-id="debiasing-experiment">Debiasing Experiment</h3>
+<section id="method" class="level5">
+<h5 class="anchored" data-anchor-id="method">Method</h5>
 <p>To see if we could reduce the effect of context, we ran an experiment with 1,399 people, testing whether the effect of context could be reduced by specific reviewing prompts.</p>
 <ul>
 <li>People imagined having one of two experiences with a winter jacket:
@@ -321,8 +315,8 @@ gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
 <li>People then rated the jacket.</li>
 </ul>
 </section>
-<section id="resultdebiasing-experiment" class="level3">
-<h3 class="anchored" data-anchor-id="resultdebiasing-experiment">Result—Debiasing Experiment</h3>
+<section id="result" class="level5">
+<h5 class="anchored" data-anchor-id="result">Result</h5>
 <p>Only the two strongest prompts (<strong>expectation</strong> and <strong>explanation</strong>), which explicitly mention the <strong>impact of context</strong> had a significant debiasing effect on ratings. This suggests that it is <strong>necessary to explain the effect of context, not just make people aware of its existence</strong>:</p>
 <div class="image-box">
 <img src="rei_ptf/rei_resolved.png" alt="Ratings in different conditions in debiasing experiment.">
@@ -330,6 +324,7 @@ gtag('config', 'G-KEYFNVVL8D', { 'anonymize_ip': true});
 <em>Points represent the mean rating in each group. Lines extending from each point show the 95% confidence interval around each estimate.</em>
 </p>
 </div>
+</section>
 </section>
 <section id="takeaways" class="level3">
 <h3 class="anchored" data-anchor-id="takeaways">Takeaways</h3>
