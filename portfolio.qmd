@@ -1,5 +1,5 @@
 ---
-title: "Quantitative UX Research Portfolio"
+title: "UX Research Portfolio"
 search: false
 format:
   html:
@@ -8,11 +8,9 @@ format:
 editor: source
 ---
 
-I am a marketing professor and quantitative behavioral scientist. My focus is on understanding how people make evaluations and decisions in complex, data-rich environments. Over the past seven years, I have led research projects using both experiments (including online samples and large field experiments with digital platforms) and econometric analyses of observational data sets scraped using Python (including from Airbnb.com, Vrbo.com, REI.com). I have built tools to share and present this work including interactive slides and blog posts with Quarto, and share all of my data and code on [Github](https://github.com/mattmeist).
+I am a marketing professor and quantitative behavioral scientist. My focus is on understanding how people make evaluations and decisions in complex, data-rich environments. I have led research projects using both experiments (including online samples and large field experiments with digital platforms) and econometric analyses of observational data sets scraped using Python (including from Airbnb.com, Vrbo.com, REI.com). I have built tools to share and present this work including interactive slides and blog posts with Quarto, and share all of my data and code on [Github](https://github.com/mattmeist).
 
 I have also developed and taught statistics and marketing analytics at the undergraduate and graduate levels, where I have also built things---courses, dashboards, experimental tools, interactive learning assignments. 
-
-I am interested in quantitative user experience research roles that will help me to use these skills impactfully, while continuing to grow and learn.
 
 ### Resume
 
@@ -25,7 +23,7 @@ I am interested in quantitative user experience research roles that will help me
 - [Airbnb's Superhost Status Influences User-Generated Ratings](https://www.mattmeister.com/portfolio/airbnb_ptf.html)
 - [Temperature Influences User-Generated Ratings for Winter Jackets at REI.com](https://www.mattmeister.com/portfolio/rei_ptf.html)
 
-### Research Experience
+### Academic Research Experience
 
 ##### Quality Certifications Influence User-Generated Ratings
 
