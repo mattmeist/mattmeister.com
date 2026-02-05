@@ -44,7 +44,7 @@ editor: source
 
 ### The Sentiment Expressed in the Language of Sports Fans Can Predict Future Game Outcomes Beyond Expectations
 
--   Preparing for Resubmission (Revise and Resubmit) at Psychological Science
+-   Preparing for resubmission (revise and resubmit) at Psychological Science
 -   With [William Rose](https://www.colorado.edu/business/leeds-directory/william-rose), [Donald Lichtenstein](https://www.colorado.edu/business/leeds-directory/faculty/donald-r-lichtenstein), and [Nick Reinholtz](https://reinholtzresearch.com)
 -   This research investigates over 11 million posts written on [Rivals.com](https://www.on3.com/boards/) college football fan message boards and finds that fans' sentiment in posts prior to games positively correlates with their teams' performance against the consensus betting spreads in upcoming games. This is uniquely driven by posts that specifically talk about the upcoming game---rather than other games, recruiting, or unrelated topics. It also appears driven by posts very shortly before the game, making it a difficult betting strategy to profit from in reality.
 
@@ -58,6 +58,6 @@ editor: source
 
 ### The Dispersion Between Forecasts Changes How People Combine Them
 
--   Under review at Journal of Consumer Research
+-   Preparing for resubmission (revise and resubmit) at Journal of Consumer Research
 -   With [Katie Mehr](https://www.katie-mehr.com)
 -   This research explores how the dispersion between advisors' estimates affects whether people average their advice. When advisor estimates are similar, people are more likely to average them---but when estimates differ, people revert to their own prior beliefs and rely on advice less. This suggests people misinterpret disagreement as advisor incompetence, failing to recognize that averaging can reduce noise and improve accuracy.
