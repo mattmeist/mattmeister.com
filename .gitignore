@@ -1,2 +1,15 @@
 /.quarto/
 .Rproj.user
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# macOS
+.DS_Store
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
