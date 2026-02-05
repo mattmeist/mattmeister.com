@@ -26,6 +26,12 @@ editor: source
 -   With [Nick Reinholtz](https://reinholtzresearch.com)
 -   This paper examines how situational context---like weather---affects user-generated product ratings. Analyzing over 218,000 ratings from REI.com, we find that cold-weather gear receives lower ratings during unseasonably cold weather, despite being designed for those conditions. Other products are not affected. Follow-up experiments show that consumers consistently overlook how context shapes their experiences, and this bias proves difficult to correct.
 
+### People Prefer Novices for Advice Generated from Direct Experience and Experts for Advice Generated from Data Synthesis and Extrapolation
+
+-   *Published* at Organizational Behavior and Human Decision Processes
+-   With [Katie Mehr](https://www.katie-mehr.com)
+-   This research investigates when people rely more on peers versus experts for advice. Across five preregistered studies, we find that people turn to peers for experience-based evaluations (like product ratings) and to experts for information-based predictions (like weather forecasts). This distinction arises because people view peers as more similar in experience and experts as better at interpreting information.
+
 ### Opening Up About Money: The Unexpected Benefits of Personal Financial Disclosure
 
 <a href="https://doi.org/10.1016/j.obhdp.2025.104430" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a>
@@ -35,12 +41,6 @@ editor: source
 -   This research finds that talking about money can reduce financial anxiety. Using experiments, large-scale surveys, and text analysis of online discussions, we find that communicating about finances---especially controllable topics like budgeting---significantly lowers anxiety. The effect is strongest when people feel a greater sense of control, such as when communicating online, suggesting financial communication is a scalable tool for improving well-being.
 
 ## Under Review
-
-### People Prefer Critics, Consumers Prefer Peers: Differences in Reliance on Peer and Critic Evaluations by Domain
-
--   Resubmitted (Revise and Resubmit) at Organizational Behavior and Human Decision Processes
--   With [Katie Mehr](https://www.katie-mehr.com)
--   This research investigates when people rely more on peers versus experts for advice. Across five preregistered studies, we find that people turn to peers for experience-based evaluations (like product ratings) and to experts for information-based predictions (like weather forecasts). This distinction arises because people view peers as more similar in experience and experts as better at interpreting information.
 
 ### The Sentiment Expressed in the Language of Sports Fans Can Predict Future Game Outcomes Beyond Expectations
 
