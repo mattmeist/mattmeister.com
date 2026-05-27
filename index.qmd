@@ -6,7 +6,7 @@ format:
 editor: source
 ---
 
-::: text-center
+::: text-left
 <h1>Matt Meister</h1>
 
 <p class="lead">
@@ -16,16 +16,16 @@ editor: source
 </p>
 :::
 
-::: text-center
-<p>I am an Assistant Professor of Marketing at the University of Utah David Eccles School of Business. Formerly, I had the same role at the University of San Francisco, and received my PhD in Marketing at the University of Colorado Boulder.</p>
+::: text-left
+<p>I am an Assistant Professor of Marketing at the University of Utah (David Eccles School of Business). Formerly, I had the same role at the University of San Francisco, and received my PhD in Marketing at the University of Colorado Boulder.</p>
 
 <p>I study how people learn about and evaluate their choices---especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.</p>
 
 <p>I teach marketing management, applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize messy data, decision-making, and gaining comfort with difficult topics.</p>
 :::
 
-::: {.d-flex .flex-column .align-items-center .gap-0 .mt-1}
-<a href="mailto:matt.meister@umail.utah.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: mmeister\@usfca.edu </a>
+::: {.d-flex .flex-column .align-items-left .gap-0 .mt-1}
+<a href="mailto:matt.meister@umail.utah.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: matt.meister\@umail.utah.edu </a>
 
 <a href="https://github.com/mattmeist" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="GitHub" target="_blank"> <i class="bi bi-github" style="font-size: 1.5rem;"></i> GitHub </a>
 
@@ -34,7 +34,7 @@ editor: source
 <a href="https://drive.google.com/file/d/1ZE4Mjpl4ZE-L9ZwNCL54vZR3rCHU01pO/view" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="CV" target="_blank"> <i class="bi bi-file-earmark-person" style="font-size: 1.5rem;"></i> CV </a>
 :::
 
-::: {.text-center .mt-5}
+::: {.text-left .mt-5}
 
 #### Recent Blogs
 
