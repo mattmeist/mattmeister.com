@@ -375,7 +375,7 @@
     "href": "index.html",
     "title": "\nMatt Meister\n",
     "section": "",
-    "text": "Matt Meister\n\n\n(.com)\n\n\n\n\nI study how people learn about and evaluate their choices—especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.\n\n\nI teach applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize real (messy) data, decision-making, and gaining comfort with difficult topics.\n\n\n\n  Email: mmeister@usfca.edu \n  GitHub \n  LinkedIn \n  CV \n\n\nRecent Blogs\nStar ratings are a bad way to compare products (3)\nStar ratings are a bad way to compare products (2)\nStar ratings are a bad way to compare products (1)"
+    "text": "Matt Meister\n\n\n(.com)\n\n\n\n\nI am an Assistant Professor of Marketing at the University of Utah David Eccles School of Business. Formerly, I had the same role at the University of San Francisco, and received my PhD in Marketing at the University of Colorado Boulder.\n\n\nI study how people learn about and evaluate their choices—especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.\n\n\nI teach marketing management, applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize messy data, decision-making, and gaining comfort with difficult topics.\n\n\n\n  Email: mmeister@usfca.edu \n  GitHub \n  LinkedIn \n  CV \n\n\nRecent Blogs\nStar ratings are a bad way to compare products (3)\nStar ratings are a bad way to compare products (2)\nStar ratings are a bad way to compare products (1)"
   },
   {
     "objectID": "posts/star_ratings_rei.html",
@@ -473,7 +473,7 @@
     "href": "teaching/bias_vs_noise.html#noise-3",
     "title": "Bias vs. Noise",
     "section": "Noise",
-    "text": "Noise\nIf you did not know the population average of income, how would you estimate it with your survey sample?\n\n\nYou would see what the mean in the sample is!\n\n\nmean(customerDataSmall$income)\n\n[1] 62223.2\n\n\n\n\nThat sample estimate is going to be noisy\n\nIt’s going to vary from sample to sample around the population average\n\n“true mean”"
+    "text": "Noise\nIf you did not know the population average of income, how would you estimate it with your survey sample?\n\n\nYou would see what the mean in the sample is!\n\n\nmean(customerDataSmall$income)\n\n[1] 67562.4\n\n\n\n\nThat sample estimate is going to be noisy\n\nIt’s going to vary from sample to sample around the population average\n\n“true mean”"
   },
   {
     "objectID": "teaching/bias_vs_noise.html#noise-4",
@@ -949,7 +949,7 @@
     "href": "teaching/03 Correlation and Regression.html#linear-regression-9",
     "title": "Correlation and Linear Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\nWhat is our new best guess?\n\nI’m going to test a bunch of different intercepts and slopes\nWhat gets us the lowest squared error?\n\n\nsimulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]\n\n     guess.intercept guess.slope how_wrong2\n8713        400.2089    0.295583    3062198\n\n\nTo get the exact numbers\n\nUse lm() to find the coefficient for weight\n\n\nlm(data = reiDataSmall,\n   formula = sales ~ weight)\n\n\nCall:\nlm(formula = sales ~ weight, data = reiDataSmall)\n\nCoefficients:\n(Intercept)       weight  \n    10.9061      -0.1764"
+    "text": "Linear Regression\nWhat is our new best guess?\n\nI’m going to test a bunch of different intercepts and slopes\nWhat gets us the lowest squared error?\n\n\nsimulation.results[simulation.results$how_wrong2 == min(simulation.results$how_wrong2),]\n\n     guess.intercept guess.slope how_wrong2\n3049        401.1261  0.05779884    3060866\n\n\nTo get the exact numbers\n\nUse lm() to find the coefficient for weight\n\n\nlm(data = reiDataSmall,\n   formula = sales ~ weight)\n\n\nCall:\nlm(formula = sales ~ weight, data = reiDataSmall)\n\nCoefficients:\n(Intercept)       weight  \n    10.9061      -0.1764"
   },
   {
     "objectID": "teaching/03 Correlation and Regression.html#linear-regression-10",
@@ -984,7 +984,7 @@
     "href": "teaching/03 Correlation and Regression.html#linear-regression-14",
     "title": "Correlation and Linear Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\nIs that smaller than before?\n\nSSE from mean:\n\nsum(reiDataSmall$how_wrong2)\n\n[1] 4339658\n\n\n\n\nSSE including weight:\n\nsum(reiDataSmall$how_wrong2.lm)\n\n[1] 6.739911"
+    "text": "Linear Regression\nIs that smaller than before?\n\nSSE from mean:\n\nsum(reiDataSmall$how_wrong2)\n\n[1] 4221003\n\n\n\n\nSSE including weight:\n\nsum(reiDataSmall$how_wrong2.lm)\n\n[1] 6.739911"
   },
   {
     "objectID": "teaching/03 Correlation and Regression.html#but-is-it-worth-drawing-that-line",

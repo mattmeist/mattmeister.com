@@ -17,13 +17,15 @@ editor: source
 :::
 
 ::: text-center
+<p>I am an Assistant Professor of Marketing at the University of Utah David Eccles School of Business. Formerly, I had the same role at the University of San Francisco, and received my PhD in Marketing at the University of Colorado Boulder.</p>
+
 <p>I study how people learn about and evaluate their choices---especially through online information. My work combines large-scale scraped data with experiments to learn how and why people make the judgments and choices they do.</p>
 
-<p>I teach applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize real (messy) data, decision-making, and gaining comfort with difficult topics.</p>
+<p>I teach marketing management, applied statistics, marketing analytics, and other marketing courses at both undergraduate and graduate levels. My classes emphasize messy data, decision-making, and gaining comfort with difficult topics.</p>
 :::
 
 ::: {.d-flex .flex-column .align-items-center .gap-0 .mt-1}
-<a href="mailto:mmeister@usfca.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: mmeister\@usfca.edu </a>
+<a href="mailto:matt.meister@umail.utah.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: mmeister\@usfca.edu </a>
 
 <a href="https://github.com/mattmeist" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="GitHub" target="_blank"> <i class="bi bi-github" style="font-size: 1.5rem;"></i> GitHub </a>
 
