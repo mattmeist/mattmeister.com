@@ -25,7 +25,7 @@ editor: source
 :::
 
 ::: {.d-flex .flex-column .align-items-left .gap-0 .mt-1}
-<a href="mailto:matt.meister@umail.utah.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: matt.meister\@umail.utah.edu </a>
+<a href="mailto:matt.meister@utah.edu" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="Email"> <i class="bi bi-envelope" style="font-size: 1.5rem;"></i> Email: matt.meister\@utah.edu </a>
 
 <a href="https://github.com/mattmeist" class="d-inline-flex align-items-center gap-2 text-decoration-none" aria-label="GitHub" target="_blank"> <i class="bi bi-github" style="font-size: 1.5rem;"></i> GitHub </a>
 
