@@ -18,8 +18,6 @@ website:
         href: papers.qmd
       - text: "<span class='btn btn-yellow'>Code & Data</span>"
         href: code_data.qmd
-      - text: "<span class='btn btn-yellow'>UX Portfolio</span>"
-        href: portfolio.qmd
       - text: "<span class='btn btn-yellow'>Reviews HOF</span>"
         href: reviews_hall_of_fame.qmd
       - text: "<span class='btn btn-yellow'>Teaching</span>"

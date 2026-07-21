@@ -12,7 +12,7 @@ editor: source
 
 ### Quality Certifications Influence User-Generated Ratings
 
-<a href="https://doi.org/10.1093/jcr/ucaf008" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_steves.html" class="btn btn-yellow" role="button">Blog link</a> <a href="portfolio/airbnb_ptf.html" class="btn btn-yellow" role="button">UX Portfolio link</a>
+<a href="https://doi.org/10.1093/jcr/ucaf008" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_steves.html" class="btn btn-yellow" role="button">Blog link</a>
 
 -   *Published* at Journal of Consumer Research
 -   With [Nick Reinholtz](https://reinholtzresearch.com)
@@ -20,13 +20,15 @@ editor: source
 
 ### Quality in Context: Evidence That Consumption Context Influences User-Generated Product Ratings
 
-<a href="https://doi.org/10.1177/00222429251365883" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_rei.html" class="btn btn-yellow" role="button">Blog link</a><a href="portfolio/rei_ptf.html" class="btn btn-yellow" role="button">UXR Portfolio</a>
+<a href="https://doi.org/10.1177/00222429251365883" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_rei.html" class="btn btn-yellow" role="button">Blog link</a>
 
 -   *Published* at Journal of Marketing
 -   With [Nick Reinholtz](https://reinholtzresearch.com)
 -   This paper examines how situational context---like weather---affects user-generated product ratings. Analyzing over 218,000 ratings from REI.com, we find that cold-weather gear receives lower ratings during unseasonably cold weather, despite being designed for those conditions. Other products are not affected. Follow-up experiments show that consumers consistently overlook how context shapes their experiences, and this bias proves difficult to correct.
 
 ### People Prefer Novices for Advice Generated from Direct Experience and Experts for Advice Generated from Data Synthesis and Extrapolation
+
+<a href="https://doi.org/10.1016/j.obhdp.2026.104476" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a>
 
 -   *Published* at Organizational Behavior and Human Decision Processes
 -   With [Katie Mehr](https://www.katie-mehr.com)
@@ -42,22 +44,22 @@ editor: source
 
 ## Under Review
 
-### The Sentiment Expressed in the Language of Sports Fans Can Predict Future Game Outcomes Beyond Expectations
-
--   Preparing for resubmission (revise and resubmit) at Psychological Science
--   With [William Rose](https://www.colorado.edu/business/leeds-directory/william-rose), [Donald Lichtenstein](https://www.colorado.edu/business/leeds-directory/faculty/donald-r-lichtenstein), and [Nick Reinholtz](https://reinholtzresearch.com)
--   This research investigates over 11 million posts written on [Rivals.com](https://www.on3.com/boards/) college football fan message boards and finds that fans' sentiment in posts prior to games positively correlates with their teams' performance against the consensus betting spreads in upcoming games. This is uniquely driven by posts that specifically talk about the upcoming game---rather than other games, recruiting, or unrelated topics. It also appears driven by posts very shortly before the game, making it a difficult betting strategy to profit from in reality.
-
 ### Consumers Believe Star Ratings are Comparable Even When They are Not
 
 <a href="https://papers.ssrn.com/abstract=4119082" class="btn btn-yellow me-2" role="button" target="_blank">Paper link</a> <a href="posts/star_ratings_kilos.html" class="btn btn-yellow" role="button">Blog link</a>
 
--   Under review at Cognition
+-   Under review at Journal of the Association for Consumer Research
 -   With [Nick Reinholtz](https://reinholtzresearch.com)
 -   This research questions at a more fundamental level whether user-generated star ratings help consumers make optimal choices. We show that ratings are influenced by the expectations a product creates, making them context-dependent and often incomparable across alternatives. Using four experiments, we find that higher expectations lead to lower ratings, and that consumers *can* mistakenly prefer higher-rated products even when they are objectively worse.
 
 ### The Dispersion Between Forecasts Changes How People Combine Them
 
--   Preparing for resubmission (revise and resubmit) at Journal of Consumer Research
+-   Under second round review at Journal of Consumer Research
 -   With [Katie Mehr](https://www.katie-mehr.com)
--   This research explores how the dispersion between advisors' estimates affects whether people average their advice. When advisor estimates are similar, people are more likely to average them---but when estimates differ, people revert to their own prior beliefs and rely on advice less. This suggests people misinterpret disagreement as advisor incompetence, failing to recognize that averaging can reduce noise and improve accuracy.
+-   This research explores how the dispersion between advisors' estimates affects whether people average their advice. When advisor estimates are similar, people are more likely to average them---but when estimates differ, people revert to their own prior beliefs and rely on advice less. This is because people see dispersion as evidence that uncertainty is *not* epistemic---that uncertainty cannot be resolved through expertise. Meanwhile, dispersion has no effect on the amount of aleatory (truly random) uncertainty in a domain. This suggests people fail to recognize that averaging can reduce noise and improve accuracy.
+
+### The Sentiment Expressed in the Language of Sports Fans Can Predict Future Game Outcomes Beyond Expectations
+
+-   Preparing for resubmission (revise and resubmit) at Psychological Science
+-   With [William Rose](https://www.colorado.edu/business/leeds-directory/william-rose), [Donald Lichtenstein](https://www.colorado.edu/business/leeds-directory/faculty/donald-r-lichtenstein), and [Nick Reinholtz](https://reinholtzresearch.com)
+-   This research investigates over 11 million posts written on [Rivals.com](https://www.on3.com/boards/) college football fan message boards and finds that fans' sentiment in posts prior to games positively correlates with their teams' performance against the consensus betting spreads in upcoming games. This is uniquely driven by posts that specifically talk about the upcoming game---rather than other games, recruiting, or unrelated topics. It also appears driven by posts very shortly before the game, making it a difficult betting strategy to profit from in reality.
